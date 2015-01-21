@@ -1,0 +1,19 @@
+{
+  "name": "Q",
+  "version": "1.0.0",
+  "main": "q.js",
+  "ignore": [
+    ".jshintrc",
+    "**/*.txt"
+  ],
+  "dependencies": {
+
+  },
+  "devDependencies": {
+    "mocha": "*",
+    "sinon": "*",
+    "chai": "*",
+    "ramda":"*",
+    "siftjs":"*"
+  }
+}

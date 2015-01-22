@@ -96,7 +96,24 @@
             return true;
         }
     };
-
+    /**
+     * Amend left list object with keys from right list objects
+     * joining by key
+     *
+     * @func
+     * @memberOf Q
+     * @category List
+     * @param {List} left - The original list
+     * @param {List} right - The extension list
+     * @param {String} lKey - The original list key
+     * @param {String} rKey - The extension list key, if a omitted assumed equal with lKey
+     * @return {Function} The predicate function.
+     * @example
+     *
+     *         var left = [{ id:1, b:2},{ id:2, b:2}];
+     *         var right =[{ id:1, d:4},{ id:2, d:5}];
+     *         Q.amend(left,right,'id') => [{"id":1,"b":2,"d":4},{"id":2,"b":2,"d":5}]
+     */
     Q.amend = function (left, right, lKey, rKey) {
         rKey = rKey || lKey;
         return Q.map(function (l) {
@@ -106,20 +123,75 @@
             return Q.mixin(l, found ? found : {});
         }, left);
     };
-
-    Q.sift = function (f, data) {
+    /**
+     * Returns a new list containing only those items that match a given predicate function.
+     * The predicate function is passed one argument: *(value)*.
+     *
+     * @func
+     * @memberOf Q
+     * @category core
+     * @category List
+     * @param {Function} f The function called per iteration, or functor description.
+     * @param {Array} list The collection to iterate over.
+     * @return {Array} The new filtered array.
+     * @example
+     *
+     *      var isEven = function(n) {
+     *        return n % 2 === 0;
+     *      };
+     *      R.filter(isEven, [1, 2, 3, 4]); //=> [2, 4]
+     */
+    Q.filter = function (f, list) {
         var res = [],
-            len = data.length,
-            fn = typeof f == 'function' ? f : Q.where(f);
+            len = list.length,
+            fn = typeof f == 'function' ? f : Q.mold(f);
         for (var i = 0; i < len; ++i) {
-            if (fn(data[i]))
-                res.push(data[i]);
+            if (fn(list[i]))
+                res.push(list[i]);
         }
         return res;
     };
 
-    Q.min = function (field, array) {
-        return R.minBy(R.prop(field), array);
+
+
+    /**
+     * Determines the smallest of a list of items as determined by pairwise comparisons from the supplied comparator
+     *
+     * @func
+     * @memberOf Q
+     * @category math
+     * @param {Function/String} f A comparator function or field specifier for elements in the list
+     * @param {Array} list A list of comparable elements
+     * @see Q.min
+     * @return {*} The smallest element in the list. `undefined` if the list is empty.
+     * @example
+     *
+     *      function cmp(obj) { return obj.x; }
+     *      var a = {x: 1}, b = {x: 2}, c = {x: 3};
+     *      Q.minBy(cmp, [a, b, c]); //=> {x: 1}
+     */
+    Q.min = function (f, list) {
+        var len= list.length,
+            fn = typeof f == 'function' ? f : Q.field(f),
+            min =list[0],
+            res=fn(list[0]);
+        for (var i = 0; i < len; ++i) {
+            if (fn(list[i]) < res){
+                min =list[i];
+                res=fn(list[i])
+            }
+        }
+        return min;
+    };
+
+    Q.field = function(property){
+        return function(d){
+            return d[property];
+        }
+    };
+
+    Q.identity = function(a){
+        return a;
     };
 
     Q.max = function (field, array) {

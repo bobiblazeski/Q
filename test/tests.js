@@ -111,7 +111,7 @@ describe('Q', function () {
         });
     });
 
-    describe('#min(data)', function () {
+    describe('#min(f,list)', function () {
         it('should return 1', function () {
             Q.min(Q.identity, [1, 2, 3, 4, 5]).should.equal(1);
         });
@@ -122,6 +122,49 @@ describe('Q', function () {
 
         it('should return undefined', function () {
             expect(Q.min(Q.identity, [])).to.be.undefined;
+        });
+    });
+
+    describe('#max(f,list)', function () {
+        it('should return 5', function () {
+            Q.max(Q.identity, [1, 2, 3, 4, 5]).should.equal(5);
+        });
+
+        it('should return {a:0,b:2}', function () {
+            Q.max("a", [{a:1,b:2},{a:0,b:2}]).should.deep.equal({a:1,b:2});
+        });
+
+        it('should return undefined', function () {
+            expect(Q.max(Q.identity, [])).to.be.undefined;
+        });
+    });
+
+    describe('#field(property,obj)', function () {
+        it('should return 5', function () {
+            Q.field("a",{a:5,c:4}).should.equal(5);
+        });
+
+        it('should return 11', function () {
+            var getLength = Q.field("length");
+            getLength({length:11,a:7}).should.equal(11);
+        });
+
+        it('should return undefined', function () {
+            expect(Q.field('a', {b:1})).to.be.undefined;
+        });
+    });
+
+    describe('#identity(x)', function () {
+        it('should return 5', function () {
+            Q.identity(5).should.equal(5);
+        });
+
+        it('should return "abc"', function () {
+            Q.identity( "abc").should.equal( "abc");
+        });
+
+        it('should return undefined', function () {
+            expect(Q.identity()).to.be.undefined;
         });
     });
 });

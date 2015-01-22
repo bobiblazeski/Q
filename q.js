@@ -168,35 +168,104 @@
      *
      *      function cmp(obj) { return obj.x; }
      *      var a = {x: 1}, b = {x: 2}, c = {x: 3};
-     *      Q.minBy(cmp, [a, b, c]); //=> {x: 1}
+     *      Q.min(cmp, [a, b, c]); //=> {x: 1}
      */
     Q.min = function (f, list) {
         var len= list.length,
             fn = typeof f == 'function' ? f : Q.field(f),
-            min =list[0],
-            res=fn(list[0]);
+            item =list[0],
+            res=fn(list[0]),
+            current =NaN;
         for (var i = 0; i < len; ++i) {
-            if (fn(list[i]) < res){
-                min =list[i];
-                res=fn(list[i])
+            current = fn(list[i]);
+            if (current < res){
+                item =list[i];
+                res=current
             }
         }
-        return min;
+        return item;
     };
-
-    Q.field = function(property){
-        return function(d){
-            return d[property];
+    /**
+     * Determines the largest of a list of items as determined by pairwise comparisons from the supplied comparator
+     *
+     * @func
+     * @memberOf Q
+     * @category math
+     * @param {Function/String} f A comparator function or field specifier for elements in the list
+     * @param {Array} list A list of comparable elements
+     * @see Q.min
+     * @return {*} The largest element in the list. `undefined` if the list is empty.
+     * @example
+     *
+     *      function cmp(obj) { return obj.x; }
+     *      var a = {x: 1}, b = {x: 2}, c = {x: 3};
+     *      Q.max(cmp, [a, b, c]); //=> {x: 3}
+     */
+    Q.max = function (f, list) {
+        var len= list.length,
+            fn = typeof f == 'function' ? f : Q.field(f),
+            item =list[0],
+            res=fn(list[0]),
+            current =NaN;
+        for (var i = 0; i < len; ++i) {
+            current = fn(list[i]);
+            if (current > res){
+                item =list[i];
+                res=current
+            }
         }
+        return item;
+    };
+    /**
+     * Returns a function that when supplied an object returns the indicated property of that object, if it exists.
+     *
+     * @func
+     * @memberOf R
+     * @category Object
+     * @sig s -> {s: a} -> a
+     * @param {String} property The property name
+     * @param {Object} obj The object to query
+     * @return {*} The value at obj.p
+     * @example
+     *
+     *      R.prop('x', {x: 100}); //=> 100
+     *      R.prop('x', {}); //=> undefined
+     *
+     *      var fifth = R.prop(4); // indexed from 0, remember
+     *      fifth(['Bashful', 'Doc', 'Dopey', 'Grumpy', 'Happy', 'Sleepy', 'Sneezy']);
+     *      //=> 'Happy'
+     */
+    Q.field = function(property,obj){
+        if(arguments.length == 1) {
+            return function(obj){
+                return obj[property];
+            }
+        }
+        return obj[property];
     };
 
-    Q.identity = function(a){
-        return a;
+    /**
+     * A function that does nothing but return the parameter supplied to it. Good as a default
+     * or placeholder function.
+     *
+     * @func
+     * @memberOf R
+     * @category Core
+     * @sig a -> a
+     * @param {*} x The value to return.
+     * @return {*} The input value, `x`.
+     * @example
+     *
+     *      Q.identity(1); //=> 1
+     *
+     *      var obj = {};
+     *      Q.identity(obj) === obj; //=> true
+     */
+    Q.identity = function(x){
+        return x;
     };
 
-    Q.max = function (field, array) {
-        return R.maxBy(R.prop(field), array);
-    };
+
 
     Q.groupBy = function (f, data) {
         return R.groupBy(typeof f == 'function' ? f : R.prop(f), data);

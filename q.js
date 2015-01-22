@@ -153,7 +153,6 @@
     };
 
 
-
     /**
      * Determines the smallest of a list of items as determined by pairwise comparisons from the supplied comparator
      *
@@ -171,16 +170,16 @@
      *      Q.min(cmp, [a, b, c]); //=> {x: 1}
      */
     Q.min = function (f, list) {
-        var len= list.length,
+        var len = list.length,
             fn = typeof f == 'function' ? f : Q.field(f),
-            item =list[0],
-            res=fn(list[0]),
-            current =NaN;
+            item = list[0],
+            res = fn(list[0]),
+            current = NaN;
         for (var i = 0; i < len; ++i) {
             current = fn(list[i]);
-            if (current < res){
-                item =list[i];
-                res=current
+            if (current < res) {
+                item = list[i];
+                res = current
             }
         }
         return item;
@@ -202,16 +201,16 @@
      *      Q.max(cmp, [a, b, c]); //=> {x: 3}
      */
     Q.max = function (f, list) {
-        var len= list.length,
+        var len = list.length,
             fn = typeof f == 'function' ? f : Q.field(f),
-            item =list[0],
-            res=fn(list[0]),
-            current =NaN;
+            item = list[0],
+            res = fn(list[0]),
+            current = NaN;
         for (var i = 0; i < len; ++i) {
             current = fn(list[i]);
-            if (current > res){
-                item =list[i];
-                res=current
+            if (current > res) {
+                item = list[i];
+                res = current
             }
         }
         return item;
@@ -235,9 +234,9 @@
      *      fifth(['Bashful', 'Doc', 'Dopey', 'Grumpy', 'Happy', 'Sleepy', 'Sneezy']);
      *      //=> 'Happy'
      */
-    Q.field = function(property,obj){
-        if(arguments.length == 1) {
-            return function(obj){
+    Q.field = function (property, obj) {
+        if (arguments.length == 1) {
+            return function (obj) {
                 return obj[property];
             }
         }
@@ -261,21 +260,50 @@
      *      var obj = {};
      *      Q.identity(obj) === obj; //=> true
      */
-    Q.identity = function(x){
+    Q.identity = function (x) {
         return x;
     };
 
 
-
-    Q.groupBy = function (f, data) {
-        return R.groupBy(typeof f == 'function' ? f : R.prop(f), data);
+    /**
+     * Splits a list into sub-lists stored in an object, based on the result of calling a String-returning function
+     * on each element, and grouping the results according to values returned.
+     *
+     * @func
+     * @memberOf Q
+     * @category List
+     * @param {Function} f - function or string
+     * @param {Array} list The array to group
+     * @return {Object} An object with the output of `f` for keys, mapped to arrays of elements
+     *         that produced that key when passed to `f`.
+     * @example
+     *
+     * Q.groupBy(function(num) { return Math.floor(num); },[4.2, 6.1, 6.4]) =>( { '4': [4.2], '6': [6.1, 6.4] })
+     */
+    Q.group = function (f, list) {
+        var fn = typeof f == 'function' ? f : Q.field(f);
+        return Q.reduce(function (acc, elt) {
+            var key = fn(elt);
+            acc[key] = acc[key] ? acc[key].concat(elt) : [elt];
+            return acc;
+        }, {}, list);
     };
 
-    Q.sortBy = function (f, data) {
-        return R.sortBy(typeof f == 'function' ? f
+    function _compareKeys(a, b) {
+        return a.key < b.key ? -1 : a.key > b.key ? 1 : 0;
+    }
+
+    function _keyValue(fn, list) {
+        return Q.map(function(item) {return {key: fn(item), val: item};}, list);
+    }
+
+    Q.sort = function (f, list) {
+        var fn = typeof f == 'function' ? f
             : f[0] == '-' ? function (d) {
             return -1 * d[f.substring(1)]
-        } : R.prop(f), data);
+        } : Q.field(f);
+        // TODO finish implementation of sort
+        return Q.pluck('val', _keyValue(fn, list).sort(_compareKeys));
     };
 
     Q.collect = function (f, obj) {

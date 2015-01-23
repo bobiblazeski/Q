@@ -1,2 +1,2 @@
-# q
+# Q
 # Javascript Utilities

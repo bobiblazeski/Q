@@ -179,4 +179,76 @@ describe('Q', function () {
                 .should.deep.equal(  { '3': ['one', 'two'], '5': ['three'] });
         });
     });
+
+    describe('#sort(f, list)', function () {
+        it("should return entries sorted age", function () {
+            var entries = [{ name: 'ALICE', age: 101 }, {name: 'Bob',age: -400},{name: 'clara',age: 314.159}];
+            Q.sort("age",entries)
+                .should.eql([{name: 'Bob',age: -400},{ name: 'ALICE', age: 101 }, {name: 'clara',age: 314.159}]);
+        });
+
+        it("should return entries sorted by ABS of age", function () {
+            var entries = [{ name: 'ALICE', age: 101 }, {name: 'Bob',age: -400},{name: 'clara',age: 314.159}];
+            Q.sort(function(d){ return Math.abs(d.age);},entries)
+                .should.eql([{ name: 'ALICE', age: 101 }, {name: 'clara',age: 314.159},{name: 'Bob',age: -400}]);
+        });
+
+        it("should return entries sorted name", function () {
+            var entries = [{ name: 'ALICE', age: 101 }, {name: 'Bob',age: -400},{name: 'clara',age: 314.159}];
+            Q.sort("name",[entries[2],entries[0],entries[1]]).should.eql(entries);
+        });
+
+        it("should return entries sorted absolute age", function () {
+            var entries = [{ name: 'ALICE', age: 101 }, {name: 'Bob',age: -400},{name: 'clara',age: 314.159}];
+            Q.sort("age",entries)
+                .should.eql([{name: 'Bob',age: -400},{ name: 'ALICE', age: 101 }, {name: 'clara',age: 314.159}]);
+        });
+
+        it("should return entries sorted reverse by age", function () {
+            var entries = [{ name: 'ALICE', age: 101 }, {name: 'Bob',age: -400},{name: 'clara',age: 314.159}];
+            Q.sort("-age",entries)
+                .should.eql([{name: 'clara',age: 314.159},{ name: 'ALICE', age: 101 }, {name: 'Bob',age: -400}]);
+        });
+    });
+
+    describe('#pluck(key, list)', function () {
+        it("should return [1, 2]", function () {
+            Q.pluck('a',[{a: 1}, {a: 2}]).should.eql([1, 2]);
+        });
+
+        it("should return [1, 3]", function () {
+            Q.pluck(0,[[1, 2], [3, 4]]).should.eql([1, 3]);
+        });
+    });
+
+    describe('#collect(f, obj)', function () {
+        it("should return  [2, 3, 4]", function () {
+            Q.collect(Math.sqrt,{ a:4,b:9,c:16}).should.eql([2, 3, 4]);
+        });
+
+        it("should return [[4, 'a'],[9,'b'],[16,'c']]", function () {
+            Q.collect(function(v,k){ return [v,k]},{ a:4,b:9,c:16}).should.eql([[4, 'a'],[9,'b'],[16,'c']]);
+        });
+    });
+
+    describe('#map(f, list)', function () {
+        it("should return  [2, 4, 6]", function () {
+            Q.map(function(x) { return x * 2; }, [1, 2, 3]).should.eql([2, 4, 6]);
+        });
+
+        it("should return empty list", function () {
+            Q.collect(Math.abs,[]).should.eql([]);
+        });
+    });
+    //  Q.taper(function(acc, val) { return acc+ val; }, 10,  {a: 2, b : 4}); //=> 16
+    // Q.taper(function(acc, val,key){return acc.concat( val,key);},[1,"e"], {a: 2, b : 4});//=>[[1,"e", 2,"a",4,"b"]
+    describe('#taper(f,acc, obj)', function () {
+        it("should return  16", function () {
+            Q.taper(function(acc, val) { return acc+ val; }, 10,  {a: 2, b : 4}).should.equal(16);
+        });
+
+        it('should return [[1,"e", 2,"a",4,"b"]', function () {
+            Q.taper(function(r,v,k){return r.concat(v,k);},[1,"e"], {a: 2, b : 4}).should.eql([1,"e", 2,"a",4,"b"]);
+        });
+    });
 });

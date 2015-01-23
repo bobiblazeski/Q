@@ -240,8 +240,7 @@ describe('Q', function () {
             Q.collect(Math.abs,[]).should.eql([]);
         });
     });
-    //  Q.taper(function(acc, val) { return acc+ val; }, 10,  {a: 2, b : 4}); //=> 16
-    // Q.taper(function(acc, val,key){return acc.concat( val,key);},[1,"e"], {a: 2, b : 4});//=>[[1,"e", 2,"a",4,"b"]
+
     describe('#taper(f,acc, obj)', function () {
         it("should return  16", function () {
             Q.taper(function(acc, val) { return acc+ val; }, 10,  {a: 2, b : 4}).should.equal(16);
@@ -249,6 +248,40 @@ describe('Q', function () {
 
         it('should return [[1,"e", 2,"a",4,"b"]', function () {
             Q.taper(function(r,v,k){return r.concat(v,k);},[1,"e"], {a: 2, b : 4}).should.eql([1,"e", 2,"a",4,"b"]);
+        });
+    });
+
+    describe('#mapValues(f,obj)', function () {
+        it("should return { 'a': 3, 'b': 6, 'c': 9 }", function () {
+            Q.mapValues(function(num) { return num * 3; },{ 'a': 1, 'b': 2, 'c': 3})
+                .should.deep.equal({ 'a': 3, 'b': 6, 'c': 9 })
+        });
+
+        it("should return { 'fred': 40, 'pebbles': 1 }", function () {
+            var characters = {
+                'fred': { 'name': 'fred', 'age': 40 },
+                'pebbles': { 'name': 'pebbles', 'age': 1 }
+            };
+            Q.mapValues('age',characters)
+                .should.deep.equal({ 'fred': 40, 'pebbles': 1 })
+        });
+    });
+
+    describe('#mixin(f,obj)', function () {
+        it("should return  { 'name': 'fred', 'age': 40 }", function () {
+            Q.mixin({ 'name': 'fred', 'age': 10 }, { 'age': 40 }).should.deep.equal( { 'name': 'fred', 'age': 40 });
+        });
+    });
+
+    describe('#reduce(fn,acc,list)', function () {
+        it("should return  16", function () {
+            Q.reduce(function(a, b) { return a + b; }, 10, [1, 2, 3]).should.deep.equal(16);
+        });
+    });
+
+    describe('#reduce(fn,acc,list)', function () {
+        it("should return [-4,4,-9,9,-16,16]", function () {
+            Q.abate(function(d){ return [-d,d];},{ a:4,b:9,c:16}).should.eql( [-4,4,-9,9,-16,16]);
         });
     });
 });

@@ -321,7 +321,6 @@
             : f[0] == '-' ? function (d) {
             return -1 * d[f.substring(1)]
         } : Q.field(f);
-        // TODO finish implementation of sort
         return Q.pluck('val', _keyValue(fn, list).sort(_compareKeys));
     };
 
@@ -415,35 +414,79 @@
         return acc;
     };
 
+    /**
+     * Returns an object item by iterating through the obj, successively calling the iterator
+     * function and passing it an accumulator value, the object value for the current key, and the current key
+     * then passing the result to the next call.
+     *
+     * The iterator function receives two values: *(acc, value)*
+     *
+     * @func
+     * @memberOf Q
+     * @category core
+     * @category List
+     * @sig (a,b -> a) -> a -> [b] -> a
+     * @param {Function} f The iterator function. Receives three values, the accumulator,
+     *  the object value for the current key, and the current key
+     * @param {*} acc The accumulator value.
+     * @param {Object} obj The object to iterate over.
+     * @return {*} The final, accumulated value.
+     * @example
+     *
+     *  Q.taper(function(acc, val) { return acc+ val; }, 10,  {a: 2, b : 4}); //=> 16
+     *  Q.taper(function(acc, val,key){return acc.concat( val,key);},[1,"e"], {a: 2, b : 4});//=>[[1,"e", 2,"a",4,"b"]
+     */
+    Q.taper = function (f, acc, obj) {
+        for (var key in obj)
+            acc = f(acc, obj[key],key);
+        return acc;
+    };
+
+    /**
+     * Returns an object containing the same keys as passed object and values that are result of function called
+     * for each object key value pair
+     *
+     * The iterator function receives two values: *(value,key)*
+     *
+     * @func
+     * @memberOf Q
+     * @category core
+     * @category Object
+     * @sig (a,b -> a) -> a -> [b] -> a
+     * @param {Function} f The iterator function. Receives three values, the accumulator,
+     *  the object value for the current key, and the current key
+     * @param {Object} obj The object to iterate over.
+     * @return {*} The final, accumulated value.
+     * @example
+     *
+     *   Q.mapValues(function(num) { return num * 3; },{ 'a': 1, 'b': 2, 'c': 3}) => { 'a': 3, 'b': 6, 'c': 9 }
+     *   Q.mapValues('age',characters) => { 'fred': 40, 'pebbles': 1 }
+     */
     Q.mapValues = function (f, obj) {
-        var res = {};
+        var fn = typeof f == 'function' ? f : Q.field(f),
+            res = {};
         for (var key in obj)
-            res[key] = f(obj[key]);
+            res[key] = fn(obj[key]);
         return res;
     };
 
-    Q.abate = function (f, obj) {
-        var res = [];
-        for (var key in obj)
-            res = res.concat(f(obj[key], key));
-        return res;
-    };
-
-    Q.expand = function (fn, arr) {
-        return Q.map(function (d) {
-            return Q.mixin(d, fn(d));
-        }, arr);
-    };
-
-    Q.reduce = function (fn, res, arr) {
-        for (var i = 0; i < arr.length; ++i) {
-            res = fn(res, arr[i]);
-        }
-        return res;
-    };
-
-
-
+    /**
+     * Create a new object with the own properties of a
+     * merged with the own properties of object b.
+     * This function will *not* mutate passed-in objects.
+     *
+     * @func
+     * @memberOf R
+     * @category Object
+     * @sig {k: v} -> {k: v} -> {k: v}
+     * @param {Object} left source object
+     * @param {Object} right object with higher precedence in output
+     * @returns {Object} Returns the destination object.
+     * @example
+     *
+     *      Q.mixin({ 'name': 'fred', 'age': 10 }, { 'age': 40 });
+     *      //=> { 'name': 'fred', 'age': 40 }
+     */
     Q.mixin = function mixin(left, right) {
         var res = {}, key;
         for (key in left)
@@ -452,6 +495,60 @@
             res[key] = right[key];
         return res;
     };
+
+
+    /**
+     * Returns a single item by iterating through the list, successively calling the iterator
+     * function and passing it an accumulator value and the current value from the array, and
+     * then passing the result to the next call.
+     *
+     * The iterator function receives two values: *(acc, value)*
+     *
+     * Note: `R.reduce` does not skip deleted or unassigned indices (sparse arrays), unlike
+     * the native `Array.prototype.reduce` method. For more details on this behavior, see:
+     * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/reduce#Description
+     *
+     * @func
+     * @memberOf Q
+     * @category core
+     * @category List
+     * @sig (a,b -> a) -> a -> [b] -> a
+     * @param {Function} fn The iterator function. Receives two values, the accumulator and the
+     *        current element from the array.
+     * @param {*} acc The accumulator value.
+     * @param {Array} list The list to iterate over.
+     * @return {*} The final, accumulated value.
+     * @example
+     *
+     *      Q.reduce(function(a, b) { return a + b; }, 10, [1, 2, 3]); //=> 16
+     */
+    Q.reduce = function (fn, acc, list) {
+        for (var i = 0; i < list.length; ++i) {
+            acc = fn(acc, list[i]);
+        }
+        return acc;
+    };
+    /**
+     * Returns a new list by concatenating into list results of applying the function to all object key value pairs
+     *
+     * @func
+     * @memberOf R
+     * @category Obj
+     * @param {Number|String} f The function executed for each key value pair
+     * @param {Object} obj The obj to consider.
+     * @return {Array} The list of results of applying the function to all key value pairs
+     * @example
+     *
+     *     Q.abate(function(d){ return [-d,d];},{ a:4,b:9,c:16}); //=> [-4,4,-9,9,-16,16]
+     */
+    Q.abate = function (f, obj) {
+        var res = [];
+        for (var key in obj)
+            res = res.concat(f(obj[key], key));
+        return res;
+    };
+
+
 
     return Q;
 }));

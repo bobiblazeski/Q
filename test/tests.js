@@ -38,20 +38,20 @@ describe('Q', function () {
         });
     });
 
-    describe('#single(func,data)', function () {
+    describe('#find(func,data)', function () {
         it('should return 4', function () {
-            Q.single(function (d) {
+            Q.find(function (d) {
                 return d > 3
             }, [1, 2, 3, 4, 5]).should.equal(4);
         });
 
         it('should return {a:1,b:11}', function () {
-            Q.single({a: 1}, [{a: 2, b: 5}, {a: 1, b: 11}]).should.eql({a: 1, b: 11});
+            Q.find({a: 1}, [{a: 2, b: 5}, {a: 1, b: 11}]).should.eql({a: 1, b: 11});
         });
 
         it('should return undefined', function () {
-            expect(Q.single({a: 11}, [{a: 2, b: 5}, {a: 1, b: 11}])).to.be.undefined;
-            expect(Q.single(function (d) {
+            expect(Q.find({a: 11}, [{a: 2, b: 5}, {a: 1, b: 11}])).to.be.undefined;
+            expect(Q.find(function (d) {
                 return d.a > 2000;
             }, [{a: 2, b: 5}, {a: 1, b: 11}])).to.be.undefined;
         });
@@ -59,7 +59,7 @@ describe('Q', function () {
 
     describe('#mold(spec)', function () {
         it('should return true', function () {
-            Q.single(function (d) {
+            Q.find(function (d) {
                 return d > 3
             }, [1, 2, 3, 4, 5]).should.equal(4);
             (Q.mold({a: 1})({a: 1, b: 1})).should.be.true;
@@ -273,15 +273,84 @@ describe('Q', function () {
         });
     });
 
-    describe('#reduce(fn,acc,list)', function () {
+    describe('#fold(fn,acc,list)', function () {
         it("should return  16", function () {
-            Q.reduce(function(a, b) { return a + b; }, 10, [1, 2, 3]).should.deep.equal(16);
+            Q.fold(function(a, b) { return a + b; }, 10, [1, 2, 3]).should.deep.equal(16);
         });
     });
 
-    describe('#reduce(fn,acc,list)', function () {
+    describe('#fold(fn,acc,list)', function () {
         it("should return [-4,4,-9,9,-16,16]", function () {
             Q.abate(function(d){ return [-d,d];},{ a:4,b:9,c:16}).should.eql( [-4,4,-9,9,-16,16]);
         });
+    });
+
+    describe('#curtail(fn,list)', function () {
+        it("should return [-4,4,-9,9,-16,16]", function () {
+            Q.curtail(function(d){ return [-d,d];},[4,9,16]).should.eql( [-4,4,-9,9,-16,16]);
+        });
+    });
+
+    describe('#range(from,to)', function () {
+        it("should return [1, 2, 3, 4]", function () {
+            Q.range(1, 5).should.eql([1, 2, 3, 4]);
+        });
+
+        it("should return [1, 2, 3, 4]", function () {
+            Q.range(50, 53).should.eql([50, 51, 52]);
+        });
+
+        it("should return []", function () {
+            Q.range(11, 2).should.eql([]);
+        });
+    });
+
+    describe('#unique(list)', function () {
+        it("should return [1, 2, 3, 4]", function () {
+            Q.range(1, 5).should.eql([1, 2, 3, 4]);
+        });
+
+        it("should return [1, 2, 3, 4]", function () {
+            Q.range(50, 53).should.eql([50, 51, 52]);
+        });
+
+        it("should return []", function () {
+            Q.range(11, 2).should.eql([]);
+        });
+    });
+
+    describe('#pick(names, obj)', function () {
+        it("should return {a: 1, d: 4}", function () {
+            Q.pick(['a', 'd'], {a: 1, b: 2, c: 3, d: 4}).should.eql({a: 1, d: 4});
+        });
+
+        it("should return {a: 1}", function () {
+            Q.pick(['a', 'e', 'f'], {a: 1, b: 2, c: 3, d: 4}).should.eql({a: 1});
+
+        });
+    });
+
+    describe('#omit(keys, obj)', function () {
+        it("should return {a: 1, d: 4}", function () {
+            Q.omit(['c', 'b'], {a: 1, b: 2, c: 3, d: 4}).should.eql({a: 1, d: 4});
+        });
+
+        it("should return {a: 1}", function () {
+            Q.omit(['b', 'c', 'd','f'], {a: 1, b: 2, c: 3, d: 4}).should.eql({a: 1});
+        });
+
+        it("should return {a: 1}", function () {
+
+            Q.omit(['a', 'd'], {a: 1, b: 2, c: 3, d: 4}).should.eql({b: 2, c: 3});
+        });
+    });
+
+    describe('#omit(keys, obj)', function () {
+        it("should return {a: 1, d: 4}", function () {
+            Q.omit(['c', 'b'], {a: 1, b: 2, c: 3, d: 4}).should.eql({a: 1, d: 4});
+            Q.keys({a: 1, b: 2, c: 3}).should.eql(['a', 'b', 'c']);
+        });
+
+
     });
 });

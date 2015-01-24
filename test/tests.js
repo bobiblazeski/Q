@@ -43,6 +43,10 @@ describe('Q', function () {
             Q.find(function (d) {
                 return d > 3
             }, [1, 2, 3, 4, 5]).should.equal(4);
+            var findCurried= Q.find(function (d) {
+                return d > 3
+            });
+            findCurried([1, 2, 3, 4, 5]).should.equal(4)
         });
 
         it('should return {a:1,b:11}', function () {

@@ -16,7 +16,7 @@
      *
      * @namespace Q
      */
-    var Q = {version: '1.0.0'};
+    var Q = {version: '1.1.0'};
 
     /**
      * Creates an exception about calling a function with no arguments.

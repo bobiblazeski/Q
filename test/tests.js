@@ -410,16 +410,25 @@ describe('Q', function () {
             });
         });
 
-        describe('#substract(subtrahend,minuend)', function () {
+        describe('#substract(minuend,subtrahend)', function () {
             it("should return 5", function () {
-                Q.subtract(2,7).should.equal(5);
+                Q.subtract(7,2).should.equal(5);
             });
 
-            it("should return [1,2,3,4]", function () {
-                Q.map(Q.subtract(1),[2,3,4,5]).should.eql([1,2,3,4]);
+            it("should return [8,7,6,5]", function () {
+                Q.map(Q.subtract(10),[2,3,4,5]).should.eql([8,7,6,5]);
             });
         });
 
+        describe('#difference(subtrahend,minuend)', function () {
+            it("should return 5", function () {
+                Q.difference(2,7).should.equal(5);
+            });
+
+            it("should return [1,2,3,4]", function () {
+                Q.map(Q.difference(1),[2,3,4,5]).should.eql([1,2,3,4]);
+            });
+        });
 
         describe('#multiply(a,b)', function () {
             it("should return 14", function () {
@@ -431,13 +440,23 @@ describe('Q', function () {
             });
         });
 
-        describe('#divide(divisor,dividend)', function () {
+        describe('#divide(dividend,divisor)', function () {
             it("should return 14", function () {
-                Q.divide(2,28).should.equal(14);
+                Q.divide(28,2).should.equal(14);
+            });
+
+            it("should return [30,20,15,12]", function () {
+                Q.map(Q.divide(60),[2,3,4,5]).should.eql([30,20,15,12]);
+            });
+        });
+
+        describe('#quotient(divisor,dividend)', function () {
+            it("should return 14", function () {
+                Q.quotient(2,28).should.equal(14);
             });
 
             it("should return [4,6,8,10]", function () {
-                Q.map(Q.divide(0.5),[2,3,4,5]).should.eql([4,6,8,10]);
+                Q.map(Q.quotient(0.5),[2,3,4,5]).should.eql([4,6,8,10]);
             });
         });
 

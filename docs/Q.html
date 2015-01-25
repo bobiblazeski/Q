@@ -1457,7 +1457,189 @@ originally passed to `h`.
 
     
 
-    <h4 class="name" id=".divide"><span class="type-signature">(static) </span>divide<span class="signature">(divisor, dividend)</span><span class="type-signature"> &rarr; {Number}</span></h4>
+    <h4 class="name" id=".difference"><span class="type-signature">(static) </span>difference<span class="signature">(subtrahend, minuend)</span><span class="type-signature"> &rarr; {Number}</span></h4>
+
+    
+
+
+
+<div class="description">
+    Subtracts two numbers. Equivalent to `a - b` but curried.
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>subtrahend</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The number that is to be subtracted. The second number in a subtraction.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>minuend</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The number from which another number (the Subtrahend) is to be subtracted.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="q.js.html">q.js</a>, <a href="q.js.html#line961">line 961</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    The difference  of `minuend - subtrahend`.
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Number</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+    <h5>Example</h5>
+    
+    <pre class="prettyprint"><code>Q.difference( 8,10); //=> -2
+     Q.map(Q.difference(10), [10,20,30]); //=> [0,10,20]</code></pre>
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id=".divide"><span class="type-signature">(static) </span>divide<span class="signature">(dividend, divisor)</span><span class="type-signature"> &rarr; {Number}</span></h4>
 
     
 
@@ -1500,29 +1682,6 @@ originally passed to `h`.
 
         <tr>
             
-                <td class="name"><code>divisor</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Number</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">The number you divide by</td>
-        </tr>
-
-    
-
-        <tr>
-            
                 <td class="name"><code>dividend</code></td>
             
 
@@ -1540,6 +1699,29 @@ originally passed to `h`.
             
 
             <td class="description last">The amount that you want to divide up.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>divisor</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The number you divide by</td>
         </tr>
 
     
@@ -1580,7 +1762,7 @@ originally passed to `h`.
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="q.js.html">q.js</a>, <a href="q.js.html#line972">line 972</a>
+        <a href="q.js.html">q.js</a>, <a href="q.js.html#line982">line 982</a>
     </li></ul></dd>
     
 
@@ -4220,7 +4402,7 @@ modulo. For mathematical modulo see `mathMod`
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="q.js.html">q.js</a>, <a href="q.js.html#line999">line 999</a>
+        <a href="q.js.html">q.js</a>, <a href="q.js.html#line1028">line 1028</a>
     </li></ul></dd>
     
 
@@ -5178,6 +5360,189 @@ property is ignored.
 
     
 
+    <h4 class="name" id=".quotient"><span class="type-signature">(static) </span>quotient<span class="signature">(divisor, dividend)</span><span class="type-signature"> &rarr; {Number}</span></h4>
+
+    
+
+
+
+<div class="description">
+    Divides two numbers. Equivalent to `a / b`.
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>divisor</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The number you divide by</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>dividend</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The amount that you want to divide up.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="q.js.html">q.js</a>, <a href="q.js.html#line1002">line 1002</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    The quotient of `dividend / divisor`.
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Number</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+    <h5>Example</h5>
+    
+    <pre class="prettyprint"><code>Q.quotient(100,71); //=> 0.71
+
+     Q.map(Q.quotient(16),[1,2,4,8,16]) //=> [16,8,4,2,1]</code></pre>
+
+
+
+        
+            
+
+    
+
     <h4 class="name" id=".range"><span class="type-signature">(static) </span>range<span class="signature">(from, to)</span><span class="type-signature"> &rarr; {Array}</span></h4>
 
     
@@ -5551,7 +5916,7 @@ Q.sort(function(d){ return Math.abs(d.age);},entries)
 
     
 
-    <h4 class="name" id=".subtract"><span class="type-signature">(static) </span>subtract<span class="signature">(subtrahend, minuend)</span><span class="type-signature"> &rarr; {Number}</span></h4>
+    <h4 class="name" id=".subtract"><span class="type-signature">(static) </span>subtract<span class="signature">(minuend, subtrahend)</span><span class="type-signature"> &rarr; {Number}</span></h4>
 
     
 
@@ -5594,29 +5959,6 @@ Q.sort(function(d){ return Math.abs(d.age);},entries)
 
         <tr>
             
-                <td class="name"><code>subtrahend</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Number</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">The number that is to be subtracted. The second number in a subtraction.</td>
-        </tr>
-
-    
-
-        <tr>
-            
                 <td class="name"><code>minuend</code></td>
             
 
@@ -5634,6 +5976,29 @@ Q.sort(function(d){ return Math.abs(d.age);},entries)
             
 
             <td class="description last">The number from which another number (the Subtrahend) is to be subtracted.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>subtrahend</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The number that is to be subtracted. The second number in a subtraction.</td>
         </tr>
 
     
@@ -5674,7 +6039,7 @@ Q.sort(function(d){ return Math.abs(d.age);},entries)
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="q.js.html">q.js</a>, <a href="q.js.html#line950">line 950</a>
+        <a href="q.js.html">q.js</a>, <a href="q.js.html#line943">line 943</a>
     </li></ul></dd>
     
 
@@ -5724,14 +6089,7 @@ Q.sort(function(d){ return Math.abs(d.age);},entries)
     <h5>Example</h5>
     
     <pre class="prettyprint"><code>Q.subtract(10, 8); //=> 2
-
-     var minus5 = Q.subtract(__, 5); // '__' stands for any `undefined` value
-     minus5(17); //=> 12
-
-     // note: In this example, `_`  is just an `undefined` value.  You could use `void 0` instead
-     var complementaryAngle = Q.subtract(90);
-     complementaryAngle(30); //=> 60
-     complementaryAngle(72); //=> 18</code></pre>
+     Q.map(Q.subtract(10), [1,2,3]); //=> [9,8,7]</code></pre>
 
 
 
@@ -6129,7 +6487,7 @@ for primitives.
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.0-dev</a> on Sun Jan 25 2015 11:36:14 GMT+0100 (CET)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.0-dev</a> on Sun Jan 25 2015 12:03:47 GMT+0100 (CET)
 </footer>
 
 <script> prettyPrint(); </script>

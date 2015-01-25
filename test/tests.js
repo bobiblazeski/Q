@@ -476,6 +476,47 @@ describe('Q', function () {
                 isOdd(21).should.equal(1);
             });
         });
+
+        describe('#construct(keys)', function () {
+            it("should return { year:1937, amount: 100, name: 'foo'}", function () {
+                var trend = Q.construct(["year", "amount", "name"]);
+                trend(1937,100, 'foo').should.deep.equal({ year:1937, amount: 100, name: 'foo'});
+            });
+
+            it("should set lacking field to undefined ", function () {
+                var trend = Q.construct(["year", "amount", "name"]);
+                trend(1937,100).should.deep.equal({ year:1937, amount: 100, name: undefined});
+            });
+
+            it("should ignore surplus arguments", function () {
+                var trend = Q.construct(["year", "amount", "name"]);
+                trend(1937,100, 'foo',11,'bar').should.deep.equal({ year:1937, amount: 100, name: 'foo'});
+            });
+        });
+
+
+        describe("#join(on,columns,left,right)", function() {
+            it("should return [{id:1, a: 1, b:11}]", function () {
+                Q.join("id", Q.mixin,[{id:1, a: 1},{id:2,a:3}],[{id:1, b: 11},{id:22,a:33}]).should.eql([{id:1, a: 1, b:11}]);
+            });
+
+            it("should return [{key:1,id:1, a: 1, b:11}]", function () {
+                Q.join(["id","key"],Q.mixin,[{id:1, a: 1},{id:2,a:3}],[{key:1, b: 11},{key:22,a:33}])
+                    .should.eql([{key:1,id:1, a: 1, b:11}]);
+            });
+
+            it("should return [{key:1,id:1, a: 1, b:11}]", function () {
+                var fn = function(left,right) {
+                    return left.id == right.key;
+                };
+                Q.join(fn,Q.mixin,[{id:1, a: 1},{id:2,a:3}],[{key:1, b: 11},{key:22,a:33}])
+                    .should.eql([{key:1,id:1, a: 1, b:11}]);
+            });
+
+            it("should return [{ a: 1, b:11}]", function () {
+                Q.join("id", ["a","b"],[{id:1, a: 1},{id:2,a:3}],[{id:1, b: 11},{id:22,a:33}]).should.eql([{ a: 1, b:11}]);
+            });
+        });
     });
 
 });

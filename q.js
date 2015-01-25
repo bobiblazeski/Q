@@ -748,6 +748,255 @@
         return Object.keys(obj);
     };
 
+    /*
+     * Returns a function that makes a multi-argument version of compose from
+     * either _compose or _pCompose.
+     */
+    function _createComposer(composeFunction) {
+        return function() {
+            switch (arguments.length) {
+                case 0: throw _noArgsException();
+                case 1: return arguments[0];
+                default:
+                    var idx = arguments.length - 1, fn = arguments[idx], length = fn.length;
+                    while (idx--) {
+                        fn = composeFunction(arguments[idx], fn);
+                    }
+                    return arity(length, fn);
+            }
+        };
+    }
+
+
+    /**
+     * Creates a new function that runs each of the functions supplied as parameters in turn,
+     * passing the return value of each function invocation to the next function invocation,
+     * beginning with whatever arguments were passed to the initial invocation.
+     *
+     * Note that `compose` is a right-associative function, which means the functions provided
+     * will be invoked in order from right to left. In the example `var h = compose(f, g)`,
+     * the function `h` is equivalent to `f( g(x) )`, where `x` represents the arguments
+     * originally passed to `h`.
+     *
+     * @func
+     * @memberOf Q
+     * @category core
+     * @category Function
+     * @sig ((y -> z), (x -> y), ..., (b -> c), (a... -> b)) -> (a... -> z)
+     * @param {...Function} functions A variable number of functions.
+     * @return {Function} A new function which represents the result of calling each of the
+     *         input `functions`, passing the result of each function call to the next, from
+     *         right to left.
+     * @example
+     *
+     *      var triple = function(x) { return x * 3; };
+     *      var double = function(x) { return x * 2; };
+     *      var square = function(x) { return x * x; };
+     *      var squareThenDoubleThenTriple = R.compose(triple, double, square);
+     *
+     *      //≅ triple(double(square(5)))
+     *      squareThenDoubleThenTriple(5); //=> 150
+     */
+    var compose = Q.compose = _createComposer(_compose);
+
+    /**
+     * Wraps a function of any arity (including nullary) in a function that accepts exactly `n`
+     * parameters. Unlike `nAry`, which passes only `n` arguments to the wrapped function,
+     * functions produced by `arity` will pass all provided arguments to the wrapped function.
+     *
+     * @func
+     * @memberOf Q
+     * @sig (Number, (* -> *)) -> (* -> *)
+     * @category Function
+     * @param {Number} n The desired arity of the returned function.
+     * @param {Function} fn The function to wrap.
+     * @return {Function} A new function wrapping `fn`. The new function is
+     *         guaranteed to be of arity `n`.
+     * @example
+     *
+     *      var takesTwoArgs = function(a, b) {
+     *        return [a, b];
+     *      };
+     *      takesTwoArgs.length; //=> 2
+     *      takesTwoArgs(1, 2); //=> [1, 2]
+     *
+     *      var takesOneArg = R.arity(1, takesTwoArgs);
+     *      takesOneArg.length; //=> 1
+     *      // All arguments are passed through to the wrapped function
+     *      takesOneArg(1, 2); //=> [1, 2]
+     */
+    var arity = Q.arity = function(n, fn) {
+        switch (n) {
+            case 0: return function() {return fn.apply(this, arguments);};
+            case 1: return function(a0) {void a0; return fn.apply(this, arguments);};
+            case 2: return function(a0, a1) {void a1; return fn.apply(this, arguments);};
+            case 3: return function(a0, a1, a2) {void a2; return fn.apply(this, arguments);};
+            case 4: return function(a0, a1, a2, a3) {void a3; return fn.apply(this, arguments);};
+            case 5: return function(a0, a1, a2, a3, a4) {void a4; return fn.apply(this, arguments);};
+            case 6: return function(a0, a1, a2, a3, a4, a5) {void a5; return fn.apply(this, arguments);};
+            case 7: return function(a0, a1, a2, a3, a4, a5, a6) {void a6; return fn.apply(this, arguments);};
+            case 8: return function(a0, a1, a2, a3, a4, a5, a6, a7) {void a7; return fn.apply(this, arguments);};
+            case 9: return function(a0, a1, a2, a3, a4, a5, a6, a7, a8) {void a8; return fn.apply(this, arguments);};
+            case 10: return function(a0, a1, a2, a3, a4, a5, a6, a7, a8, a9) {void a9; return fn.apply(this, arguments);};
+            default: return fn; // TODO: or throw?
+        }
+    };
+
+    /**
+     * Basic, right-associative composition function. Accepts two functions and returns the
+     * composite function; this composite function represents the operation `var h = f(g(x))`,
+     * where `f` is the first argument, `g` is the second argument, and `x` is whatever
+     * argument(s) are passed to `h`.
+     *
+     * This function's main use is to build the more general `compose` function, which accepts
+     * any number of functions.
+     *
+     * @private
+     * @category Function
+     * @param {Function} f A function.
+     * @param {Function} g A function.
+     * @return {Function} A new function that is the equivalent of `f(g(x))`.
+     * @example
+     *
+     *      var double = function(x) { return x * 2; };
+     *      var square = function(x) { return x * x; };
+     *      var squareThenDouble = _compose(double, square);
+     *
+     *      squareThenDouble(5); //≅ double(square(5)) => 50
+     */
+    function _compose(f, g) {
+        return function() {
+            return f.call(this, g.apply(this, arguments));
+        };
+    }
+
+    // Arithmetic Functions
+    // --------------------
+    //
+    // These functions wrap up the certain core arithmetic operators
+
+    // --------
+
+    /**
+     * Adds two numbers (or strings). Equivalent to `a + b` but curried.
+     *
+     * @func
+     * @memberOf Q
+     * @category math
+     * @sig Number -> Number -> Number
+     * @sig String -> String -> String
+     * @param {Number|String} a The first value.
+     * @param {Number|String} b The second value.
+     * @return {Number|String} The result of `a + b`.
+     * @example
+     *
+     *      var increment = Q.add(1);
+     *      increment(10);   //=> 11
+     *      Q.add(2, 3);       //=>  5
+     *      Q.add(7)(10);      //=> 17
+     */
+    Q.add = _curry2(function _add(a, b) {
+        return a + b;
+    });
+
+
+    /**
+     * Multiplies two numbers. Equivalent to `a * b` but curried.
+     *
+     * @func
+     * @memberOf Q
+     * @category math
+     * @sig Number -> Number -> Number
+     * @param {Number} a The first value.
+     * @param {Number} b The second value.
+     * @return {Number} The result of `a * b`.
+     * @example
+     *
+     *      var double = Q.multiply(2);
+     *      var triple = Q.multiply(3);
+     *      double(3);       //=>  6
+     *      triple(4);       //=> 12
+     *      Q.multiply(2, 5);  //=> 10
+     */
+
+    Q.multiply = _curry2(function _multiply(a, b) {
+        return a * b;
+    });
+
+
+    /**
+     * Subtracts two numbers. Equivalent to `a - b` but curried.
+     *
+     * @func
+     * @memberOf Q
+     * @category math
+     * @sig Number -> Number -> Number
+     * @param {Number} subtrahend -The number that is to be subtracted. The second number in a subtraction.
+     * @param {Number} minuend - The number from which another number (the Subtrahend) is to be subtracted.
+     * @return {Number} The difference  of `minuend - subtrahend`.
+     *
+     * @example
+     *
+     *      Q.subtract(10, 8); //=> 2
+     *
+     *      var minus5 = Q.subtract(__, 5); // '__' stands for any `undefined` value
+     *      minus5(17); //=> 12
+     *
+     *      // note: In this example, `_`  is just an `undefined` value.  You could use `void 0` instead
+     *      var complementaryAngle = Q.subtract(90);
+     *      complementaryAngle(30); //=> 60
+     *      complementaryAngle(72); //=> 18
+     */
+    Q.subtract = _curry2(function subtract(subtrahend,minuend) { return minuend - subtrahend; });
+
+
+    /**
+     * Divides two numbers. Equivalent to `a / b`.
+     *
+     * @func
+     * @memberOf Q
+     * @category math
+     * @sig Number -> Number -> Number
+     * @param {Number} divisor - The number you divide by
+     * @param {Number} dividend -The amount that you want to divide up.
+     * @return {Number} The quotient of `dividend / divisor`.
+     *
+     * @example
+     *
+     *      Q.divide(100,71); //=> 0.71
+     *
+     *      var half = Q.divide(2);
+     *      half(42); //=> 21
+     *
+     */
+    Q.divide = _curry2(function divide(divisor,dividend) { return dividend / divisor; });
+
+
+    /**
+     * Divides the second parameter by the first and returns the remainder.
+     * Note that this functions preserves the JavaScript-style behavior for
+     * modulo. For mathematical modulo see `mathMod`
+     *
+     * @func
+     * @memberOf Q
+     * @category math
+     * @sig Number -> Number -> Number
+     * @param {Number} divisor The pseudo-modulus
+     * @param {Number} dividend The value to the divide.
+     * @return {Number} The result of `dividend % divisor`.
+     *
+     * @example
+     *
+     *      Q.modulo(3,17); //=> 2
+     *      // JS behavior:
+     *      Q.modulo(3,-17); //=> -2
+     *      Q.modulo(17, -3); //=> 2
+     *
+     *      var isOdd = Q.modulo(2);
+     *      isOdd(42); //=> 0
+     *      isOdd(21); //=> 1
+     */
+    Q.modulo = _curry2(function modulo(divisor, dividend) { return dividend % divisor; });
 
 
     return Q;

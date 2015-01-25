@@ -113,6 +113,16 @@ describe('Q', function () {
             };
             Q.filter(isEven, [1, 2, 3, 4]).should.eql([2, 4]);
         });
+
+        it("should return [{ name: 'Buzz' , errors:''}]", function () {
+            var users = [
+                { name: "Buzz" , errors:''},
+                { name: "Buzz" , errors:'Something'},
+                { name: "Bar" , errors:''}
+            ];
+            Q.filter(Q.mold({name: 'Buzz', errors: ''}),users).should.eql([{ name: "Buzz" , errors:''}]);
+
+        });
     });
 
     describe('#min(f,list)', function () {
@@ -354,7 +364,99 @@ describe('Q', function () {
             Q.omit(['c', 'b'], {a: 1, b: 2, c: 3, d: 4}).should.eql({a: 1, d: 4});
             Q.keys({a: 1, b: 2, c: 3}).should.eql(['a', 'b', 'c']);
         });
-
-
     });
+
+    describe('#compose(functions)', function () {
+        it("should return 150", function () {
+            var triple = function(x) { return x * 3; };
+            var double = function(x) { return x * 2; };
+            var square = function(x) { return x * x; };
+            var squareThenDoubleThenTriple = Q.compose(triple, double, square); //≅ triple(double(square(5)))
+            squareThenDoubleThenTriple(5).should.equal(150);
+        });
+
+        it("should return 'Hiya Penelope!'", function () {
+            var realNameMap = {
+                'pebbles': 'penelope'
+            };
+            var format = function(name) {
+                name = realNameMap[name.toLowerCase()] || name;
+                return name.charAt(0).toUpperCase() + name.slice(1).toLowerCase();
+            };
+            var greet = function(formatted) {
+                return 'Hiya ' + formatted + '!';
+            };
+            var welcome = Q.compose(greet, format);
+            welcome('pebbles').should.equal('Hiya Penelope!');
+        });
+
+        it("should return [{ name: 'Buzz' , errors:''}]", function () {
+            var users = [
+                { name: "Buzz" , errors:''},
+                { name: "Buzz" , errors:'Something'},
+                { name: "Bar" , errors:''}
+            ];
+            Q.filter(Q.mold({name: 'Buzz', errors: ''}),users).should.eql([{ name: "Buzz" , errors:''}]);
+
+        });
+
+        describe('#add(a,b)', function () {
+            it("should return 5", function () {
+                Q.add(2,3).should.equal(5);
+            });
+
+            it("should return [2,3,4,5]", function () {
+                Q.map(Q.add(1),[1,2,3,4]).should.eql([2,3,4,5]);
+            });
+        });
+
+        describe('#substract(subtrahend,minuend)', function () {
+            it("should return 5", function () {
+                Q.subtract(2,7).should.equal(5);
+            });
+
+            it("should return [1,2,3,4]", function () {
+                Q.map(Q.subtract(1),[2,3,4,5]).should.eql([1,2,3,4]);
+            });
+        });
+
+
+        describe('#multiply(a,b)', function () {
+            it("should return 14", function () {
+                Q.multiply(2,7).should.equal(14);
+            });
+
+            it("should return [4,6,8,10]", function () {
+                Q.map(Q.multiply(2),[2,3,4,5]).should.eql([4,6,8,10]);
+            });
+        });
+
+        describe('#divide(divisor,dividend)', function () {
+            it("should return 14", function () {
+                Q.divide(2,28).should.equal(14);
+            });
+
+            it("should return [4,6,8,10]", function () {
+                Q.map(Q.divide(0.5),[2,3,4,5]).should.eql([4,6,8,10]);
+            });
+        });
+
+
+        describe('#modulo(divisor, dividend)', function () {
+            it("should return 2", function () {
+                Q.modulo(3,17).should.equal(2);
+            });
+
+            it("should return -2", function () {
+                Q.modulo(3,-17).should.equal(-2);
+            });
+
+            it("should check is number odd", function () {
+                var isOdd = Q.modulo(2);
+                isOdd(42).should.equal(0);
+                isOdd(21).should.equal(1);
+            });
+        });
+    });
+
 });

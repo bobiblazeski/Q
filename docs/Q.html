@@ -291,6 +291,199 @@
 
     
 
+    <h4 class="name" id=".add"><span class="type-signature">(static) </span>add<span class="signature">(a, b)</span><span class="type-signature"> &rarr; {Number|String}</span></h4>
+
+    
+
+
+
+<div class="description">
+    Adds two numbers (or strings). Equivalent to `a + b` but curried.
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>a</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Number</span>
+|
+
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The first value.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>b</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Number</span>
+|
+
+<span class="param-type">String</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The second value.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="q.js.html">q.js</a>, <a href="q.js.html#line898">line 898</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    The result of `a + b`.
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Number</span>
+|
+
+<span class="param-type">String</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+    <h5>Example</h5>
+    
+    <pre class="prettyprint"><code>var increment = Q.add(1);
+     increment(10);   //=> 11
+     Q.add(2, 3);       //=>  5
+     Q.add(7)(10);      //=> 17</code></pre>
+
+
+
+        
+            
+
+    
+
     <h4 class="name" id=".amend"><span class="type-signature">(static) </span>amend<span class="signature">(left, right, lKey, rKey)</span><span class="type-signature"> &rarr; {function}</span></h4>
 
     
@@ -521,6 +714,199 @@ joining by key
 
     
 
+    <h4 class="name" id=".arity"><span class="type-signature">(static) </span>arity<span class="signature">(n, fn)</span><span class="type-signature"> &rarr; {function}</span></h4>
+
+    
+
+
+
+<div class="description">
+    Wraps a function of any arity (including nullary) in a function that accepts exactly `n`
+parameters. Unlike `nAry`, which passes only `n` arguments to the wrapped function,
+functions produced by `arity` will pass all provided arguments to the wrapped function.
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>n</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The desired arity of the returned function.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>fn</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">function</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The function to wrap.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="q.js.html">q.js</a>, <a href="q.js.html#line828">line 828</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    A new function wrapping `fn`. The new function is
+        guaranteed to be of arity `n`.
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">function</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+    <h5>Example</h5>
+    
+    <pre class="prettyprint"><code>var takesTwoArgs = function(a, b) {
+       return [a, b];
+     };
+     takesTwoArgs.length; //=> 2
+     takesTwoArgs(1, 2); //=> [1, 2]
+
+     var takesOneArg = R.arity(1, takesTwoArgs);
+     takesOneArg.length; //=> 1
+     // All arguments are passed through to the wrapped function
+     takesOneArg(1, 2); //=> [1, 2]</code></pre>
+
+
+
+        
+            
+
+    
+
     <h4 class="name" id=".collect"><span class="type-signature">(static) </span>collect<span class="signature">(f, obj)</span><span class="type-signature"> &rarr; {Array}</span></h4>
 
     
@@ -705,6 +1091,191 @@ joining by key
 
     
 
+    <h4 class="name" id=".compose"><span class="type-signature">(static) </span>compose<span class="signature">(&hellip;functions)</span><span class="type-signature"> &rarr; {function}</span></h4>
+
+    
+
+
+
+<div class="description">
+    Creates a new function that runs each of the functions supplied as parameters in turn,
+passing the return value of each function invocation to the next function invocation,
+beginning with whatever arguments were passed to the initial invocation.
+
+Note that `compose` is a right-associative function, which means the functions provided
+will be invoked in order from right to left. In the example `var h = compose(f, g)`,
+the function `h` is equivalent to `f( g(x) )`, where `x` represents the arguments
+originally passed to `h`.
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Attributes</th>
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>functions</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">function</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+
+                
+                    &lt;repeatable><br>
+                
+                </td>
+            
+
+            
+
+            <td class="description last">A variable number of functions.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="q.js.html">q.js</a>, <a href="q.js.html#line800">line 800</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    A new function which represents the result of calling each of the
+        input `functions`, passing the result of each function call to the next, from
+        right to left.
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">function</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+    <h5>Example</h5>
+    
+    <pre class="prettyprint"><code>var triple = function(x) { return x * 3; };
+     var double = function(x) { return x * 2; };
+     var square = function(x) { return x * x; };
+     var squareThenDoubleThenTriple = R.compose(triple, double, square);
+
+     //≅ triple(double(square(5)))
+     squareThenDoubleThenTriple(5); //=> 150</code></pre>
+
+
+
+        
+            
+
+    
+
     <h4 class="name" id=".curtail"><span class="type-signature">(static) </span>curtail<span class="signature">(fn, list)</span><span class="type-signature"> &rarr; {Array}</span></h4>
 
     
@@ -878,6 +1449,190 @@ joining by key
     <h5>Example</h5>
     
     <pre class="prettyprint"><code>Q.curtail(function(d){ return [-d,d];},[4,9,16]); //=> [-4,4,-9,9,-16,16]</code></pre>
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id=".divide"><span class="type-signature">(static) </span>divide<span class="signature">(divisor, dividend)</span><span class="type-signature"> &rarr; {Number}</span></h4>
+
+    
+
+
+
+<div class="description">
+    Divides two numbers. Equivalent to `a / b`.
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>divisor</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The number you divide by</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>dividend</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The amount that you want to divide up.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="q.js.html">q.js</a>, <a href="q.js.html#line972">line 972</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    The quotient of `dividend / divisor`.
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Number</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+    <h5>Example</h5>
+    
+    <pre class="prettyprint"><code>Q.divide(100,71); //=> 0.71
+
+     var half = Q.divide(2);
+     half(42); //=> 21</code></pre>
 
 
 
@@ -3340,6 +4095,196 @@ This function will *not* mutate passed-in objects.
 
     
 
+    <h4 class="name" id=".modulo"><span class="type-signature">(static) </span>modulo<span class="signature">(divisor, dividend)</span><span class="type-signature"> &rarr; {Number}</span></h4>
+
+    
+
+
+
+<div class="description">
+    Divides the second parameter by the first and returns the remainder.
+Note that this functions preserves the JavaScript-style behavior for
+modulo. For mathematical modulo see `mathMod`
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>divisor</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The pseudo-modulus</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>dividend</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The value to the divide.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="q.js.html">q.js</a>, <a href="q.js.html#line999">line 999</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    The result of `dividend % divisor`.
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Number</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+    <h5>Example</h5>
+    
+    <pre class="prettyprint"><code>Q.modulo(3,17); //=> 2
+     // JS behavior:
+     Q.modulo(3,-17); //=> -2
+     Q.modulo(17, -3); //=> 2
+
+     var isOdd = Q.modulo(2);
+     isOdd(42); //=> 0
+     isOdd(21); //=> 1</code></pre>
+
+
+
+        
+            
+
+    
+
     <h4 class="name" id=".mold"><span class="type-signature">(static) </span>mold<span class="signature">(spec)</span><span class="type-signature"> &rarr; {function}</span></h4>
 
     
@@ -3491,6 +4436,191 @@ This function will *not* mutate passed-in objects.
     
     <pre class="prettyprint"><code>Q.mold({a:1})({a:1,b:1}; //=> true
      Q.mold({a:4})({a:1,b:1}; //=> false</code></pre>
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id=".multiply"><span class="type-signature">(static) </span>multiply<span class="signature">(a, b)</span><span class="type-signature"> &rarr; {Number}</span></h4>
+
+    
+
+
+
+<div class="description">
+    Multiplies two numbers. Equivalent to `a * b` but curried.
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>a</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The first value.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>b</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The second value.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="q.js.html">q.js</a>, <a href="q.js.html#line922">line 922</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    The result of `a * b`.
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Number</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+    <h5>Example</h5>
+    
+    <pre class="prettyprint"><code>var double = Q.multiply(2);
+     var triple = Q.multiply(3);
+     double(3);       //=>  6
+     triple(4);       //=> 12
+     Q.multiply(2, 5);  //=> 10</code></pre>
 
 
 
@@ -4421,6 +5551,195 @@ Q.sort(function(d){ return Math.abs(d.age);},entries)
 
     
 
+    <h4 class="name" id=".subtract"><span class="type-signature">(static) </span>subtract<span class="signature">(subtrahend, minuend)</span><span class="type-signature"> &rarr; {Number}</span></h4>
+
+    
+
+
+
+<div class="description">
+    Subtracts two numbers. Equivalent to `a - b` but curried.
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>subtrahend</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The number that is to be subtracted. The second number in a subtraction.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>minuend</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The number from which another number (the Subtrahend) is to be subtracted.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="q.js.html">q.js</a>, <a href="q.js.html#line950">line 950</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    The difference  of `minuend - subtrahend`.
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Number</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+    <h5>Example</h5>
+    
+    <pre class="prettyprint"><code>Q.subtract(10, 8); //=> 2
+
+     var minus5 = Q.subtract(__, 5); // '__' stands for any `undefined` value
+     minus5(17); //=> 12
+
+     // note: In this example, `_`  is just an `undefined` value.  You could use `void 0` instead
+     var complementaryAngle = Q.subtract(90);
+     complementaryAngle(30); //=> 60
+     complementaryAngle(72); //=> 18</code></pre>
+
+
+
+        
+            
+
+    
+
     <h4 class="name" id=".taper"><span class="type-signature">(static) </span>taper<span class="signature">(f, acc, obj)</span><span class="type-signature"> &rarr; {*}</span></h4>
 
     
@@ -4810,7 +6129,7 @@ for primitives.
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.0-dev</a> on Sat Jan 24 2015 21:13:32 GMT+0100 (CET)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.0-dev</a> on Sun Jan 25 2015 11:36:14 GMT+0100 (CET)
 </footer>
 
 <script> prettyPrint(); </script>

@@ -17,7 +17,7 @@
      *
      * @namespace Q
      */
-    var Q = {"version": "1.2.1"};
+    var Q = {"version": "1.2.2"};
     <%= contents %>
 
  return Q;

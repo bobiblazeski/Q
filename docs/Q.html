@@ -472,10 +472,7 @@
 
     <h5>Example</h5>
     
-    <pre class="prettyprint"><code>var increment = Q.add(1);
-     increment(10);   //=> 11
-     Q.add(2, 3);       //=>  5
-     Q.add(7)(10);      //=> 17</code></pre>
+    <pre class="prettyprint"><code>var increment = Q.add(1);     increment(10);   //=> 11     Q.add(2, 3);       //=>  5     Q.add(7)(10);      //=> 17</code></pre>
 
 
 
@@ -491,8 +488,7 @@
 
 
 <div class="description">
-    Amend left list object with keys from right list objects
-joining by key
+    Amend left list object with keys from right list objectsjoining by key
 </div>
 
 
@@ -703,9 +699,7 @@ joining by key
 
     <h5>Example</h5>
     
-    <pre class="prettyprint"><code>var left = [{ id:1, b:2},{ id:2, b:2}];
-        var right =[{ id:1, d:4},{ id:2, d:5}];
-        Q.amend(left,right,'id') => [{"id":1,"b":2,"d":4},{"id":2,"b":2,"d":5}]</code></pre>
+    <pre class="prettyprint"><code>var left = [{ id:1, b:2},{ id:2, b:2}];        var right =[{ id:1, d:4},{ id:2, d:5}];        Q.amend(left,right,'id') => [{"id":1,"b":2,"d":4},{"id":2,"b":2,"d":5}]</code></pre>
 
 
 
@@ -721,9 +715,7 @@ joining by key
 
 
 <div class="description">
-    Wraps a function of any arity (including nullary) in a function that accepts exactly `n`
-parameters. Unlike `nAry`, which passes only `n` arguments to the wrapped function,
-functions produced by `arity` will pass all provided arguments to the wrapped function.
+    Wraps a function of any arity (including nullary) in a function that accepts exactly `n`parameters. Unlike `nAry`, which passes only `n` arguments to the wrapped function,functions produced by `arity` will pass all provided arguments to the wrapped function.
 </div>
 
 
@@ -866,8 +858,7 @@ functions produced by `arity` will pass all provided arguments to the wrapped fu
 
         
 <div class="param-desc">
-    A new function wrapping `fn`. The new function is
-        guaranteed to be of arity `n`.
+    A new function wrapping `fn`. The new function is        guaranteed to be of arity `n`.
 </div>
 
 
@@ -889,16 +880,7 @@ functions produced by `arity` will pass all provided arguments to the wrapped fu
 
     <h5>Example</h5>
     
-    <pre class="prettyprint"><code>var takesTwoArgs = function(a, b) {
-       return [a, b];
-     };
-     takesTwoArgs.length; //=> 2
-     takesTwoArgs(1, 2); //=> [1, 2]
-
-     var takesOneArg = R.arity(1, takesTwoArgs);
-     takesOneArg.length; //=> 1
-     // All arguments are passed through to the wrapped function
-     takesOneArg(1, 2); //=> [1, 2]</code></pre>
+    <pre class="prettyprint"><code>var takesTwoArgs = function(a, b) {       return [a, b];     };     takesTwoArgs.length; //=> 2     takesTwoArgs(1, 2); //=> [1, 2]     var takesOneArg = R.arity(1, takesTwoArgs);     takesOneArg.length; //=> 1     // All arguments are passed through to the wrapped function     takesOneArg(1, 2); //=> [1, 2]</code></pre>
 
 
 
@@ -1098,14 +1080,7 @@ functions produced by `arity` will pass all provided arguments to the wrapped fu
 
 
 <div class="description">
-    Creates a new function that runs each of the functions supplied as parameters in turn,
-passing the return value of each function invocation to the next function invocation,
-beginning with whatever arguments were passed to the initial invocation.
-
-Note that `compose` is a right-associative function, which means the functions provided
-will be invoked in order from right to left. In the example `var h = compose(f, g)`,
-the function `h` is equivalent to `f( g(x) )`, where `x` represents the arguments
-originally passed to `h`.
+    Creates a new function that runs each of the functions supplied as parameters in turn,passing the return value of each function invocation to the next function invocation,beginning with whatever arguments were passed to the initial invocation.Note that `compose` is a right-associative function, which means the functions providedwill be invoked in order from right to left. In the example `var h = compose(f, g)`,the function `h` is equivalent to `f( g(x) )`, where `x` represents the argumentsoriginally passed to `h`.
 </div>
 
 
@@ -1237,9 +1212,7 @@ originally passed to `h`.
 
         
 <div class="param-desc">
-    A new function which represents the result of calling each of the
-        input `functions`, passing the result of each function call to the next, from
-        right to left.
+    A new function which represents the result of calling each of the        input `functions`, passing the result of each function call to the next, from        right to left.
 </div>
 
 
@@ -1261,13 +1234,7 @@ originally passed to `h`.
 
     <h5>Example</h5>
     
-    <pre class="prettyprint"><code>var triple = function(x) { return x * 3; };
-     var double = function(x) { return x * 2; };
-     var square = function(x) { return x * x; };
-     var squareThenDoubleThenTriple = R.compose(triple, double, square);
-
-     //≅ triple(double(square(5)))
-     squareThenDoubleThenTriple(5); //=> 150</code></pre>
+    <pre class="prettyprint"><code>var triple = function(x) { return x * 3; };     var double = function(x) { return x * 2; };     var square = function(x) { return x * x; };     var squareThenDoubleThenTriple = R.compose(triple, double, square);     //≅ triple(double(square(5)))     squareThenDoubleThenTriple(5); //=> 150</code></pre>
 
 
 
@@ -1283,8 +1250,7 @@ originally passed to `h`.
 
 
 <div class="description">
-    Returns a function that when supplied with arguments returns object created by given keys.
-Returned function sets filed where it lacks arguments to undefined, ignores surplus arguments.
+    Returns a function that when supplied with arguments returns object created by given keys.Returned function sets filed where it lacks arguments to undefined, ignores surplus arguments.
 </div>
 
 
@@ -1426,8 +1392,7 @@ Returned function sets filed where it lacks arguments to undefined, ignores surp
 
     <h5>Example</h5>
     
-    <pre class="prettyprint"><code>var trend = Q.construct(["year", "amount", "name"]);
-     trend(1937,100, 'foo') => { year:1937, amount: 100, name: 'foo'}</code></pre>
+    <pre class="prettyprint"><code>var trend = Q.construct(["year", "amount", "name"]);     trend(1937,100, 'foo') => { year:1937, amount: 100, name: 'foo'}</code></pre>
 
 
 
@@ -1789,8 +1754,7 @@ Returned function sets filed where it lacks arguments to undefined, ignores surp
 
     <h5>Example</h5>
     
-    <pre class="prettyprint"><code>Q.difference( 8,10); //=> -2
-     Q.map(Q.difference(10), [10,20,30]); //=> [0,10,20]</code></pre>
+    <pre class="prettyprint"><code>Q.difference( 8,10); //=> -2     Q.map(Q.difference(10), [10,20,30]); //=> [0,10,20]</code></pre>
 
 
 
@@ -1971,10 +1935,7 @@ Returned function sets filed where it lacks arguments to undefined, ignores surp
 
     <h5>Example</h5>
     
-    <pre class="prettyprint"><code>Q.divide(100,71); //=> 0.71
-
-     var half = Q.divide(2);
-     half(42); //=> 21</code></pre>
+    <pre class="prettyprint"><code>Q.divide(100,71); //=> 0.71     var half = Q.divide(2);     half(42); //=> 21</code></pre>
 
 
 
@@ -2155,12 +2116,7 @@ Returned function sets filed where it lacks arguments to undefined, ignores surp
 
     <h5>Example</h5>
     
-    <pre class="prettyprint"><code>Q.prop('x', {x: 100}); //=> 100
-     Q.prop('x', {}); //=> undefined
-
-     var fifth = Q.prop(4); // indexed from 0, remember
-     fifth(['Bashful', 'Doc', 'Dopey', 'Grumpy', 'Happy', 'Sleepy', 'Sneezy']);
-     //=> 'Happy'</code></pre>
+    <pre class="prettyprint"><code>Q.prop('x', {x: 100}); //=> 100     Q.prop('x', {}); //=> undefined     var fifth = Q.prop(4); // indexed from 0, remember     fifth(['Bashful', 'Doc', 'Dopey', 'Grumpy', 'Happy', 'Sleepy', 'Sneezy']);     //=> 'Happy'</code></pre>
 
 
 
@@ -2176,8 +2132,7 @@ Returned function sets filed where it lacks arguments to undefined, ignores surp
 
 
 <div class="description">
-    Returns a new list containing only those items that match a given predicate function.
-The predicate function is passed one argument: *(value)*.
+    Returns a new list containing only those items that match a given predicate function.The predicate function is passed one argument: *(value)*.
 </div>
 
 
@@ -2345,10 +2300,7 @@ The predicate function is passed one argument: *(value)*.
 
     <h5>Example</h5>
     
-    <pre class="prettyprint"><code>var isEven = function(n) {
-       return n % 2 === 0;
-     };
-     Q.filter(isEven, [1, 2, 3, 4]); //=> [2, 4]</code></pre>
+    <pre class="prettyprint"><code>var isEven = function(n) {       return n % 2 === 0;     };     Q.filter(isEven, [1, 2, 3, 4]); //=> [2, 4]</code></pre>
 
 
 
@@ -2364,8 +2316,7 @@ The predicate function is passed one argument: *(value)*.
 
 
 <div class="description">
-    Returns the first element of the list which matches the predicate, or `undefined` if no
-element matches.
+    Returns the first element of the list which matches the predicate, or `undefined` if noelement matches.
 </div>
 
 
@@ -2420,8 +2371,7 @@ element matches.
 
             
 
-            <td class="description last">The predicate function used to determine if the element is the
-       desired one. Or specification object</td>
+            <td class="description last">The predicate function used to determine if the element is the       desired one. Or specification object</td>
         </tr>
 
     
@@ -2534,10 +2484,7 @@ element matches.
 
     <h5>Example</h5>
     
-    <pre class="prettyprint"><code>var xs = [{a: 1}, {a: 2}, {a: 3}];
-     Q.find(function(d){ return d.a == 2;}, xs); //=> {a: 2}
-     Q.find({ a : 2}, xs); //=> {a: 2}
-     Q.find({a: 4},(xs); //=> undefined</code></pre>
+    <pre class="prettyprint"><code>var xs = [{a: 1}, {a: 2}, {a: 3}];     Q.find(function(d){ return d.a == 2;}, xs); //=> {a: 2}     Q.find({ a : 2}, xs); //=> {a: 2}     Q.find({a: 4},(xs); //=> undefined</code></pre>
 
 
 
@@ -2553,11 +2500,7 @@ element matches.
 
 
 <div class="description">
-    Returns a single item by iterating through the list, successively calling the iterator
-function and passing it an accumulator value and the current value from the array, and
-then passing the result to the next call.
-
-The iterator function receives two values: *(acc, value)*
+    Returns a single item by iterating through the list, successively calling the iteratorfunction and passing it an accumulator value and the current value from the array, andthen passing the result to the next call.The iterator function receives two values: *(acc, value)*
 </div>
 
 
@@ -2609,8 +2552,7 @@ The iterator function receives two values: *(acc, value)*
 
             
 
-            <td class="description last">The iterator function. Receives two values, the accumulator and the
-       current element from the array.</td>
+            <td class="description last">The iterator function. Receives two values, the accumulator and the       current element from the array.</td>
         </tr>
 
     
@@ -2762,8 +2704,7 @@ The iterator function receives two values: *(acc, value)*
 
 
 <div class="description">
-    Splits a list into sub-lists stored in an object, based on the result of calling a String-returning function
-on each element, and grouping the results according to values returned.
+    Splits a list into sub-lists stored in an object, based on the result of calling a String-returning functionon each element, and grouping the results according to values returned.
 </div>
 
 
@@ -2909,8 +2850,7 @@ on each element, and grouping the results according to values returned.
 
         
 <div class="param-desc">
-    An object with the output of `f` for keys, mapped to arrays of elements
-        that produced that key when passed to `f`.
+    An object with the output of `f` for keys, mapped to arrays of elements        that produced that key when passed to `f`.
 </div>
 
 
@@ -2948,8 +2888,7 @@ on each element, and grouping the results according to values returned.
 
 
 <div class="description">
-    A function that does nothing but return the parameter supplied to it. Good as a default
-or placeholder function.
+    A function that does nothing but return the parameter supplied to it. Good as a defaultor placeholder function.
 </div>
 
 
@@ -3091,10 +3030,7 @@ or placeholder function.
 
     <h5>Example</h5>
     
-    <pre class="prettyprint"><code>Q.identity(1); //=> 1
-
-     var obj = {};
-     Q.identity(obj) === obj; //=> true</code></pre>
+    <pre class="prettyprint"><code>Q.identity(1); //=> 1     var obj = {};     Q.identity(obj) === obj; //=> true</code></pre>
 
 
 
@@ -3346,8 +3282,7 @@ or placeholder function.
 
 
 <div class="description">
-    Returns a list containing the names of all the enumerable own
-properties of the supplied object.
+    Returns a list containing the names of all the enumerable ownproperties of the supplied object.
 </div>
 
 
@@ -3505,8 +3440,7 @@ properties of the supplied object.
 
 
 <div class="description">
-    Returns a list of numbers from `start` (inclusive) to `end`
-(exclusive) using tep.
+    Returns a list of numbers from `start` (inclusive) to `end`(exclusive) using tep.
 </div>
 
 
@@ -3724,9 +3658,7 @@ properties of the supplied object.
 
     <h5>Example</h5>
     
-    <pre class="prettyprint"><code>Q.lay(5);    //=> [1, 2, 3, 4]
-     Q.lay(53, 50);  //=> [50, 51, 52]
-     Q.lay(4, 8, -1);  //=> [8, 7, 6, 5]</code></pre>
+    <pre class="prettyprint"><code>Q.lay(5);    //=> [1, 2, 3, 4]     Q.lay(53, 50);  //=> [50, 51, 52]     Q.lay(4, 8, -1);  //=> [8, 7, 6, 5]</code></pre>
 
 
 
@@ -3742,8 +3674,7 @@ properties of the supplied object.
 
 
 <div class="description">
-    Returns a new list, constructed by applying the supplied function to every element of the
-supplied list.
+    Returns a new list, constructed by applying the supplied function to every element of thesupplied list.
 </div>
 
 
@@ -3924,10 +3855,7 @@ supplied list.
 
 
 <div class="description">
-    Returns an object containing the same keys as passed object and values that are result of function called
-for each object key value pair
-
-The iterator function receives two values: *(value,key)*
+    Returns an object containing the same keys as passed object and values that are result of function calledfor each object key value pairThe iterator function receives two values: *(value,key)*
 </div>
 
 
@@ -3979,8 +3907,7 @@ The iterator function receives two values: *(value,key)*
 
             
 
-            <td class="description last">The iterator function. Receives three values, the accumulator,
- the object value for the current key, and the current key</td>
+            <td class="description last">The iterator function. Receives three values, the accumulator, the object value for the current key, and the current key</td>
         </tr>
 
     
@@ -4093,8 +4020,7 @@ The iterator function receives two values: *(value,key)*
 
     <h5>Example</h5>
     
-    <pre class="prettyprint"><code>Q.mapValues(function(num) { return num * 3; },{ 'a': 1, 'b': 2, 'c': 3}) => { 'a': 3, 'b': 6, 'c': 9 }
-  Q.mapValues('age',characters) => { 'fred': 40, 'pebbles': 1 }</code></pre>
+    <pre class="prettyprint"><code>Q.mapValues(function(num) { return num * 3; },{ 'a': 1, 'b': 2, 'c': 3}) => { 'a': 3, 'b': 6, 'c': 9 }  Q.mapValues('age',characters) => { 'fred': 40, 'pebbles': 1 }</code></pre>
 
 
 
@@ -4285,9 +4211,7 @@ The iterator function receives two values: *(value,key)*
 
     <h5>Example</h5>
     
-    <pre class="prettyprint"><code>function cmp(obj) { return obj.x; }
-     var a = {x: 1}, b = {x: 2}, c = {x: 3};
-     Q.max(cmp, [a, b, c]); //=> {x: 3}</code></pre>
+    <pre class="prettyprint"><code>function cmp(obj) { return obj.x; }     var a = {x: 1}, b = {x: 2}, c = {x: 3};     Q.max(cmp, [a, b, c]); //=> {x: 3}</code></pre>
 
 
 
@@ -4478,9 +4402,7 @@ The iterator function receives two values: *(value,key)*
 
     <h5>Example</h5>
     
-    <pre class="prettyprint"><code>function cmp(obj) { return obj.x; }
-     var a = {x: 1}, b = {x: 2}, c = {x: 3};
-     Q.min(cmp, [a, b, c]); //=> {x: 1}</code></pre>
+    <pre class="prettyprint"><code>function cmp(obj) { return obj.x; }     var a = {x: 1}, b = {x: 2}, c = {x: 3};     Q.min(cmp, [a, b, c]); //=> {x: 1}</code></pre>
 
 
 
@@ -4496,9 +4418,7 @@ The iterator function receives two values: *(value,key)*
 
 
 <div class="description">
-    Create a new object with the own properties of a
-merged with the own properties of object b.
-This function will *not* mutate passed-in objects.
+    Create a new object with the own properties of amerged with the own properties of object b.This function will *not* mutate passed-in objects.
 </div>
 
 
@@ -4663,8 +4583,7 @@ This function will *not* mutate passed-in objects.
 
     <h5>Example</h5>
     
-    <pre class="prettyprint"><code>Q.mixin({ 'name': 'fred', 'age': 10 }, { 'age': 40 });
-     //=> { 'name': 'fred', 'age': 40 }</code></pre>
+    <pre class="prettyprint"><code>Q.mixin({ 'name': 'fred', 'age': 10 }, { 'age': 40 });     //=> { 'name': 'fred', 'age': 40 }</code></pre>
 
 
 
@@ -4680,9 +4599,7 @@ This function will *not* mutate passed-in objects.
 
 
 <div class="description">
-    Divides the second parameter by the first and returns the remainder.
-Note that this functions preserves the JavaScript-style behavior for
-modulo. For mathematical modulo see `mathMod`
+    Divides the second parameter by the first and returns the remainder.Note that this functions preserves the JavaScript-style behavior formodulo. For mathematical modulo see `mathMod`
 </div>
 
 
@@ -4847,14 +4764,7 @@ modulo. For mathematical modulo see `mathMod`
 
     <h5>Example</h5>
     
-    <pre class="prettyprint"><code>Q.modulo(3,17); //=> 2
-     // JS behavior:
-     Q.modulo(3,-17); //=> -2
-     Q.modulo(17, -3); //=> 2
-
-     var isOdd = Q.modulo(2);
-     isOdd(42); //=> 0
-     isOdd(21); //=> 1</code></pre>
+    <pre class="prettyprint"><code>Q.modulo(3,17); //=> 2     // JS behavior:     Q.modulo(3,-17); //=> -2     Q.modulo(17, -3); //=> 2     var isOdd = Q.modulo(2);     isOdd(42); //=> 0     isOdd(21); //=> 1</code></pre>
 
 
 
@@ -5012,8 +4922,7 @@ modulo. For mathematical modulo see `mathMod`
 
     <h5>Example</h5>
     
-    <pre class="prettyprint"><code>Q.mold({a:1})({a:1,b:1}; //=> true
-     Q.mold({a:4})({a:1,b:1}; //=> false</code></pre>
+    <pre class="prettyprint"><code>Q.mold({a:1})({a:1,b:1}; //=> true     Q.mold({a:4})({a:1,b:1}; //=> false</code></pre>
 
 
 
@@ -5194,11 +5103,7 @@ modulo. For mathematical modulo see `mathMod`
 
     <h5>Example</h5>
     
-    <pre class="prettyprint"><code>var double = Q.multiply(2);
-     var triple = Q.multiply(3);
-     double(3);       //=>  6
-     triple(4);       //=> 12
-     Q.multiply(2, 5);  //=> 10</code></pre>
+    <pre class="prettyprint"><code>var double = Q.multiply(2);     var triple = Q.multiply(3);     double(3);       //=>  6     triple(4);       //=> 12     Q.multiply(2, 5);  //=> 10</code></pre>
 
 
 
@@ -5395,8 +5300,7 @@ modulo. For mathematical modulo see `mathMod`
 
 
 <div class="description">
-    Returns a partial copy of an object containing only the keys specified.  If the key does not exist, the
-property is ignored.
+    Returns a partial copy of an object containing only the keys specified.  If the key does not exist, theproperty is ignored.
 </div>
 
 
@@ -5561,8 +5465,7 @@ property is ignored.
 
     <h5>Example</h5>
     
-    <pre class="prettyprint"><code>Q.pick(['a', 'd'], {a: 1, b: 2, c: 3, d: 4}); //=> {a: 1, d: 4}
-     Q.pick(['a', 'e', 'f'], {a: 1, b: 2, c: 3, d: 4}); //=> {a: 1}</code></pre>
+    <pre class="prettyprint"><code>Q.pick(['a', 'd'], {a: 1, b: 2, c: 3, d: 4}); //=> {a: 1, d: 4}     Q.pick(['a', 'e', 'f'], {a: 1, b: 2, c: 3, d: 4}); //=> {a: 1}</code></pre>
 
 
 
@@ -5746,8 +5649,7 @@ property is ignored.
 
     <h5>Example</h5>
     
-    <pre class="prettyprint"><code>Q.pluck('a',[{a: 1}, {a: 2}]); //=> [1, 2]
-    Q.pluck(0,[[1, 2], [3, 4]]);   //=> [1, 3]</code></pre>
+    <pre class="prettyprint"><code>Q.pluck('a',[{a: 1}, {a: 2}]); //=> [1, 2]    Q.pluck(0,[[1, 2], [3, 4]]);   //=> [1, 3]</code></pre>
 
 
 
@@ -5928,9 +5830,7 @@ property is ignored.
 
     <h5>Example</h5>
     
-    <pre class="prettyprint"><code>Q.quotient(100,71); //=> 0.71
-
-     Q.map(Q.quotient(16),[1,2,4,8,16]) //=> [16,8,4,2,1]</code></pre>
+    <pre class="prettyprint"><code>Q.quotient(100,71); //=> 0.71     Q.map(Q.quotient(16),[1,2,4,8,16]) //=> [16,8,4,2,1]</code></pre>
 
 
 
@@ -5946,8 +5846,7 @@ property is ignored.
 
 
 <div class="description">
-    Returns a list of numbers from `from` (inclusive) to `to`
-(exclusive).
+    Returns a list of numbers from `from` (inclusive) to `to`(exclusive).
 </div>
 
 
@@ -6112,8 +6011,7 @@ property is ignored.
 
     <h5>Example</h5>
     
-    <pre class="prettyprint"><code>Q.range(1, 5);    //=> [1, 2, 3, 4]
-     Q.range(50, 53);  //=> [50, 51, 52]</code></pre>
+    <pre class="prettyprint"><code>Q.range(1, 5);    //=> [1, 2, 3, 4]     Q.range(50, 53);  //=> [50, 51, 52]</code></pre>
 
 
 
@@ -6297,13 +6195,7 @@ property is ignored.
 
     <h5>Example</h5>
     
-    <pre class="prettyprint"><code>var entries = [{ name: 'ALICE', age: 101 }, {name: 'Bob',age: -400},{name: 'clara',age: 314.159}];
-Q.sort(function(d){ return Math.abs(d.age);},entries)
-=> [{"name":"ALICE","age":101},{"name":"clara","age":314.159},{"name":"Bob","age":-400}]
- Q.sort("age", [{ name: 'ALICE', age: 101 }, {name: 'Bob',age: -400},{name: 'clara',age: 314.159}])
-=> [{"name":"Bob","age":-400},{"name":"ALICE","age":101},{"name":"clara","age":314.159}]
- Q.sort("-age", [{ name: 'ALICE', age: 101 }, {name: 'Bob',age: -400},{name: 'clara',age: 314.159}])
-=>[{"name":"clara","age":314.159},{"name":"ALICE","age":101},{"name":"Bob","age":-400}]</code></pre>
+    <pre class="prettyprint"><code>var entries = [{ name: 'ALICE', age: 101 }, {name: 'Bob',age: -400},{name: 'clara',age: 314.159}];Q.sort(function(d){ return Math.abs(d.age);},entries)=> [{"name":"ALICE","age":101},{"name":"clara","age":314.159},{"name":"Bob","age":-400}] Q.sort("age", [{ name: 'ALICE', age: 101 }, {name: 'Bob',age: -400},{name: 'clara',age: 314.159}])=> [{"name":"Bob","age":-400},{"name":"ALICE","age":101},{"name":"clara","age":314.159}] Q.sort("-age", [{ name: 'ALICE', age: 101 }, {name: 'Bob',age: -400},{name: 'clara',age: 314.159}])=>[{"name":"clara","age":314.159},{"name":"ALICE","age":101},{"name":"Bob","age":-400}]</code></pre>
 
 
 
@@ -6484,8 +6376,7 @@ Q.sort(function(d){ return Math.abs(d.age);},entries)
 
     <h5>Example</h5>
     
-    <pre class="prettyprint"><code>Q.subtract(10, 8); //=> 2
-     Q.map(Q.subtract(10), [1,2,3]); //=> [9,8,7]</code></pre>
+    <pre class="prettyprint"><code>Q.subtract(10, 8); //=> 2     Q.map(Q.subtract(10), [1,2,3]); //=> [9,8,7]</code></pre>
 
 
 
@@ -6501,11 +6392,7 @@ Q.sort(function(d){ return Math.abs(d.age);},entries)
 
 
 <div class="description">
-    Returns a single item by iterating through the obj, successively calling the iterator
-function and passing it an accumulator value, the object value for the current key, and the current key
-then passing the result to the next call.
-
-The iterator function receives two values: *(acc, value)*
+    Returns a single item by iterating through the obj, successively calling the iteratorfunction and passing it an accumulator value, the object value for the current key, and the current keythen passing the result to the next call.The iterator function receives two values: *(acc, value)*
 </div>
 
 
@@ -6557,8 +6444,7 @@ The iterator function receives two values: *(acc, value)*
 
             
 
-            <td class="description last">The iterator function. Receives three values, the accumulator,
- the object value for the current key, and the current key</td>
+            <td class="description last">The iterator function. Receives three values, the accumulator, the object value for the current key, and the current key</td>
         </tr>
 
     
@@ -6694,8 +6580,7 @@ The iterator function receives two values: *(acc, value)*
 
     <h5>Example</h5>
     
-    <pre class="prettyprint"><code>Q.taper(function(acc, val) { return acc+ val; }, 10,  {a: 2, b : 4}); //=> 16
- Q.taper(function(acc, val,key){return acc.concat( val,key);},[1,"e"], {a: 2, b : 4});//=>[[1,"e", 2,"a",4,"b"]</code></pre>
+    <pre class="prettyprint"><code>Q.taper(function(acc, val) { return acc+ val; }, 10,  {a: 2, b : 4}); //=> 16 Q.taper(function(acc, val,key){return acc.concat( val,key);},[1,"e"], {a: 2, b : 4});//=>[[1,"e", 2,"a",4,"b"]</code></pre>
 
 
 
@@ -6711,9 +6596,7 @@ The iterator function receives two values: *(acc, value)*
 
 
 <div class="description">
-    Returns a new list containing only one copy of each element in the original list.
-Equality is strict here, meaning reference equality for objects and non-coercing equality
-for primitives.
+    Returns a new list containing only one copy of each element in the original list.Equality is strict here, meaning reference equality for objects and non-coercing equalityfor primitives.
 </div>
 
 
@@ -6855,9 +6738,7 @@ for primitives.
 
     <h5>Example</h5>
     
-    <pre class="prettyprint"><code>Q.unique([1, 1, 2, 1]); //=> [1, 2]
-     Q.unique([{}, {}]);     //=> [{}, {}]
-     Q.unique([1, '1']);     //=> [1, '1']</code></pre>
+    <pre class="prettyprint"><code>Q.unique([1, 1, 2, 1]); //=> [1, 2]     Q.unique([{}, {}]);     //=> [{}, {}]     Q.unique([1, '1']);     //=> [1, '1']</code></pre>
 
 
 
@@ -6883,7 +6764,7 @@ for primitives.
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.0-dev</a> on Sun Jan 25 2015 20:39:18 GMT+0100 (CET)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.3.0-beta1</a> on Mon Jan 26 2015 10:09:11 GMT+0100 (Central European Standard Time)
 </footer>
 
 <script> prettyPrint(); </script>

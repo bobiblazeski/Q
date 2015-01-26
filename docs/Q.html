@@ -74,7 +74,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="q.js.html">q.js</a>, <a href="q.js.html#line14">line 14</a>
+        <a href="q.js.html">q.js</a>, <a href="q.js.html#line15">line 15</a>
     </li></ul></dd>
     
 
@@ -233,7 +233,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="q.js.html">q.js</a>, <a href="q.js.html#line631">line 631</a>
+        <a href="q.js.html">q.js</a>, <a href="q.js.html#line542">line 542</a>
     </li></ul></dd>
     
 
@@ -420,7 +420,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="q.js.html">q.js</a>, <a href="q.js.html#line935">line 935</a>
+        <a href="q.js.html">q.js</a>, <a href="q.js.html#line723">line 723</a>
     </li></ul></dd>
     
 
@@ -472,7 +472,10 @@
 
     <h5>Example</h5>
     
-    <pre class="prettyprint"><code>var increment = Q.add(1);     increment(10);   //=> 11     Q.add(2, 3);       //=>  5     Q.add(7)(10);      //=> 17</code></pre>
+    <pre class="prettyprint"><code>var increment = Q.add(1);
+     increment(10);   //=> 11
+     Q.add(2, 3);       //=>  5
+     Q.add(7)(10);      //=> 17</code></pre>
 
 
 
@@ -488,7 +491,8 @@
 
 
 <div class="description">
-    Amend left list object with keys from right list objectsjoining by key
+    Amend left list object with keys from right list objects
+joining by key
 </div>
 
 
@@ -650,7 +654,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="q.js.html">q.js</a>, <a href="q.js.html#line233">line 233</a>
+        <a href="q.js.html">q.js</a>, <a href="q.js.html#line1111">line 1111</a>
     </li></ul></dd>
     
 
@@ -699,7 +703,9 @@
 
     <h5>Example</h5>
     
-    <pre class="prettyprint"><code>var left = [{ id:1, b:2},{ id:2, b:2}];        var right =[{ id:1, d:4},{ id:2, d:5}];        Q.amend(left,right,'id') => [{"id":1,"b":2,"d":4},{"id":2,"b":2,"d":5}]</code></pre>
+    <pre class="prettyprint"><code>var left = [{ id:1, b:2},{ id:2, b:2}];
+        var right =[{ id:1, d:4},{ id:2, d:5}];
+        Q.amend(left,right,'id') => [{"id":1,"b":2,"d":4},{"id":2,"b":2,"d":5}]</code></pre>
 
 
 
@@ -715,7 +721,9 @@
 
 
 <div class="description">
-    Wraps a function of any arity (including nullary) in a function that accepts exactly `n`parameters. Unlike `nAry`, which passes only `n` arguments to the wrapped function,functions produced by `arity` will pass all provided arguments to the wrapped function.
+    Wraps a function of any arity (including nullary) in a function that accepts exactly `n`
+parameters. Unlike `nAry`, which passes only `n` arguments to the wrapped function,
+functions produced by `arity` will pass all provided arguments to the wrapped function.
 </div>
 
 
@@ -831,7 +839,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="q.js.html">q.js</a>, <a href="q.js.html#line865">line 865</a>
+        <a href="q.js.html">q.js</a>, <a href="q.js.html#line260">line 260</a>
     </li></ul></dd>
     
 
@@ -858,7 +866,8 @@
 
         
 <div class="param-desc">
-    A new function wrapping `fn`. The new function is        guaranteed to be of arity `n`.
+    A new function wrapping `fn`. The new function is
+        guaranteed to be of arity `n`.
 </div>
 
 
@@ -880,7 +889,16 @@
 
     <h5>Example</h5>
     
-    <pre class="prettyprint"><code>var takesTwoArgs = function(a, b) {       return [a, b];     };     takesTwoArgs.length; //=> 2     takesTwoArgs(1, 2); //=> [1, 2]     var takesOneArg = R.arity(1, takesTwoArgs);     takesOneArg.length; //=> 1     // All arguments are passed through to the wrapped function     takesOneArg(1, 2); //=> [1, 2]</code></pre>
+    <pre class="prettyprint"><code>var takesTwoArgs = function(a, b) {
+       return [a, b];
+     };
+     takesTwoArgs.length; //=> 2
+     takesTwoArgs(1, 2); //=> [1, 2]
+
+     var takesOneArg = R.arity(1, takesTwoArgs);
+     takesOneArg.length; //=> 1
+     // All arguments are passed through to the wrapped function
+     takesOneArg(1, 2); //=> [1, 2]</code></pre>
 
 
 
@@ -1015,7 +1033,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="q.js.html">q.js</a>, <a href="q.js.html#line475">line 475</a>
+        <a href="q.js.html">q.js</a>, <a href="q.js.html#line469">line 469</a>
     </li></ul></dd>
     
 
@@ -1080,7 +1098,14 @@
 
 
 <div class="description">
-    Creates a new function that runs each of the functions supplied as parameters in turn,passing the return value of each function invocation to the next function invocation,beginning with whatever arguments were passed to the initial invocation.Note that `compose` is a right-associative function, which means the functions providedwill be invoked in order from right to left. In the example `var h = compose(f, g)`,the function `h` is equivalent to `f( g(x) )`, where `x` represents the argumentsoriginally passed to `h`.
+    Creates a new function that runs each of the functions supplied as parameters in turn,
+passing the return value of each function invocation to the next function invocation,
+beginning with whatever arguments were passed to the initial invocation.
+
+Note that `compose` is a right-associative function, which means the functions provided
+will be invoked in order from right to left. In the example `var h = compose(f, g)`,
+the function `h` is equivalent to `f( g(x) )`, where `x` represents the arguments
+originally passed to `h`.
 </div>
 
 
@@ -1185,7 +1210,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="q.js.html">q.js</a>, <a href="q.js.html#line837">line 837</a>
+        <a href="q.js.html">q.js</a>, <a href="q.js.html#line232">line 232</a>
     </li></ul></dd>
     
 
@@ -1212,7 +1237,9 @@
 
         
 <div class="param-desc">
-    A new function which represents the result of calling each of the        input `functions`, passing the result of each function call to the next, from        right to left.
+    A new function which represents the result of calling each of the
+        input `functions`, passing the result of each function call to the next, from
+        right to left.
 </div>
 
 
@@ -1234,7 +1261,13 @@
 
     <h5>Example</h5>
     
-    <pre class="prettyprint"><code>var triple = function(x) { return x * 3; };     var double = function(x) { return x * 2; };     var square = function(x) { return x * x; };     var squareThenDoubleThenTriple = R.compose(triple, double, square);     //≅ triple(double(square(5)))     squareThenDoubleThenTriple(5); //=> 150</code></pre>
+    <pre class="prettyprint"><code>var triple = function(x) { return x * 3; };
+     var double = function(x) { return x * 2; };
+     var square = function(x) { return x * x; };
+     var squareThenDoubleThenTriple = R.compose(triple, double, square);
+
+     //≅ triple(double(square(5)))
+     squareThenDoubleThenTriple(5); //=> 150</code></pre>
 
 
 
@@ -1250,7 +1283,8 @@
 
 
 <div class="description">
-    Returns a function that when supplied with arguments returns object created by given keys.Returned function sets filed where it lacks arguments to undefined, ignores surplus arguments.
+    Returns a function that when supplied with arguments returns object created by given keys.
+Returned function sets filed where it lacks arguments to undefined, ignores surplus arguments.
 </div>
 
 
@@ -1343,7 +1377,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="q.js.html">q.js</a>, <a href="q.js.html#line1082">line 1082</a>
+        <a href="q.js.html">q.js</a>, <a href="q.js.html#line1083">line 1083</a>
     </li></ul></dd>
     
 
@@ -1392,7 +1426,8 @@
 
     <h5>Example</h5>
     
-    <pre class="prettyprint"><code>var trend = Q.construct(["year", "amount", "name"]);     trend(1937,100, 'foo') => { year:1937, amount: 100, name: 'foo'}</code></pre>
+    <pre class="prettyprint"><code>var trend = Q.construct(["year", "amount", "name"]);
+     trend(1937,100, 'foo') => { year:1937, amount: 100, name: 'foo'}</code></pre>
 
 
 
@@ -1524,7 +1559,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="q.js.html">q.js</a>, <a href="q.js.html#line651">line 651</a>
+        <a href="q.js.html">q.js</a>, <a href="q.js.html#line562">line 562</a>
     </li></ul></dd>
     
 
@@ -1705,7 +1740,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="q.js.html">q.js</a>, <a href="q.js.html#line998">line 998</a>
+        <a href="q.js.html">q.js</a>, <a href="q.js.html#line788">line 788</a>
     </li></ul></dd>
     
 
@@ -1754,7 +1789,8 @@
 
     <h5>Example</h5>
     
-    <pre class="prettyprint"><code>Q.difference( 8,10); //=> -2     Q.map(Q.difference(10), [10,20,30]); //=> [0,10,20]</code></pre>
+    <pre class="prettyprint"><code>Q.difference( 8,10); //=> -2
+     Q.map(Q.difference(10), [10,20,30]); //=> [0,10,20]</code></pre>
 
 
 
@@ -1886,7 +1922,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="q.js.html">q.js</a>, <a href="q.js.html#line1019">line 1019</a>
+        <a href="q.js.html">q.js</a>, <a href="q.js.html#line811">line 811</a>
     </li></ul></dd>
     
 
@@ -1935,7 +1971,10 @@
 
     <h5>Example</h5>
     
-    <pre class="prettyprint"><code>Q.divide(100,71); //=> 0.71     var half = Q.divide(2);     half(42); //=> 21</code></pre>
+    <pre class="prettyprint"><code>Q.divide(100,71); //=> 0.71
+
+     var half = Q.divide(2);
+     half(42); //=> 21</code></pre>
 
 
 
@@ -2067,7 +2106,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="q.js.html">q.js</a>, <a href="q.js.html#line353">line 353</a>
+        <a href="q.js.html">q.js</a>, <a href="q.js.html#line905">line 905</a>
     </li></ul></dd>
     
 
@@ -2116,7 +2155,12 @@
 
     <h5>Example</h5>
     
-    <pre class="prettyprint"><code>Q.prop('x', {x: 100}); //=> 100     Q.prop('x', {}); //=> undefined     var fifth = Q.prop(4); // indexed from 0, remember     fifth(['Bashful', 'Doc', 'Dopey', 'Grumpy', 'Happy', 'Sleepy', 'Sneezy']);     //=> 'Happy'</code></pre>
+    <pre class="prettyprint"><code>Q.prop('x', {x: 100}); //=> 100
+     Q.prop('x', {}); //=> undefined
+
+     var fifth = Q.prop(4); // indexed from 0, remember
+     fifth(['Bashful', 'Doc', 'Dopey', 'Grumpy', 'Happy', 'Sleepy', 'Sneezy']);
+     //=> 'Happy'</code></pre>
 
 
 
@@ -2132,7 +2176,8 @@
 
 
 <div class="description">
-    Returns a new list containing only those items that match a given predicate function.The predicate function is passed one argument: *(value)*.
+    Returns a new list containing only those items that match a given predicate function.
+The predicate function is passed one argument: *(value)*.
 </div>
 
 
@@ -2251,7 +2296,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="q.js.html">q.js</a>, <a href="q.js.html#line260">line 260</a>
+        <a href="q.js.html">q.js</a>, <a href="q.js.html#line426">line 426</a>
     </li></ul></dd>
     
 
@@ -2300,7 +2345,10 @@
 
     <h5>Example</h5>
     
-    <pre class="prettyprint"><code>var isEven = function(n) {       return n % 2 === 0;     };     Q.filter(isEven, [1, 2, 3, 4]); //=> [2, 4]</code></pre>
+    <pre class="prettyprint"><code>var isEven = function(n) {
+       return n % 2 === 0;
+     };
+     Q.filter(isEven, [1, 2, 3, 4]); //=> [2, 4]</code></pre>
 
 
 
@@ -2316,7 +2364,8 @@
 
 
 <div class="description">
-    Returns the first element of the list which matches the predicate, or `undefined` if noelement matches.
+    Returns the first element of the list which matches the predicate, or `undefined` if no
+element matches.
 </div>
 
 
@@ -2371,7 +2420,8 @@
 
             
 
-            <td class="description last">The predicate function used to determine if the element is the       desired one. Or specification object</td>
+            <td class="description last">The predicate function used to determine if the element is the
+       desired one. Or specification object</td>
         </tr>
 
     
@@ -2435,7 +2485,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="q.js.html">q.js</a>, <a href="q.js.html#line183">line 183</a>
+        <a href="q.js.html">q.js</a>, <a href="q.js.html#line398">line 398</a>
     </li></ul></dd>
     
 
@@ -2484,7 +2534,10 @@
 
     <h5>Example</h5>
     
-    <pre class="prettyprint"><code>var xs = [{a: 1}, {a: 2}, {a: 3}];     Q.find(function(d){ return d.a == 2;}, xs); //=> {a: 2}     Q.find({ a : 2}, xs); //=> {a: 2}     Q.find({a: 4},(xs); //=> undefined</code></pre>
+    <pre class="prettyprint"><code>var xs = [{a: 1}, {a: 2}, {a: 3}];
+     Q.find(function(d){ return d.a == 2;}, xs); //=> {a: 2}
+     Q.find({ a : 2}, xs); //=> {a: 2}
+     Q.find({a: 4},(xs); //=> undefined</code></pre>
 
 
 
@@ -2500,7 +2553,11 @@
 
 
 <div class="description">
-    Returns a single item by iterating through the list, successively calling the iteratorfunction and passing it an accumulator value and the current value from the array, andthen passing the result to the next call.The iterator function receives two values: *(acc, value)*
+    Returns a single item by iterating through the list, successively calling the iterator
+function and passing it an accumulator value and the current value from the array, and
+then passing the result to the next call.
+
+The iterator function receives two values: *(acc, value)*
 </div>
 
 
@@ -2552,7 +2609,8 @@
 
             
 
-            <td class="description last">The iterator function. Receives two values, the accumulator and the       current element from the array.</td>
+            <td class="description last">The iterator function. Receives two values, the accumulator and the
+       current element from the array.</td>
         </tr>
 
     
@@ -2639,7 +2697,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="q.js.html">q.js</a>, <a href="q.js.html#line611">line 611</a>
+        <a href="q.js.html">q.js</a>, <a href="q.js.html#line521">line 521</a>
     </li></ul></dd>
     
 
@@ -2704,7 +2762,8 @@
 
 
 <div class="description">
-    Splits a list into sub-lists stored in an object, based on the result of calling a String-returning functionon each element, and grouping the results according to values returned.
+    Splits a list into sub-lists stored in an object, based on the result of calling a String-returning function
+on each element, and grouping the results according to values returned.
 </div>
 
 
@@ -2823,7 +2882,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="q.js.html">q.js</a>, <a href="q.js.html#line399">line 399</a>
+        <a href="q.js.html">q.js</a>, <a href="q.js.html#line1136">line 1136</a>
     </li></ul></dd>
     
 
@@ -2850,7 +2909,8 @@
 
         
 <div class="param-desc">
-    An object with the output of `f` for keys, mapped to arrays of elements        that produced that key when passed to `f`.
+    An object with the output of `f` for keys, mapped to arrays of elements
+        that produced that key when passed to `f`.
 </div>
 
 
@@ -2888,7 +2948,8 @@
 
 
 <div class="description">
-    A function that does nothing but return the parameter supplied to it. Good as a defaultor placeholder function.
+    A function that does nothing but return the parameter supplied to it. Good as a default
+or placeholder function.
 </div>
 
 
@@ -2981,7 +3042,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="q.js.html">q.js</a>, <a href="q.js.html#line379">line 379</a>
+        <a href="q.js.html">q.js</a>, <a href="q.js.html#line175">line 175</a>
     </li></ul></dd>
     
 
@@ -3030,7 +3091,10 @@
 
     <h5>Example</h5>
     
-    <pre class="prettyprint"><code>Q.identity(1); //=> 1     var obj = {};     Q.identity(obj) === obj; //=> true</code></pre>
+    <pre class="prettyprint"><code>Q.identity(1); //=> 1
+
+     var obj = {};
+     Q.identity(obj) === obj; //=> true</code></pre>
 
 
 
@@ -3217,7 +3281,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="q.js.html">q.js</a>, <a href="q.js.html#line1127">line 1127</a>
+        <a href="q.js.html">q.js</a>, <a href="q.js.html#line1219">line 1219</a>
     </li></ul></dd>
     
 
@@ -3282,7 +3346,8 @@
 
 
 <div class="description">
-    Returns a list containing the names of all the enumerable ownproperties of the supplied object.
+    Returns a list containing the names of all the enumerable own
+properties of the supplied object.
 </div>
 
 
@@ -3375,7 +3440,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="q.js.html">q.js</a>, <a href="q.js.html#line784">line 784</a>
+        <a href="q.js.html">q.js</a>, <a href="q.js.html#line1064">line 1064</a>
     </li></ul></dd>
     
 
@@ -3440,7 +3505,8 @@
 
 
 <div class="description">
-    Returns a list of numbers from `start` (inclusive) to `end`(exclusive) using tep.
+    Returns a list of numbers from `start` (inclusive) to `end`
+(exclusive) using tep.
 </div>
 
 
@@ -3609,7 +3675,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="q.js.html">q.js</a>, <a href="q.js.html#line151">line 151</a>
+        <a href="q.js.html">q.js</a>, <a href="q.js.html#line365">line 365</a>
     </li></ul></dd>
     
 
@@ -3658,7 +3724,9 @@
 
     <h5>Example</h5>
     
-    <pre class="prettyprint"><code>Q.lay(5);    //=> [1, 2, 3, 4]     Q.lay(53, 50);  //=> [50, 51, 52]     Q.lay(4, 8, -1);  //=> [8, 7, 6, 5]</code></pre>
+    <pre class="prettyprint"><code>Q.lay(5);    //=> [1, 2, 3, 4]
+     Q.lay(53, 50);  //=> [50, 51, 52]
+     Q.lay(4, 8, -1);  //=> [8, 7, 6, 5]</code></pre>
 
 
 
@@ -3674,7 +3742,8 @@
 
 
 <div class="description">
-    Returns a new list, constructed by applying the supplied function to every element of thesupplied list.
+    Returns a new list, constructed by applying the supplied function to every element of the
+supplied list.
 </div>
 
 
@@ -3790,7 +3859,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="q.js.html">q.js</a>, <a href="q.js.html#line497">line 497</a>
+        <a href="q.js.html">q.js</a>, <a href="q.js.html#line492">line 492</a>
     </li></ul></dd>
     
 
@@ -3855,7 +3924,10 @@
 
 
 <div class="description">
-    Returns an object containing the same keys as passed object and values that are result of function calledfor each object key value pairThe iterator function receives two values: *(value,key)*
+    Returns an object containing the same keys as passed object and values that are result of function called
+for each object key value pair
+
+The iterator function receives two values: *(value,key)*
 </div>
 
 
@@ -3907,7 +3979,8 @@
 
             
 
-            <td class="description last">The iterator function. Receives three values, the accumulator, the object value for the current key, and the current key</td>
+            <td class="description last">The iterator function. Receives three values, the accumulator,
+ the object value for the current key, and the current key</td>
         </tr>
 
     
@@ -3971,7 +4044,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="q.js.html">q.js</a>, <a href="q.js.html#line555">line 555</a>
+        <a href="q.js.html">q.js</a>, <a href="q.js.html#line962">line 962</a>
     </li></ul></dd>
     
 
@@ -4020,7 +4093,8 @@
 
     <h5>Example</h5>
     
-    <pre class="prettyprint"><code>Q.mapValues(function(num) { return num * 3; },{ 'a': 1, 'b': 2, 'c': 3}) => { 'a': 3, 'b': 6, 'c': 9 }  Q.mapValues('age',characters) => { 'fred': 40, 'pebbles': 1 }</code></pre>
+    <pre class="prettyprint"><code>Q.mapValues(function(num) { return num * 3; },{ 'a': 1, 'b': 2, 'c': 3}) => { 'a': 3, 'b': 6, 'c': 9 }
+  Q.mapValues('age',characters) => { 'fred': 40, 'pebbles': 1 }</code></pre>
 
 
 
@@ -4155,7 +4229,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="q.js.html">q.js</a>, <a href="q.js.html#line319">line 319</a>
+        <a href="q.js.html">q.js</a>, <a href="q.js.html#line682">line 682</a>
     </li></ul></dd>
     
 
@@ -4211,7 +4285,9 @@
 
     <h5>Example</h5>
     
-    <pre class="prettyprint"><code>function cmp(obj) { return obj.x; }     var a = {x: 1}, b = {x: 2}, c = {x: 3};     Q.max(cmp, [a, b, c]); //=> {x: 3}</code></pre>
+    <pre class="prettyprint"><code>function cmp(obj) { return obj.x; }
+     var a = {x: 1}, b = {x: 2}, c = {x: 3};
+     Q.max(cmp, [a, b, c]); //=> {x: 3}</code></pre>
 
 
 
@@ -4346,7 +4422,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="q.js.html">q.js</a>, <a href="q.js.html#line288">line 288</a>
+        <a href="q.js.html">q.js</a>, <a href="q.js.html#line651">line 651</a>
     </li></ul></dd>
     
 
@@ -4402,7 +4478,9 @@
 
     <h5>Example</h5>
     
-    <pre class="prettyprint"><code>function cmp(obj) { return obj.x; }     var a = {x: 1}, b = {x: 2}, c = {x: 3};     Q.min(cmp, [a, b, c]); //=> {x: 1}</code></pre>
+    <pre class="prettyprint"><code>function cmp(obj) { return obj.x; }
+     var a = {x: 1}, b = {x: 2}, c = {x: 3};
+     Q.min(cmp, [a, b, c]); //=> {x: 1}</code></pre>
 
 
 
@@ -4418,7 +4496,9 @@
 
 
 <div class="description">
-    Create a new object with the own properties of amerged with the own properties of object b.This function will *not* mutate passed-in objects.
+    Create a new object with the own properties of a
+merged with the own properties of object b.
+This function will *not* mutate passed-in objects.
 </div>
 
 
@@ -4534,7 +4614,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="q.js.html">q.js</a>, <a href="q.js.html#line580">line 580</a>
+        <a href="q.js.html">q.js</a>, <a href="q.js.html#line987">line 987</a>
     </li></ul></dd>
     
 
@@ -4583,7 +4663,8 @@
 
     <h5>Example</h5>
     
-    <pre class="prettyprint"><code>Q.mixin({ 'name': 'fred', 'age': 10 }, { 'age': 40 });     //=> { 'name': 'fred', 'age': 40 }</code></pre>
+    <pre class="prettyprint"><code>Q.mixin({ 'name': 'fred', 'age': 10 }, { 'age': 40 });
+     //=> { 'name': 'fred', 'age': 40 }</code></pre>
 
 
 
@@ -4592,14 +4673,16 @@
 
     
 
-    <h4 class="name" id=".modulo"><span class="type-signature">(static) </span>modulo<span class="signature">(divisor, dividend)</span><span class="type-signature"> &rarr; {Number}</span></h4>
+    <h4 class="name" id=".modulo"><span class="type-signature">(static) </span>modulo<span class="signature">(dividend, divisor)</span><span class="type-signature"> &rarr; {Number}</span></h4>
 
     
 
 
 
 <div class="description">
-    Divides the second parameter by the first and returns the remainder.Note that this functions preserves the JavaScript-style behavior formodulo. For mathematical modulo see `mathMod`
+    Divides the second parameter by the first and returns the remainder.
+Note that this functions preserves the JavaScript-style behavior for
+modulo. For mathematical modulo see `mathMod`
 </div>
 
 
@@ -4635,29 +4718,6 @@
 
         <tr>
             
-                <td class="name"><code>divisor</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Number</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">The pseudo-modulus</td>
-        </tr>
-
-    
-
-        <tr>
-            
                 <td class="name"><code>dividend</code></td>
             
 
@@ -4675,6 +4735,29 @@
             
 
             <td class="description last">The value to the divide.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>divisor</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The pseudo-modulus</td>
         </tr>
 
     
@@ -4715,7 +4798,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="q.js.html">q.js</a>, <a href="q.js.html#line1065">line 1065</a>
+        <a href="q.js.html">q.js</a>, <a href="q.js.html#line855">line 855</a>
     </li></ul></dd>
     
 
@@ -4764,7 +4847,7 @@
 
     <h5>Example</h5>
     
-    <pre class="prettyprint"><code>Q.modulo(3,17); //=> 2     // JS behavior:     Q.modulo(3,-17); //=> -2     Q.modulo(17, -3); //=> 2     var isOdd = Q.modulo(2);     isOdd(42); //=> 0     isOdd(21); //=> 1</code></pre>
+    <pre class="prettyprint"><code>Q.modulo(17,3); //=> 2</code></pre>
 
 
 
@@ -4873,7 +4956,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="q.js.html">q.js</a>, <a href="q.js.html#line206">line 206</a>
+        <a href="q.js.html">q.js</a>, <a href="q.js.html#line148">line 148</a>
     </li></ul></dd>
     
 
@@ -4922,7 +5005,8 @@
 
     <h5>Example</h5>
     
-    <pre class="prettyprint"><code>Q.mold({a:1})({a:1,b:1}; //=> true     Q.mold({a:4})({a:1,b:1}; //=> false</code></pre>
+    <pre class="prettyprint"><code>Q.mold({a:1})({a:1,b:1}; //=> true
+     Q.mold({a:4})({a:1,b:1}; //=> false</code></pre>
 
 
 
@@ -5054,7 +5138,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="q.js.html">q.js</a>, <a href="q.js.html#line959">line 959</a>
+        <a href="q.js.html">q.js</a>, <a href="q.js.html#line747">line 747</a>
     </li></ul></dd>
     
 
@@ -5103,7 +5187,11 @@
 
     <h5>Example</h5>
     
-    <pre class="prettyprint"><code>var double = Q.multiply(2);     var triple = Q.multiply(3);     double(3);       //=>  6     triple(4);       //=> 12     Q.multiply(2, 5);  //=> 10</code></pre>
+    <pre class="prettyprint"><code>var double = Q.multiply(2);
+     var triple = Q.multiply(3);
+     double(3);       //=>  6
+     triple(4);       //=> 12
+     Q.multiply(2, 5);  //=> 10</code></pre>
 
 
 
@@ -5235,7 +5323,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="q.js.html">q.js</a>, <a href="q.js.html#line760">line 760</a>
+        <a href="q.js.html">q.js</a>, <a href="q.js.html#line1039">line 1039</a>
     </li></ul></dd>
     
 
@@ -5300,7 +5388,8 @@
 
 
 <div class="description">
-    Returns a partial copy of an object containing only the keys specified.  If the key does not exist, theproperty is ignored.
+    Returns a partial copy of an object containing only the keys specified.  If the key does not exist, the
+property is ignored.
 </div>
 
 
@@ -5416,7 +5505,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="q.js.html">q.js</a>, <a href="q.js.html#line736">line 736</a>
+        <a href="q.js.html">q.js</a>, <a href="q.js.html#line1013">line 1013</a>
     </li></ul></dd>
     
 
@@ -5465,7 +5554,8 @@
 
     <h5>Example</h5>
     
-    <pre class="prettyprint"><code>Q.pick(['a', 'd'], {a: 1, b: 2, c: 3, d: 4}); //=> {a: 1, d: 4}     Q.pick(['a', 'e', 'f'], {a: 1, b: 2, c: 3, d: 4}); //=> {a: 1}</code></pre>
+    <pre class="prettyprint"><code>Q.pick(['a', 'd'], {a: 1, b: 2, c: 3, d: 4}); //=> {a: 1, d: 4}
+     Q.pick(['a', 'e', 'f'], {a: 1, b: 2, c: 3, d: 4}); //=> {a: 1}</code></pre>
 
 
 
@@ -5600,7 +5690,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="q.js.html">q.js</a>, <a href="q.js.html#line458">line 458</a>
+        <a href="q.js.html">q.js</a>, <a href="q.js.html#line452">line 452</a>
     </li></ul></dd>
     
 
@@ -5649,7 +5739,8 @@
 
     <h5>Example</h5>
     
-    <pre class="prettyprint"><code>Q.pluck('a',[{a: 1}, {a: 2}]); //=> [1, 2]    Q.pluck(0,[[1, 2], [3, 4]]);   //=> [1, 3]</code></pre>
+    <pre class="prettyprint"><code>Q.pluck('a',[{a: 1}, {a: 2}]); //=> [1, 2]
+    Q.pluck(0,[[1, 2], [3, 4]]);   //=> [1, 3]</code></pre>
 
 
 
@@ -5781,7 +5872,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="q.js.html">q.js</a>, <a href="q.js.html#line1039">line 1039</a>
+        <a href="q.js.html">q.js</a>, <a href="q.js.html#line833">line 833</a>
     </li></ul></dd>
     
 
@@ -5830,7 +5921,9 @@
 
     <h5>Example</h5>
     
-    <pre class="prettyprint"><code>Q.quotient(100,71); //=> 0.71     Q.map(Q.quotient(16),[1,2,4,8,16]) //=> [16,8,4,2,1]</code></pre>
+    <pre class="prettyprint"><code>Q.quotient(100,71); //=> 0.71
+
+     Q.map(Q.quotient(16),[1,2,4,8,16]) //=> [16,8,4,2,1]</code></pre>
 
 
 
@@ -5846,7 +5939,8 @@
 
 
 <div class="description">
-    Returns a list of numbers from `from` (inclusive) to `to`(exclusive).
+    Returns a list of numbers from `from` (inclusive) to `to`
+(exclusive).
 </div>
 
 
@@ -5962,7 +6056,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="q.js.html">q.js</a>, <a href="q.js.html#line681">line 681</a>
+        <a href="q.js.html">q.js</a>, <a href="q.js.html#line593">line 593</a>
     </li></ul></dd>
     
 
@@ -6011,7 +6105,198 @@
 
     <h5>Example</h5>
     
-    <pre class="prettyprint"><code>Q.range(1, 5);    //=> [1, 2, 3, 4]     Q.range(50, 53);  //=> [50, 51, 52]</code></pre>
+    <pre class="prettyprint"><code>Q.range(1, 5);    //=> [1, 2, 3, 4]
+     Q.range(50, 53);  //=> [50, 51, 52]</code></pre>
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id=".remainder"><span class="type-signature">(static) </span>remainder<span class="signature">(divisor, dividend)</span><span class="type-signature"> &rarr; {Number}</span></h4>
+
+    
+
+
+
+<div class="description">
+    Divides the second parameter by the first and returns the remainder.
+Note that this functions preserves the JavaScript-style behavior for
+modulo. For mathematical modulo see `mathMod`
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>divisor</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The pseudo-modulus</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>dividend</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The value to the divide.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="q.js.html">q.js</a>, <a href="q.js.html#line883">line 883</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+<div class="param-desc">
+    The result of `dividend % divisor`.
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Number</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+    <h5>Example</h5>
+    
+    <pre class="prettyprint"><code>Q.remainder(3,17); //=> 2
+     // JS behavior:
+     Q.remainder(3,-17); //=> -2
+     Q.remainder(17, -3); //=> 2
+
+     var isOdd = Q.modulo(2);
+     isOdd(42); //=> 0
+     isOdd(21); //=> 1</code></pre>
 
 
 
@@ -6146,7 +6431,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="q.js.html">q.js</a>, <a href="q.js.html#line435">line 435</a>
+        <a href="q.js.html">q.js</a>, <a href="q.js.html#line1177">line 1177</a>
     </li></ul></dd>
     
 
@@ -6195,7 +6480,13 @@
 
     <h5>Example</h5>
     
-    <pre class="prettyprint"><code>var entries = [{ name: 'ALICE', age: 101 }, {name: 'Bob',age: -400},{name: 'clara',age: 314.159}];Q.sort(function(d){ return Math.abs(d.age);},entries)=> [{"name":"ALICE","age":101},{"name":"clara","age":314.159},{"name":"Bob","age":-400}] Q.sort("age", [{ name: 'ALICE', age: 101 }, {name: 'Bob',age: -400},{name: 'clara',age: 314.159}])=> [{"name":"Bob","age":-400},{"name":"ALICE","age":101},{"name":"clara","age":314.159}] Q.sort("-age", [{ name: 'ALICE', age: 101 }, {name: 'Bob',age: -400},{name: 'clara',age: 314.159}])=>[{"name":"clara","age":314.159},{"name":"ALICE","age":101},{"name":"Bob","age":-400}]</code></pre>
+    <pre class="prettyprint"><code>var entries = [{ name: 'ALICE', age: 101 }, {name: 'Bob',age: -400},{name: 'clara',age: 314.159}];
+Q.sort(function(d){ return Math.abs(d.age);},entries)
+=> [{"name":"ALICE","age":101},{"name":"clara","age":314.159},{"name":"Bob","age":-400}]
+ Q.sort("age", [{ name: 'ALICE', age: 101 }, {name: 'Bob',age: -400},{name: 'clara',age: 314.159}])
+=> [{"name":"Bob","age":-400},{"name":"ALICE","age":101},{"name":"clara","age":314.159}]
+ Q.sort("-age", [{ name: 'ALICE', age: 101 }, {name: 'Bob',age: -400},{name: 'clara',age: 314.159}])
+=>[{"name":"clara","age":314.159},{"name":"ALICE","age":101},{"name":"Bob","age":-400}]</code></pre>
 
 
 
@@ -6327,7 +6618,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="q.js.html">q.js</a>, <a href="q.js.html#line980">line 980</a>
+        <a href="q.js.html">q.js</a>, <a href="q.js.html#line768">line 768</a>
     </li></ul></dd>
     
 
@@ -6376,7 +6667,8 @@
 
     <h5>Example</h5>
     
-    <pre class="prettyprint"><code>Q.subtract(10, 8); //=> 2     Q.map(Q.subtract(10), [1,2,3]); //=> [9,8,7]</code></pre>
+    <pre class="prettyprint"><code>Q.subtract(10, 8); //=> 2
+     Q.map(Q.subtract(10), [1,2,3]); //=> [9,8,7]</code></pre>
 
 
 
@@ -6392,7 +6684,11 @@
 
 
 <div class="description">
-    Returns a single item by iterating through the obj, successively calling the iteratorfunction and passing it an accumulator value, the object value for the current key, and the current keythen passing the result to the next call.The iterator function receives two values: *(acc, value)*
+    Returns a single item by iterating through the obj, successively calling the iterator
+function and passing it an accumulator value, the object value for the current key, and the current key
+then passing the result to the next call.
+
+The iterator function receives two values: *(acc, value)*
 </div>
 
 
@@ -6444,7 +6740,8 @@
 
             
 
-            <td class="description last">The iterator function. Receives three values, the accumulator, the object value for the current key, and the current key</td>
+            <td class="description last">The iterator function. Receives three values, the accumulator,
+ the object value for the current key, and the current key</td>
         </tr>
 
     
@@ -6531,7 +6828,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="q.js.html">q.js</a>, <a href="q.js.html#line527">line 527</a>
+        <a href="q.js.html">q.js</a>, <a href="q.js.html#line936">line 936</a>
     </li></ul></dd>
     
 
@@ -6580,7 +6877,8 @@
 
     <h5>Example</h5>
     
-    <pre class="prettyprint"><code>Q.taper(function(acc, val) { return acc+ val; }, 10,  {a: 2, b : 4}); //=> 16 Q.taper(function(acc, val,key){return acc.concat( val,key);},[1,"e"], {a: 2, b : 4});//=>[[1,"e", 2,"a",4,"b"]</code></pre>
+    <pre class="prettyprint"><code>Q.taper(function(acc, val) { return acc+ val; }, 10,  {a: 2, b : 4}); //=> 16
+ Q.taper(function(acc, val,key){return acc.concat( val,key);},[1,"e"], {a: 2, b : 4});//=>[[1,"e", 2,"a",4,"b"]</code></pre>
 
 
 
@@ -6596,7 +6894,9 @@
 
 
 <div class="description">
-    Returns a new list containing only one copy of each element in the original list.Equality is strict here, meaning reference equality for objects and non-coercing equalityfor primitives.
+    Returns a new list containing only one copy of each element in the original list.
+Equality is strict here, meaning reference equality for objects and non-coercing equality
+for primitives.
 </div>
 
 
@@ -6689,7 +6989,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="q.js.html">q.js</a>, <a href="q.js.html#line708">line 708</a>
+        <a href="q.js.html">q.js</a>, <a href="q.js.html#line622">line 622</a>
     </li></ul></dd>
     
 
@@ -6738,7 +7038,9 @@
 
     <h5>Example</h5>
     
-    <pre class="prettyprint"><code>Q.unique([1, 1, 2, 1]); //=> [1, 2]     Q.unique([{}, {}]);     //=> [{}, {}]     Q.unique([1, '1']);     //=> [1, '1']</code></pre>
+    <pre class="prettyprint"><code>Q.unique([1, 1, 2, 1]); //=> [1, 2]
+     Q.unique([{}, {}]);     //=> [{}, {}]
+     Q.unique([1, '1']);     //=> [1, '1']</code></pre>
 
 
 
@@ -6764,7 +7066,7 @@
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.3.0-beta1</a> on Mon Jan 26 2015 10:09:11 GMT+0100 (Central European Standard Time)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.3.0-beta1</a> on Mon Jan 26 2015 11:35:38 GMT+0100 (CET)
 </footer>
 
 <script> prettyPrint(); </script>

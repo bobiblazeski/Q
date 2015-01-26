@@ -8,6 +8,6 @@ Package.describe({
 
 Package.onUse(function(api) {
   api.versionsFrom('1.0.3.1');
-  api.addFiles('q.js');
+  api.addFiles('./dist/q.js');
   api.export("Q");
 });

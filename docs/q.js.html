@@ -26,17 +26,18 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>(function (factory) {
+            <pre class="prettyprint source linenums"><code>(function(factory) {
     if (typeof exports === 'object') {
         module.exports = factory(this);
     } else if (typeof define === 'function' &amp;&amp; define.amd) {
         define(factory);
-    } else if(typeof Package !== 'undefined') {
+    } else if (typeof Package !== 'undefined') {
         Q = factory();
     } else {
         this.Q = factory(this);
     }
-}(function () {
+}(function() {
+
 
     'use strict';
     /**
@@ -44,8 +45,9 @@
      *
      * @namespace Q
      */
-    var Q = {version: '1.2.0'};
-
+    var Q = {
+        "version": "1.2.2"
+    };
     /**
      * Creates an exception about calling a function with no arguments.
      *
@@ -54,24 +56,23 @@
      * @return {TypeError} A no arguments exception.
      */
     function _noArgsException() {
-        return new TypeError('Function called with no arguments');
-    }
-
-    /**
-     * Optimized internal two-arity curry function.
-     *
-     * @private
-     * @category Function
-     * @param {Function} fn The function to curry.
-     * @return {Function} curried function
-     * @example
-     *
-     *      var addTwo = function(a, b) {
-     *        return a + b;
-     *      };
-     *
-     *      var curriedAddTwo = _curry2(addTwo);
-     */
+            return new TypeError('Function called with no arguments');
+        }
+        /**
+         * Optimized internal two-arity curry function.
+         *
+         * @private
+         * @category Function
+         * @param {Function} fn The function to curry.
+         * @return {Function} curried function
+         * @example
+         *
+         *      var addTwo = function(a, b) {
+         *        return a + b;
+         *      };
+         *
+         *      var curriedAddTwo = _curry2(addTwo);
+         */
     function _curry2(fn) {
         return function(a, b) {
             switch (arguments.length) {
@@ -138,101 +139,42 @@
      *      var curriedAddThree = _curry4(addFour);
      */
     function _curry4(fn) {
-        return function(a, b, c, d) {
-            switch (arguments.length) {
-                case 0:
-                    throw _noArgsException();
-                case 1:
-                    return function(b, c, d) {
+            return function(a, b, c, d) {
+                switch (arguments.length) {
+                    case 0:
+                        throw _noArgsException();
+                    case 1:
+                        return function(b, c, d) {
+                            return fn(a, b, c, d);
+                        };
+                    case 2:
+                        return function(c, d) {
+                            return fn(a, b, c, d);
+                        };
+                    case 3:
+                        return function(d) {
+                            return fn(a, b, c, d);
+                        };
+                    default:
                         return fn(a, b, c, d);
-                    };
-                case 2:
-                    return function(c, d) {
-                        return fn(a, b, c, d);
-                    };
-                case 3:
-                    return function(d) {
-                        return fn(a, b, c, d);
-                    };
-                default:
-                    return fn(a, b, c, d);
-            }
-        };
-    }
-    /**
-     * Returns a list of numbers from `start` (inclusive) to `end`
-     * (exclusive) using tep.
-     *
-     * @func
-     * @memberOf Q
-     * @category List
-     * @param {Number} end - step more than the last number in the list.
-     * @param {Number=} start -  first number in the list. Assumed 0 if null
-     * @param {Number=} step -  difference between two numbers. Assumed 1 if null
-     * @return {Array} The list of numbers.
-     * @example
-     *
-     *      Q.lay(5);    //=> [1, 2, 3, 4]
-     *      Q.lay(53, 50);  //=> [50, 51, 52]
-     *      Q.lay(4, 8, -1);  //=> [8, 7, 6, 5]
-     */
-    Q.lay = function (end, start, step) {
-        start = start || 0;
-        step = step == null ? 1 : step;
-        var res = [],
-            i = start;
-        if (step > 0) {
-            for (; i &lt; end; i += step)
-                res.push(i);
-        } else if (step &lt; 0) {
-            for (; i > end; i += step)
-                res.push(i);
+                }
+            };
         }
-        return res;
-    };
-    /**
-     * Returns the first element of the list which matches the predicate, or `undefined` if no
-     * element matches.
-     *
-     * @func
-     * @memberOf Q
-     * @category List
-     * @param {Function|Object} f The predicate function used to determine if the element is the
-     *        desired one. Or specification object
-     * @param {Array} list The array to consider.
-     * @return {Object} The element found, or `undefined`.
-     * @example
-     *
-     *      var xs = [{a: 1}, {a: 2}, {a: 3}];
-     *      Q.find(function(d){ return d.a == 2;}, xs); //=> {a: 2}
-     *      Q.find({ a : 2}, xs); //=> {a: 2}
-     *      Q.find({a: 4},(xs); //=> undefined
-     */
-    var find = Q.find = _curry2(function(f, list) {
-        var len = list.length,
-            fn = typeof f == 'function' ? f : Q.mold(f);
-        for (var i = 0; i &lt; len; ++i) {
-            if (fn(list[i]))
-                return list[i];
-        }
-        return undefined;
-    });
-
-    /**
-     * Returns predicate function that compares object with specification template
-     *
-     * @func
-     * @memberOf Q
-     * @category Function
-     * @param {Object} spec - The specification object
-     * @return {Function} The predicate function.
-     * @example
-     *
-     *      Q.mold({a:1})({a:1,b:1}; //=> true
-     *      Q.mold({a:4})({a:1,b:1}; //=> false
-     */
-    Q.mold = function (spec) {
-        return function (obj) {
+        /**
+         * Returns predicate function that compares object with specification template
+         *
+         * @func
+         * @memberOf Q
+         * @category Function
+         * @param {Object} spec - The specification object
+         * @return {Function} The predicate function.
+         * @example
+         *
+         *      Q.mold({a:1})({a:1,b:1}; //=> true
+         *      Q.mold({a:4})({a:1,b:1}; //=> false
+         */
+    Q.mold = function(spec) {
+        return function(obj) {
             for (var key in spec) {
                 if (spec[key] != obj[key])
                     return false;
@@ -240,152 +182,6 @@
             return true;
         }
     };
-    /**
-     * Amend left list object with keys from right list objects
-     * joining by key
-     *
-     * @func
-     * @memberOf Q
-     * @category List
-     * @param {List} left - The original list
-     * @param {List} right - The extension list
-     * @param {String} lKey - The original list key
-     * @param {String} rKey - The extension list key, if a omitted assumed equal with lKey
-     * @return {Function} The predicate function.
-     * @example
-     *
-     *         var left = [{ id:1, b:2},{ id:2, b:2}];
-     *         var right =[{ id:1, d:4},{ id:2, d:5}];
-     *         Q.amend(left,right,'id') => [{"id":1,"b":2,"d":4},{"id":2,"b":2,"d":5}]
-     */
-    Q.amend = function (left, right, lKey, rKey) {
-        rKey = rKey || lKey;
-        return Q.map(function (l) {
-            var found = find(function (r) {
-                return l[lKey] == r[rKey];
-            }, right);
-            return Q.mixin(l, found ? found : {});
-        }, left);
-    };
-    /**
-     * Returns a new list containing only those items that match a given predicate function.
-     * The predicate function is passed one argument: *(value)*.
-     *
-     * @func
-     * @memberOf Q
-     * @category core
-     * @category List
-     * @param {Function|Object} f The function called per iteration, or functor description.
-     * @param {Array} list The collection to iterate over.
-     * @return {Array} The new filtered array.
-     * @example
-     *
-     *      var isEven = function(n) {
-     *        return n % 2 === 0;
-     *      };
-     *      Q.filter(isEven, [1, 2, 3, 4]); //=> [2, 4]
-     */
-    Q.filter = _curry2(function (f, list) {
-        var res = [],
-            len = list.length,
-            fn = typeof f == 'function' ? f : Q.mold(f);
-        for (var i = 0; i &lt; len; ++i) {
-            if (fn(list[i]))
-                res.push(list[i]);
-        }
-        return res;
-    });
-
-
-    /**
-     * Determines the smallest of a list of items as determined by pairwise comparisons from the supplied comparator
-     *
-     * @func
-     * @memberOf Q
-     * @category math
-     * @param {Function|String} f A comparator function or field specifier for elements in the list
-     * @param {Array} list A list of comparable elements
-     * @see Q.min
-     * @return {*} The smallest element in the list. `undefined` if the list is empty.
-     * @example
-     *
-     *      function cmp(obj) { return obj.x; }
-     *      var a = {x: 1}, b = {x: 2}, c = {x: 3};
-     *      Q.min(cmp, [a, b, c]); //=> {x: 1}
-     */
-    Q.min = _curry2(function (f, list) {
-        var len = list.length,
-            fn = typeof f == 'function' ? f : Q.field(f),
-            item = list[0],
-            res = fn(list[0]),
-            current = NaN;
-        for (var i = 0; i &lt; len; ++i) {
-            current = fn(list[i]);
-            if (current &lt; res) {
-                item = list[i];
-                res = current
-            }
-        }
-        return item;
-    });
-    /**
-     * Determines the largest of a list of items as determined by pairwise comparisons from the supplied comparator
-     *
-     * @func
-     * @memberOf Q
-     * @category math
-     * @param {Function|String} f A comparator function or field specifier for elements in the list
-     * @param {Array} list A list of comparable elements
-     * @see Q.min
-     * @return {*} The largest element in the list. `undefined` if the list is empty.
-     * @example
-     *
-     *      function cmp(obj) { return obj.x; }
-     *      var a = {x: 1}, b = {x: 2}, c = {x: 3};
-     *      Q.max(cmp, [a, b, c]); //=> {x: 3}
-     */
-    Q.max = _curry2(function (f, list) {
-        var len = list.length,
-            fn = typeof f == 'function' ? f : Q.field(f),
-            item = list[0],
-            res = fn(list[0]),
-            current = NaN;
-        for (var i = 0; i &lt; len; ++i) {
-            current = fn(list[i]);
-            if (current > res) {
-                item = list[i];
-                res = current
-            }
-        }
-        return item;
-    });
-    /**
-     * Returns a function that when supplied an object returns the indicated property of that object, if it exists.
-     *
-     * @func
-     * @memberOf Q
-     * @category Object
-     * @sig s -> {s: a} -> a
-     * @param {String} property The property name
-     * @param {Object} obj The object to query
-     * @return {*} The value at obj.p
-     * @example
-     *
-     *      Q.prop('x', {x: 100}); //=> 100
-     *      Q.prop('x', {}); //=> undefined
-     *
-     *      var fifth = Q.prop(4); // indexed from 0, remember
-     *      fifth(['Bashful', 'Doc', 'Dopey', 'Grumpy', 'Happy', 'Sleepy', 'Sneezy']);
-     *      //=> 'Happy'
-     */
-    Q.field = _curry2(function (property, obj) {
-        if (arguments.length == 1) {
-            return function (obj) {
-                return obj[property];
-            }
-        }
-        return obj[property];
-    });
 
     /**
      * A function that does nothing but return the parameter supplied to it. Good as a default
@@ -393,7 +189,7 @@
      *
      * @func
      * @memberOf Q
-     * @category Core
+     * @category Function
      * @sig a -> a
      * @param {*} x The value to return.
      * @return {*} The input value, `x`.
@@ -404,413 +200,8 @@
      *      var obj = {};
      *      Q.identity(obj) === obj; //=> true
      */
-    Q.identity = function (x) {
+    Q.identity = function(x) {
         return x;
-    };
-
-
-    /**
-     * Splits a list into sub-lists stored in an object, based on the result of calling a String-returning function
-     * on each element, and grouping the results according to values returned.
-     *
-     * @func
-     * @memberOf Q
-     * @category List
-     * @param {Function|String} f - function or string
-     * @param {Array} list The array to group
-     * @return {Object} An object with the output of `f` for keys, mapped to arrays of elements
-     *         that produced that key when passed to `f`.
-     * @example
-     *
-     * Q.group(function(num) { return Math.floor(num); },[4.2, 6.1, 6.4]) =>( { '4': [4.2], '6': [6.1, 6.4] })
-     */
-    Q.group = _curry2(function (f, list) {
-        var fn = typeof f == 'function' ? f : Q.field(f);
-        return Q.fold(function (acc, elt) {
-            var key = fn(elt);
-            acc[key] = acc[key] ? acc[key].concat(elt) : [elt];
-            return acc;
-        }, {}, list);
-    });
-
-    function _keyValue(fn, list) {
-        return Q.map(function(item) {return {key: fn(item), val: item};}, list);
-    }
-
-    function _compareKeys(a, b) {
-        return a.key &lt; b.key ? -1 : a.key > b.key ? 1 : 0;
-    }
-    /**
-     * Sorts the list according to a key generated by the supplied function.
-     *
-     * @func
-     * @memberOf Q
-     * @category relation
-     * @sig (a -> String) -> [a] -> [a]
-     * @param {Function|String} f The function mapping `list` items to keys, or property string.
-     * @param {Array} list The list to sort.
-     * @return {Array} A new list sorted by the keys generated by `f`.
-     * @example
-     *
-     * var entries = [{ name: 'ALICE', age: 101 }, {name: 'Bob',age: -400},{name: 'clara',age: 314.159}];
-     * Q.sort(function(d){ return Math.abs(d.age);},entries)
-     * => [{"name":"ALICE","age":101},{"name":"clara","age":314.159},{"name":"Bob","age":-400}]
-     *  Q.sort("age", [{ name: 'ALICE', age: 101 }, {name: 'Bob',age: -400},{name: 'clara',age: 314.159}])
-     * => [{"name":"Bob","age":-400},{"name":"ALICE","age":101},{"name":"clara","age":314.159}]
-     *  Q.sort("-age", [{ name: 'ALICE', age: 101 }, {name: 'Bob',age: -400},{name: 'clara',age: 314.159}])
-     * =>[{"name":"clara","age":314.159},{"name":"ALICE","age":101},{"name":"Bob","age":-400}]
-     */
-    Q.sort = _curry2(function (f, list) {
-        var fn = typeof f == 'function' ? f
-            : f[0] == '-' ? function (d) {
-            return -1 * d[f.substring(1)]
-        } : Q.field(f);
-        return Q.pluck('val', _keyValue(fn, list).sort(_compareKeys));
-    });
-
-    /**
-     * Returns a new list by plucking the same named property off all objects in the list supplied.
-     *
-     * @func
-     * @memberOf Q
-     * @category List
-     * @sig String -> {*} -> [*]
-     * @param {Number|String} key The key name to pluck off of each object.
-     * @param {Array} list The array to consider.
-     * @return {Array} The list of values for the given key.
-     * @example
-     *
-     *     Q.pluck('a',[{a: 1}, {a: 2}]); //=> [1, 2]
-     *     Q.pluck(0,[[1, 2], [3, 4]]);   //=> [1, 3]
-     */
-    Q.pluck = _curry2(function(key, list) {
-        return Q.map(Q.field(key), list);
-    });
-
-    /**
-     * Returns a new list by collecting into list results of applying the function to all object key value pairs
-     *
-     * @func
-     * @memberOf Q
-     * @category Obj
-     * @param {Function|String} f The function executed for each key value pair
-     * @param {Object} obj The obj to consider.
-     * @return {Array} The list of results of applying the function to all key value pairs
-     * @example
-     *
-     *     Q.collect(Math.sqrt,{ a:4,b:9,c:16}); //=> [2, 3, 4]
-     */
-    Q.collect = _curry2(function (f, obj) {
-        var res = [];
-        for (var key in obj)
-            res.push(f(obj[key], key));
-        return res;
-    });
-    /**
-     * Returns a new list, constructed by applying the supplied function to every element of the
-     * supplied list.
-     *
-     * @func
-     * @memberOf Q
-     * @category core
-     * @category List
-     * @sig (a -> b) -> [a] -> [b]
-     * @param {Function} f The function to be called on every element of the input `list`.
-     * @param {Array} list The list to be iterated over.
-     * @return {Array} The new list.
-     * @example
-     *
-     *      Q.map(function(x) { return x * 2; }, [1, 2, 3]); //=> [2, 4, 6]
-     */
-    Q.map = _curry2(function (f, list) {
-        var len = list.length,
-            res = new Array(len);
-        for (var i = 0; i &lt; len; ++i)
-            res[i] =f(list[i], i);
-        return res;
-    });
-
-    /**
-     * Returns a single item by iterating through the obj, successively calling the iterator
-     * function and passing it an accumulator value, the object value for the current key, and the current key
-     * then passing the result to the next call.
-     *
-     * The iterator function receives two values: *(acc, value)*
-     *
-     * @func
-     * @memberOf Q
-     * @category core
-     * @category List
-     * @sig (a,b -> a) -> a -> [b] -> a
-     * @param {Function} f The iterator function. Receives three values, the accumulator,
-     *  the object value for the current key, and the current key
-     * @param {*} acc The accumulator value.
-     * @param {Object} obj The object to iterate over.
-     * @return {*} The final, accumulated value.
-     * @example
-     *
-     *  Q.taper(function(acc, val) { return acc+ val; }, 10,  {a: 2, b : 4}); //=> 16
-     *  Q.taper(function(acc, val,key){return acc.concat( val,key);},[1,"e"], {a: 2, b : 4});//=>[[1,"e", 2,"a",4,"b"]
-     */
-    Q.taper = _curry3(function (f, acc, obj) {
-        for (var key in obj)
-            acc = f(acc, obj[key],key);
-        return acc;
-    });
-
-
-
-    /**
-     * Returns an object containing the same keys as passed object and values that are result of function called
-     * for each object key value pair
-     *
-     * The iterator function receives two values: *(value,key)*
-     *
-     * @func
-     * @memberOf Q
-     * @category core
-     * @category Object
-     * @sig (a,b -> a) -> a -> [b] -> a
-     * @param {Function} f The iterator function. Receives three values, the accumulator,
-     *  the object value for the current key, and the current key
-     * @param {Object} obj The object to iterate over.
-     * @return {*} The final, accumulated value.
-     * @example
-     *
-     *   Q.mapValues(function(num) { return num * 3; },{ 'a': 1, 'b': 2, 'c': 3}) => { 'a': 3, 'b': 6, 'c': 9 }
-     *   Q.mapValues('age',characters) => { 'fred': 40, 'pebbles': 1 }
-     */
-    Q.mapValues = _curry2(function (f, obj) {
-        var fn = typeof f == 'function' ? f : Q.field(f),
-            res = {};
-        for (var key in obj)
-            res[key] = fn(obj[key]);
-        return res;
-    });
-
-    /**
-     * Create a new object with the own properties of a
-     * merged with the own properties of object b.
-     * This function will *not* mutate passed-in objects.
-     *
-     * @func
-     * @memberOf Q
-     * @category Object
-     * @sig {k: v} -> {k: v} -> {k: v}
-     * @param {Object} left source object
-     * @param {Object} right object with higher precedence in output
-     * @returns {Object} Returns the destination object.
-     * @example
-     *
-     *      Q.mixin({ 'name': 'fred', 'age': 10 }, { 'age': 40 });
-     *      //=> { 'name': 'fred', 'age': 40 }
-     */
-    var mixin = Q.mixin = _curry2(function mixin(left, right) {
-        var res = {}, key;
-        for (key in left)
-            res[key] = left[key];
-        for (key in right)
-            res[key] = right[key];
-        return res;
-    });
-
-
-    /**
-     * Returns a single item by iterating through the list, successively calling the iterator
-     * function and passing it an accumulator value and the current value from the array, and
-     * then passing the result to the next call.
-     *
-     * The iterator function receives two values: *(acc, value)*
-     *
-     * @func
-     * @memberOf Q
-     * @category core
-     * @category List
-     * @sig (a,b -> a) -> a -> [b] -> a
-     * @param {Function} fn The iterator function. Receives two values, the accumulator and the
-     *        current element from the array.
-     * @param {*} acc The accumulator value.
-     * @param {Array} list The list to iterate over.
-     * @return {*} The final, accumulated value.
-     * @example
-     *
-     *      Q.fold(function(a, b) { return a + b; }, 10, [1, 2, 3]); //=> 16
-     */
-    Q.fold = _curry3(function (fn, acc, list) {
-        var len = list.length;
-        for (var i = 0; i &lt; len; ++i) {
-            acc = fn(acc, list[i]);
-        }
-        return acc;
-    });
-    /**
-     * Returns a new list by concatenating into list results of applying the function to all object key value pairs
-     *
-     * @func
-     * @memberOf Q
-     * @category Obj
-     * @param {Function} f The function executed for each key value pair
-     * @param {Object} obj The obj to consider.
-     * @return {Array} The list of results of applying the function to all key value pairs
-     * @example
-     *
-     *     Q.abate(function(d){ return [-d,d];},{ a:4,b:9,c:16}); //=> [-4,4,-9,9,-16,16]
-     */
-    Q.abate = _curry2(function (f, obj) {
-        var res = [];
-        for (var key in obj)
-            res = res.concat(f(obj[key], key));
-        return res;
-    });
-
-    /**
-     * Returns a new list by concatenating into list results of applying the function to all elements and their index
-     *
-     * @func
-     * @memberOf Q
-     * @category List
-     * @param {Function} fn The function executed for each key value pair
-     * @param {Array} list The array
-     * @return {Array} The list of results of applying the function to all key value pairs
-     * @example
-     *
-     *     Q.curtail(function(d){ return [-d,d];},[4,9,16]); //=> [-4,4,-9,9,-16,16]
-     */
-    Q.curtail = _curry2(function (fn,list) {
-        var acc = [],len= list.length;
-        for (var i = 0; i &lt; len; ++i) {
-            acc= acc.concat(fn(list[i],i));
-        }
-        return acc;
-    });
-
-    Q.expand = function (fn, arr) {
-        return Q.map(function (d) {
-            return Q.mixin(d, fn(d));
-        }, arr);
-    };
-
-    /**
-     * Returns a list of numbers from `from` (inclusive) to `to`
-     * (exclusive).
-     *
-     * @func
-     * @memberOf Q
-     * @category List
-     * @sig Number -> Number -> [Number]
-     * @param {Number} from The first number in the list.
-     * @param {Number} to One more than the last number in the list.
-     * @return {Array} The list of numbers in tthe set `[a, b)`.
-     * @example
-     *
-     *      Q.range(1, 5);    //=> [1, 2, 3, 4]
-     *      Q.range(50, 53);  //=> [50, 51, 52]
-     */
-    Q.range = _curry2(function range(from, to) {
-        if (from >= to) {
-            return [];
-        }
-        var idx = 0, result = new Array(Math.floor(to) - Math.ceil(from));
-        while (from &lt; to) {
-            result[idx++] = from++;
-        }
-        return result;
-    });
-    /**
-     * Returns a new list containing only one copy of each element in the original list.
-     * Equality is strict here, meaning reference equality for objects and non-coercing equality
-     * for primitives.
-     *
-     * @func
-     * @memberOf Q
-     * @category List
-     * @sig [a] -> [a]
-     * @param {Array} list The array to consider.
-     * @return {Array} The list of unique items.
-     * @example
-     *
-     *      Q.unique([1, 1, 2, 1]); //=> [1, 2]
-     *      Q.unique([{}, {}]);     //=> [{}, {}]
-     *      Q.unique([1, '1']);     //=> [1, '1']
-     */
-    Q.unique = function unique(list) {
-        var idx = -1, len = list.length;
-        var result = [], item;
-        while (++idx &lt; len) {
-            item = list[idx];
-            if (result.indexOf(item) == -1) {
-                result[result.length] = item;
-            }
-        }
-        return result;
-    };
-
-    /**
-     * Returns a partial copy of an object containing only the keys specified.  If the key does not exist, the
-     * property is ignored.
-     *
-     * @func
-     * @memberOf Q
-     * @category Object
-     * @sig [k] -> {k: v} -> {k: v}
-     * @param {Array} keys an array of String property keys to copy onto a new object
-     * @param {Object} obj The object to copy from
-     * @return {Object} A new object with only properties from `keys` on it.
-     * @example
-     *
-     *      Q.pick(['a', 'd'], {a: 1, b: 2, c: 3, d: 4}); //=> {a: 1, d: 4}
-     *      Q.pick(['a', 'e', 'f'], {a: 1, b: 2, c: 3, d: 4}); //=> {a: 1}
-     */
-    Q.pick = _curry2(function(keys, obj) {
-        var res ={},len = keys.length, key;
-        for(var i= 0; i &lt; len; ++i) {
-            key = keys[i];
-            if(obj.hasOwnProperty(key)){
-                res[key] = obj[key];
-            }
-        }
-        return res;
-    });
-    /**
-     * Returns a partial copy of an object omitting the keys specified.
-     *
-     * @func
-     * @memberOf Q
-     * @category Object
-     * @sig [k] -> {k: v} -> {k: v}
-     * @param {Array} keys an array of String property names to omit from the new object
-     * @param {Object} obj The object to copy from
-     * @return {Object} A new object with properties from `names` not on it.
-     * @example
-     *
-     *      Q.omit(['a', 'd'], {a: 1, b: 2, c: 3, d: 4}); //=> {b: 2, c: 3}
-     */
-    Q.omit = _curry2(function(keys, obj) {
-        var res ={},len = keys.length;
-        for(var key in obj) {
-            if(keys.indexOf(key) == -1){
-                res[key] = obj[key];
-            }
-        }
-        return res;
-    });
-
-    /**
-     * Returns a list containing the names of all the enumerable own
-     * properties of the supplied object.
-     *
-     * @func
-     * @memberOf Q
-     * @category Object
-     * @sig {k: v} -> [k]
-     * @param {Object} obj The object to extract properties from
-     * @return {Array} An array of the object's own properties
-     * @example
-     *
-     *      Q.keys({a: 1, b: 2, c: 3}); //=> ['a', 'b', 'c']
-     */
-    Q.keys = function (obj) {
-        return Object.keys(obj);
     };
 
     /*
@@ -820,10 +211,14 @@
     function _createComposer(composeFunction) {
         return function() {
             switch (arguments.length) {
-                case 0: throw _noArgsException();
-                case 1: return arguments[0];
+                case 0:
+                    throw _noArgsException();
+                case 1:
+                    return arguments[0];
                 default:
-                    var idx = arguments.length - 1, fn = arguments[idx], length = fn.length;
+                    var idx = arguments.length - 1,
+                        fn = arguments[idx],
+                        length = fn.length;
                     while (idx--) {
                         fn = composeFunction(arguments[idx], fn);
                     }
@@ -892,18 +287,62 @@
      */
     var arity = Q.arity = function(n, fn) {
         switch (n) {
-            case 0: return function() {return fn.apply(this, arguments);};
-            case 1: return function(a0) {void a0; return fn.apply(this, arguments);};
-            case 2: return function(a0, a1) {void a1; return fn.apply(this, arguments);};
-            case 3: return function(a0, a1, a2) {void a2; return fn.apply(this, arguments);};
-            case 4: return function(a0, a1, a2, a3) {void a3; return fn.apply(this, arguments);};
-            case 5: return function(a0, a1, a2, a3, a4) {void a4; return fn.apply(this, arguments);};
-            case 6: return function(a0, a1, a2, a3, a4, a5) {void a5; return fn.apply(this, arguments);};
-            case 7: return function(a0, a1, a2, a3, a4, a5, a6) {void a6; return fn.apply(this, arguments);};
-            case 8: return function(a0, a1, a2, a3, a4, a5, a6, a7) {void a7; return fn.apply(this, arguments);};
-            case 9: return function(a0, a1, a2, a3, a4, a5, a6, a7, a8) {void a8; return fn.apply(this, arguments);};
-            case 10: return function(a0, a1, a2, a3, a4, a5, a6, a7, a8, a9) {void a9; return fn.apply(this, arguments);};
-            default: return fn; // TODO: or throw?
+            case 0:
+                return function() {
+                    return fn.apply(this, arguments);
+                };
+            case 1:
+                return function(a0) {
+                    void a0;
+                    return fn.apply(this, arguments);
+                };
+            case 2:
+                return function(a0, a1) {
+                    void a1;
+                    return fn.apply(this, arguments);
+                };
+            case 3:
+                return function(a0, a1, a2) {
+                    void a2;
+                    return fn.apply(this, arguments);
+                };
+            case 4:
+                return function(a0, a1, a2, a3) {
+                    void a3;
+                    return fn.apply(this, arguments);
+                };
+            case 5:
+                return function(a0, a1, a2, a3, a4) {
+                    void a4;
+                    return fn.apply(this, arguments);
+                };
+            case 6:
+                return function(a0, a1, a2, a3, a4, a5) {
+                    void a5;
+                    return fn.apply(this, arguments);
+                };
+            case 7:
+                return function(a0, a1, a2, a3, a4, a5, a6) {
+                    void a6;
+                    return fn.apply(this, arguments);
+                };
+            case 8:
+                return function(a0, a1, a2, a3, a4, a5, a6, a7) {
+                    void a7;
+                    return fn.apply(this, arguments);
+                };
+            case 9:
+                return function(a0, a1, a2, a3, a4, a5, a6, a7, a8) {
+                    void a8;
+                    return fn.apply(this, arguments);
+                };
+            case 10:
+                return function(a0, a1, a2, a3, a4, a5, a6, a7, a8, a9) {
+                    void a9;
+                    return fn.apply(this, arguments);
+                };
+            default:
+                return fn; // TODO: or throw?
         }
     };
 
@@ -930,10 +369,359 @@
      *      squareThenDouble(5); //≅ double(square(5)) => 50
      */
     function _compose(f, g) {
-        return function() {
-            return f.call(this, g.apply(this, arguments));
-        };
-    }
+            return function() {
+                return f.call(this, g.apply(this, arguments));
+            };
+        }
+        /**
+         * Returns a list of numbers from `start` (inclusive) to `end`
+         * (exclusive) using tep.
+         *
+         * @func
+         * @memberOf Q
+         * @category List
+         * @param {Number} end - step more than the last number in the list.
+         * @param {Number=} start -  first number in the list. Assumed 0 if null
+         * @param {Number=} step -  difference between two numbers. Assumed 1 if null
+         * @return {Array} The list of numbers.
+         * @example
+         *
+         *      Q.lay(5);    //=> [1, 2, 3, 4]
+         *      Q.lay(53, 50);  //=> [50, 51, 52]
+         *      Q.lay(4, 8, -1);  //=> [8, 7, 6, 5]
+         */
+    Q.lay = function(end, start, step) {
+        start = start || 0;
+        step = step == null ? 1 : step;
+        var res = [],
+            i = start;
+        if (step > 0) {
+            for (; i &lt; end; i += step)
+                res.push(i);
+        } else if (step &lt; 0) {
+            for (; i > end; i += step)
+                res.push(i);
+        }
+        return res;
+    };
+
+    /**
+     * Returns the first element of the list which matches the predicate, or `undefined` if no
+     * element matches.
+     *
+     * @func
+     * @memberOf Q
+     * @category List
+     * @param {Function|Object} f The predicate function used to determine if the element is the
+     *        desired one. Or specification object
+     * @param {Array} list The array to consider.
+     * @return {Object} The element found, or `undefined`.
+     * @example
+     *
+     *      var xs = [{a: 1}, {a: 2}, {a: 3}];
+     *      Q.find(function(d){ return d.a == 2;}, xs); //=> {a: 2}
+     *      Q.find({ a : 2}, xs); //=> {a: 2}
+     *      Q.find({a: 4},(xs); //=> undefined
+     */
+    var find = Q.find = _curry2(function(f, list) {
+        var len = list.length,
+            fn = typeof f == 'function' ? f : Q.mold(f);
+        for (var i = 0; i &lt; len; ++i) {
+            if (fn(list[i]))
+                return list[i];
+        }
+        return undefined;
+    });
+
+    /**
+     * Returns a new list containing only those items that match a given predicate function.
+     * The predicate function is passed one argument: *(value)*.
+     *
+     * @func
+     * @memberOf Q
+     * @category core
+     * @category List
+     * @param {Function|Object} f The function called per iteration, or functor description.
+     * @param {Array} list The collection to iterate over.
+     * @return {Array} The new filtered array.
+     * @example
+     *
+     *      var isEven = function(n) {
+     *        return n % 2 === 0;
+     *      };
+     *      Q.filter(isEven, [1, 2, 3, 4]); //=> [2, 4]
+     */
+    Q.filter = _curry2(function(f, list) {
+        var res = [],
+            len = list.length,
+            fn = typeof f == 'function' ? f : Q.mold(f);
+        for (var i = 0; i &lt; len; ++i) {
+            if (fn(list[i]))
+                res.push(list[i]);
+        }
+        return res;
+    });
+
+    /**
+     * Returns a new list by plucking the same named property off all objects in the list supplied.
+     *
+     * @func
+     * @memberOf Q
+     * @category List
+     * @sig String -> {*} -> [*]
+     * @param {Number|String} key The key name to pluck off of each object.
+     * @param {Array} list The array to consider.
+     * @return {Array} The list of values for the given key.
+     * @example
+     *
+     *     Q.pluck('a',[{a: 1}, {a: 2}]); //=> [1, 2]
+     *     Q.pluck(0,[[1, 2], [3, 4]]);   //=> [1, 3]
+     */
+    Q.pluck = _curry2(function(key, list) {
+        return Q.map(Q.field(key), list);
+    });
+
+    /**
+     * Returns a new list by collecting into list results of applying the function to all object key value pairs
+     *
+     * @func
+     * @memberOf Q
+     * @category Obj
+     * @param {Function|String} f The function executed for each key value pair
+     * @param {Object} obj The obj to consider.
+     * @return {Array} The list of results of applying the function to all key value pairs
+     * @example
+     *
+     *     Q.collect(Math.sqrt,{ a:4,b:9,c:16}); //=> [2, 3, 4]
+     */
+    Q.collect = _curry2(function(f, obj) {
+        var res = [];
+        for (var key in obj)
+            res.push(f(obj[key], key));
+        return res;
+    });
+
+    /**
+     * Returns a new list, constructed by applying the supplied function to every element of the
+     * supplied list.
+     *
+     * @func
+     * @memberOf Q
+     * @category core
+     * @category List
+     * @sig (a -> b) -> [a] -> [b]
+     * @param {Function} f The function to be called on every element of the input `list`.
+     * @param {Array} list The list to be iterated over.
+     * @return {Array} The new list.
+     * @example
+     *
+     *      Q.map(function(x) { return x * 2; }, [1, 2, 3]); //=> [2, 4, 6]
+     */
+    Q.map = _curry2(function(f, list) {
+        var len = list.length,
+            res = new Array(len);
+        for (var i = 0; i &lt; len; ++i)
+            res[i] = f(list[i], i);
+        return res;
+    });
+
+    /**
+     * Returns a single item by iterating through the list, successively calling the iterator
+     * function and passing it an accumulator value and the current value from the array, and
+     * then passing the result to the next call.
+     *
+     * The iterator function receives two values: *(acc, value)*
+     *
+     * @func
+     * @memberOf Q
+     * @category core
+     * @category List
+     * @sig (a,b -> a) -> a -> [b] -> a
+     * @param {Function} fn The iterator function. Receives two values, the accumulator and the
+     *        current element from the array.
+     * @param {*} acc The accumulator value.
+     * @param {Array} list The list to iterate over.
+     * @return {*} The final, accumulated value.
+     * @example
+     *
+     *      Q.fold(function(a, b) { return a + b; }, 10, [1, 2, 3]); //=> 16
+     */
+    Q.fold = _curry3(function(fn, acc, list) {
+        var len = list.length;
+        for (var i = 0; i &lt; len; ++i) {
+            acc = fn(acc, list[i]);
+        }
+        return acc;
+    });
+
+    /**
+     * Returns a new list by concatenating into list results of applying the function to all object key value pairs
+     *
+     * @func
+     * @memberOf Q
+     * @category Obj
+     * @param {Function} f The function executed for each key value pair
+     * @param {Object} obj The obj to consider.
+     * @return {Array} The list of results of applying the function to all key value pairs
+     * @example
+     *
+     *     Q.abate(function(d){ return [-d,d];},{ a:4,b:9,c:16}); //=> [-4,4,-9,9,-16,16]
+     */
+    Q.abate = _curry2(function(f, obj) {
+        var res = [];
+        for (var key in obj)
+            res = res.concat(f(obj[key], key));
+        return res;
+    });
+
+    /**
+     * Returns a new list by concatenating into list results of applying the function to all elements and their index
+     *
+     * @func
+     * @memberOf Q
+     * @category List
+     * @param {Function} fn The function executed for each key value pair
+     * @param {Array} list The array
+     * @return {Array} The list of results of applying the function to all key value pairs
+     * @example
+     *
+     *     Q.curtail(function(d){ return [-d,d];},[4,9,16]); //=> [-4,4,-9,9,-16,16]
+     */
+    Q.curtail = _curry2(function(fn, list) {
+        var acc = [],
+            len = list.length;
+        for (var i = 0; i &lt; len; ++i) {
+            acc = acc.concat(fn(list[i], i));
+        }
+        return acc;
+    });
+    // TODO Probably should be excluded, seems not general enough
+    Q.expand = function(fn, arr) {
+        return Q.map(function(d) {
+            return Q.mixin(d, fn(d));
+        }, arr);
+    };
+
+    /**
+     * Returns a list of numbers from `from` (inclusive) to `to`
+     * (exclusive).
+     *
+     * @func
+     * @memberOf Q
+     * @category List
+     * @sig Number -> Number -> [Number]
+     * @param {Number} from The first number in the list.
+     * @param {Number} to One more than the last number in the list.
+     * @return {Array} The list of numbers in tthe set `[a, b)`.
+     * @example
+     *
+     *      Q.range(1, 5);    //=> [1, 2, 3, 4]
+     *      Q.range(50, 53);  //=> [50, 51, 52]
+     */
+    Q.range = _curry2(function range(from, to) {
+        if (from >= to) {
+            return [];
+        }
+        var idx = 0,
+            result = new Array(Math.floor(to) - Math.ceil(from));
+        while (from &lt; to) {
+            result[idx++] = from++;
+        }
+        return result;
+    });
+
+    /**
+     * Returns a new list containing only one copy of each element in the original list.
+     * Equality is strict here, meaning reference equality for objects and non-coercing equality
+     * for primitives.
+     *
+     * @func
+     * @memberOf Q
+     * @category List
+     * @sig [a] -> [a]
+     * @param {Array} list The array to consider.
+     * @return {Array} The list of unique items.
+     * @example
+     *
+     *      Q.unique([1, 1, 2, 1]); //=> [1, 2]
+     *      Q.unique([{}, {}]);     //=> [{}, {}]
+     *      Q.unique([1, '1']);     //=> [1, '1']
+     */
+    Q.unique = function unique(list) {
+        var idx = -1,
+            len = list.length;
+        var result = [],
+            item;
+        while (++idx &lt; len) {
+            item = list[idx];
+            if (result.indexOf(item) == -1) {
+                result[result.length] = item;
+            }
+        }
+        return result;
+    };
+    /**
+     * Determines the smallest of a list of items as determined by pairwise comparisons from the supplied comparator
+     *
+     * @func
+     * @memberOf Q
+     * @category math
+     * @param {Function|String} f A comparator function or field specifier for elements in the list
+     * @param {Array} list A list of comparable elements
+     * @see Q.min
+     * @return {*} The smallest element in the list. `undefined` if the list is empty.
+     * @example
+     *
+     *      function cmp(obj) { return obj.x; }
+     *      var a = {x: 1}, b = {x: 2}, c = {x: 3};
+     *      Q.min(cmp, [a, b, c]); //=> {x: 1}
+     */
+    Q.min = _curry2(function(f, list) {
+        var len = list.length,
+            fn = typeof f == 'function' ? f : Q.field(f),
+            item = list[0],
+            res = fn(list[0]),
+            current = NaN;
+        for (var i = 0; i &lt; len; ++i) {
+            current = fn(list[i]);
+            if (current &lt; res) {
+                item = list[i];
+                res = current
+            }
+        }
+        return item;
+    });
+    /**
+     * Determines the largest of a list of items as determined by pairwise comparisons from the supplied comparator
+     *
+     * @func
+     * @memberOf Q
+     * @category math
+     * @param {Function|String} f A comparator function or field specifier for elements in the list
+     * @param {Array} list A list of comparable elements
+     * @see Q.min
+     * @return {*} The largest element in the list. `undefined` if the list is empty.
+     * @example
+     *
+     *      function cmp(obj) { return obj.x; }
+     *      var a = {x: 1}, b = {x: 2}, c = {x: 3};
+     *      Q.max(cmp, [a, b, c]); //=> {x: 3}
+     */
+    Q.max = _curry2(function(f, list) {
+        var len = list.length,
+            fn = typeof f == 'function' ? f : Q.field(f),
+            item = list[0],
+            res = fn(list[0]),
+            current = NaN;
+        for (var i = 0; i &lt; len; ++i) {
+            current = fn(list[i]);
+            if (current > res) {
+                item = list[i];
+                res = current
+            }
+        }
+        return item;
+    });
 
     // Arithmetic Functions
     // --------------------
@@ -1005,7 +793,9 @@
      *      Q.subtract(10, 8); //=> 2
      *      Q.map(Q.subtract(10), [1,2,3]); //=> [9,8,7]
      */
-    Q.subtract = _curry2(function subtract(minuend,subtrahend) { return minuend - subtrahend; });
+    Q.subtract = _curry2(function subtract(minuend, subtrahend) {
+        return minuend - subtrahend;
+    });
 
     /**
      * Subtracts two numbers. Equivalent to `a - b` but curried.
@@ -1023,7 +813,9 @@
      *      Q.difference( 8,10); //=> -2
      *      Q.map(Q.difference(10), [10,20,30]); //=> [0,10,20]
      */
-    Q.difference = _curry2(function difference(subtrahend,minuend) { return minuend - subtrahend; });
+    Q.difference = _curry2(function difference(subtrahend, minuend) {
+        return minuend - subtrahend;
+    });
 
     /**
      * Divides two numbers. Equivalent to `a / b`.
@@ -1044,7 +836,9 @@
      *      half(42); //=> 21
      *
      */
-    Q.divide = _curry2(function divide(dividend,divisor) { return dividend / divisor; });
+    Q.divide = _curry2(function divide(dividend, divisor) {
+        return dividend / divisor;
+    });
 
     /**
      * Divides two numbers. Equivalent to `a / b`.
@@ -1064,7 +858,31 @@
      *      Q.map(Q.quotient(16),[1,2,4,8,16]) //=> [16,8,4,2,1]
      *
      */
-    Q.quotient = _curry2(function quotient(divisor,dividend) { return dividend / divisor; });
+    Q.quotient = _curry2(function quotient(divisor, dividend) {
+        return dividend / divisor;
+    });
+
+    /**
+     * Divides the second parameter by the first and returns the remainder.
+     * Note that this functions preserves the JavaScript-style behavior for
+     * modulo. For mathematical modulo see `mathMod`
+     *
+     * @func
+     * @memberOf Q
+     * @category math
+     * @sig Number -> Number -> Number
+     * @param {Number} dividend The value to the divide.
+     * @param {Number} divisor The pseudo-modulus
+     * @return {Number} The result of `dividend % divisor`.
+     *
+     * @example
+     *
+     *      Q.modulo(17,3); //=> 2
+     *
+     */
+    Q.modulo = _curry2(function modulo(dividend, divisor) {
+        return dividend % divisor;
+    });
 
     /**
      * Divides the second parameter by the first and returns the remainder.
@@ -1081,16 +899,199 @@
      *
      * @example
      *
-     *      Q.modulo(3,17); //=> 2
+     *      Q.remainder(3,17); //=> 2
      *      // JS behavior:
-     *      Q.modulo(3,-17); //=> -2
-     *      Q.modulo(17, -3); //=> 2
+     *      Q.remainder(3,-17); //=> -2
+     *      Q.remainder(17, -3); //=> 2
      *
      *      var isOdd = Q.modulo(2);
      *      isOdd(42); //=> 0
      *      isOdd(21); //=> 1
      */
-    Q.modulo = _curry2(function modulo(divisor, dividend) { return dividend % divisor; });
+    Q.remainder = _curry2(function modulo(divisor, dividend) {
+        return dividend % divisor;
+    });
+    /**
+     * Returns a function that when supplied an object returns the indicated property of that object, if it exists.
+     *
+     * @func
+     * @memberOf Q
+     * @category Object
+     * @sig s -> {s: a} -> a
+     * @param {String} property The property name
+     * @param {Object} obj The object to query
+     * @return {*} The value at obj.p
+     * @example
+     *
+     *      Q.prop('x', {x: 100}); //=> 100
+     *      Q.prop('x', {}); //=> undefined
+     *
+     *      var fifth = Q.prop(4); // indexed from 0, remember
+     *      fifth(['Bashful', 'Doc', 'Dopey', 'Grumpy', 'Happy', 'Sleepy', 'Sneezy']);
+     *      //=> 'Happy'
+     */
+    Q.field = _curry2(function(property, obj) {
+        if (arguments.length == 1) {
+            return function(obj) {
+                return obj[property];
+            }
+        }
+        return obj[property];
+    });
+
+    /**
+     * Returns a single item by iterating through the obj, successively calling the iterator
+     * function and passing it an accumulator value, the object value for the current key, and the current key
+     * then passing the result to the next call.
+     *
+     * The iterator function receives two values: *(acc, value)*
+     *
+     * @func
+     * @memberOf Q
+     * @category core
+     * @category List
+     * @sig (a,b -> a) -> a -> [b] -> a
+     * @param {Function} f The iterator function. Receives three values, the accumulator,
+     *  the object value for the current key, and the current key
+     * @param {*} acc The accumulator value.
+     * @param {Object} obj The object to iterate over.
+     * @return {*} The final, accumulated value.
+     * @example
+     *
+     *  Q.taper(function(acc, val) { return acc+ val; }, 10,  {a: 2, b : 4}); //=> 16
+     *  Q.taper(function(acc, val,key){return acc.concat( val,key);},[1,"e"], {a: 2, b : 4});//=>[[1,"e", 2,"a",4,"b"]
+     */
+    Q.taper = _curry3(function(f, acc, obj) {
+        for (var key in obj)
+            acc = f(acc, obj[key], key);
+        return acc;
+    });
+
+    /**
+     * Returns an object containing the same keys as passed object and values that are result of function called
+     * for each object key value pair
+     *
+     * The iterator function receives two values: *(value,key)*
+     *
+     * @func
+     * @memberOf Q
+     * @category core
+     * @category Object
+     * @sig (a,b -> a) -> a -> [b] -> a
+     * @param {Function} f The iterator function. Receives three values, the accumulator,
+     *  the object value for the current key, and the current key
+     * @param {Object} obj The object to iterate over.
+     * @return {*} The final, accumulated value.
+     * @example
+     *
+     *   Q.mapValues(function(num) { return num * 3; },{ 'a': 1, 'b': 2, 'c': 3}) => { 'a': 3, 'b': 6, 'c': 9 }
+     *   Q.mapValues('age',characters) => { 'fred': 40, 'pebbles': 1 }
+     */
+    Q.mapValues = _curry2(function(f, obj) {
+        var fn = typeof f == 'function' ? f : Q.field(f),
+            res = {};
+        for (var key in obj)
+            res[key] = fn(obj[key]);
+        return res;
+    });
+
+    /**
+     * Create a new object with the own properties of a
+     * merged with the own properties of object b.
+     * This function will *not* mutate passed-in objects.
+     *
+     * @func
+     * @memberOf Q
+     * @category Object
+     * @sig {k: v} -> {k: v} -> {k: v}
+     * @param {Object} left source object
+     * @param {Object} right object with higher precedence in output
+     * @returns {Object} Returns the destination object.
+     * @example
+     *
+     *      Q.mixin({ 'name': 'fred', 'age': 10 }, { 'age': 40 });
+     *      //=> { 'name': 'fred', 'age': 40 }
+     */
+    var mixin = Q.mixin = _curry2(function mixin(left, right) {
+        var res = {},
+            key;
+        for (key in left)
+            res[key] = left[key];
+        for (key in right)
+            res[key] = right[key];
+        return res;
+    });
+
+    /**
+     * Returns a partial copy of an object containing only the keys specified.  If the key does not exist, the
+     * property is ignored.
+     *
+     * @func
+     * @memberOf Q
+     * @category Object
+     * @sig [k] -> {k: v} -> {k: v}
+     * @param {Array} keys an array of String property keys to copy onto a new object
+     * @param {Object} obj The object to copy from
+     * @return {Object} A new object with only properties from `keys` on it.
+     * @example
+     *
+     *      Q.pick(['a', 'd'], {a: 1, b: 2, c: 3, d: 4}); //=> {a: 1, d: 4}
+     *      Q.pick(['a', 'e', 'f'], {a: 1, b: 2, c: 3, d: 4}); //=> {a: 1}
+     */
+    Q.pick = _curry2(function(keys, obj) {
+        var res = {},
+            len = keys.length,
+            key;
+        for (var i = 0; i &lt; len; ++i) {
+            key = keys[i];
+            if (obj.hasOwnProperty(key)) {
+                res[key] = obj[key];
+            }
+        }
+        return res;
+    });
+    /**
+     * Returns a partial copy of an object omitting the keys specified.
+     *
+     * @func
+     * @memberOf Q
+     * @category Object
+     * @sig [k] -> {k: v} -> {k: v}
+     * @param {Array} keys an array of String property names to omit from the new object
+     * @param {Object} obj The object to copy from
+     * @return {Object} A new object with properties from `names` not on it.
+     * @example
+     *
+     *      Q.omit(['a', 'd'], {a: 1, b: 2, c: 3, d: 4}); //=> {b: 2, c: 3}
+     */
+    Q.omit = _curry2(function(keys, obj) {
+        var res = {},
+            len = keys.length;
+        for (var key in obj) {
+            if (keys.indexOf(key) == -1) {
+                res[key] = obj[key];
+            }
+        }
+        return res;
+    });
+
+    /**
+     * Returns a list containing the names of all the enumerable own
+     * properties of the supplied object.
+     *
+     * @func
+     * @memberOf Q
+     * @category Object
+     * @sig {k: v} -> [k]
+     * @param {Object} obj The object to extract properties from
+     * @return {Array} An array of the object's own properties
+     * @example
+     *
+     *      Q.keys({a: 1, b: 2, c: 3}); //=> ['a', 'b', 'c']
+     */
+    Q.keys = function(obj) {
+        return Object.keys(obj);
+    };
 
     /**
      * Returns a function that when supplied with arguments returns object created by given keys.
@@ -1108,31 +1109,122 @@
      *
      */
     Q.construct = function(keys) {
-        return function () {
-            var len = keys.length, res = {};
+        return function() {
+            var len = keys.length,
+                res = {};
             for (var i = 0; i &lt; len; ++i) {
                 res[keys[i]] = arguments[i];
             }
             return res;
         }
     };
+    /**
+     * Amend left list object with keys from right list objects
+     * joining by key
+     *
+     * @func
+     * @memberOf Q
+     * @category List
+     * @param {List} left - The original list
+     * @param {List} right - The extension list
+     * @param {String} lKey - The original list key
+     * @param {String} rKey - The extension list key, if a omitted assumed equal with lKey
+     * @return {Function} The predicate function.
+     * @example
+     *
+     *         var left = [{ id:1, b:2},{ id:2, b:2}];
+     *         var right =[{ id:1, d:4},{ id:2, d:5}];
+     *         Q.amend(left,right,'id') => [{"id":1,"b":2,"d":4},{"id":2,"b":2,"d":5}]
+     */
+    Q.amend = function(left, right, lKey, rKey) {
+        rKey = rKey || lKey;
+        return Q.map(function(l) {
+            var found = find(function(r) {
+                return l[lKey] == r[rKey];
+            }, right);
+            return Q.mixin(l, found ? found : {});
+        }, left);
+    };
 
-    function _joinComparator(on){
-        if(typeof  on == 'string') {
-            return function(left,right){
+    /**
+     * Splits a list into sub-lists stored in an object, based on the result of calling a String-returning function
+     * on each element, and grouping the results according to values returned.
+     *
+     * @func
+     * @memberOf Q
+     * @category List
+     * @param {Function|String} f - function or string
+     * @param {Array} list The array to group
+     * @return {Object} An object with the output of `f` for keys, mapped to arrays of elements
+     *         that produced that key when passed to `f`.
+     * @example
+     *
+     * Q.group(function(num) { return Math.floor(num); },[4.2, 6.1, 6.4]) =>( { '4': [4.2], '6': [6.1, 6.4] })
+     */
+    Q.group = _curry2(function(f, list) {
+        var fn = typeof f == 'function' ? f : Q.field(f);
+        return Q.fold(function(acc, elt) {
+            var key = fn(elt);
+            acc[key] = acc[key] ? acc[key].concat(elt) : [elt];
+            return acc;
+        }, {}, list);
+    });
+
+    function _keyValue(fn, list) {
+        return Q.map(function(item) {
+            return {
+                key: fn(item),
+                val: item
+            };
+        }, list);
+    }
+
+    function _compareKeys(a, b) {
+            return a.key &lt; b.key ? -1 : a.key > b.key ? 1 : 0;
+        }
+        /**
+         * Sorts the list according to a key generated by the supplied function.
+         *
+         * @func
+         * @memberOf Q
+         * @category relation
+         * @sig (a -> String) -> [a] -> [a]
+         * @param {Function|String} f The function mapping `list` items to keys, or property string.
+         * @param {Array} list The list to sort.
+         * @return {Array} A new list sorted by the keys generated by `f`.
+         * @example
+         *
+         * var entries = [{ name: 'ALICE', age: 101 }, {name: 'Bob',age: -400},{name: 'clara',age: 314.159}];
+         * Q.sort(function(d){ return Math.abs(d.age);},entries)
+         * => [{"name":"ALICE","age":101},{"name":"clara","age":314.159},{"name":"Bob","age":-400}]
+         *  Q.sort("age", [{ name: 'ALICE', age: 101 }, {name: 'Bob',age: -400},{name: 'clara',age: 314.159}])
+         * => [{"name":"Bob","age":-400},{"name":"ALICE","age":101},{"name":"clara","age":314.159}]
+         *  Q.sort("-age", [{ name: 'ALICE', age: 101 }, {name: 'Bob',age: -400},{name: 'clara',age: 314.159}])
+         * =>[{"name":"clara","age":314.159},{"name":"ALICE","age":101},{"name":"Bob","age":-400}]
+         */
+    Q.sort = _curry2(function(f, list) {
+        var fn = typeof f == 'function' ? f : f[0] == '-' ? function(d) {
+            return -1 * d[f.substring(1)]
+        } : Q.field(f);
+        return Q.pluck('val', _keyValue(fn, list).sort(_compareKeys));
+    });
+
+    function _joinComparator(on) {
+        if (typeof on == 'string') {
+            return function(left, right) {
                 return left[on] == right[on];
             }
         }
         var leftKey = on[0],
             rightKey = on[1];
-        return function(left,right){
+        return function(left, right) {
             return left[leftKey] == right[rightKey];
         }
     }
 
-    function _joinSelector(columns){
-        return function(left,right){
-            return Q.pick(columns,mixin(left,right));
+    function _joinSelector(columns) {
+        return function(left, right) {
+            return Q.pick(columns, mixin(left, right));
         }
     }
 
@@ -1152,16 +1244,16 @@
      *      Q.join("id", ["a","b"],[{id:1, a: 1},{id:2,a:3}],[{id:1, b: 11},{id:22,a:33}]) // =>([{ a: 1, b:11}]);
      *
      */
-    Q.join = _curry4(function(on,columns,left,right) {
+    Q.join = _curry4(function(on, columns, left, right) {
         var leftLen = left.length,
             rightLen = right.length,
             res = [],
-            comparator = typeof on == 'function' ? on  : _joinComparator(on),
+            comparator = typeof on == 'function' ? on : _joinComparator(on),
             selector = typeof columns == 'function' ? columns : _joinSelector(columns);
-        for(var l = 0; l &lt; leftLen; ++l) {
-            for(var r = 0; r &lt; rightLen; ++r) {
-                if(comparator(left[l],right[r])) {
-                    res.push(selector(left[l],right[r]));
+        for (var l = 0; l &lt; leftLen; ++l) {
+            for (var r = 0; r &lt; rightLen; ++r) {
+                if (comparator(left[l], right[r])) {
+                    res.push(selector(left[l], right[r]));
                 }
             }
         }
@@ -1186,7 +1278,7 @@
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.3.0-beta1</a> on Mon Jan 26 2015 10:09:11 GMT+0100 (Central European Standard Time)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.3.0-beta1</a> on Mon Jan 26 2015 11:35:38 GMT+0100 (CET)
 </footer>
 
 <script> prettyPrint(); </script>

@@ -1,6 +1,6 @@
 {
   "source": {
-    "include": [ "q.js"]
+    "include": [ "./dist/q.js"]
   },
   "plugins": [],
   "opts": {

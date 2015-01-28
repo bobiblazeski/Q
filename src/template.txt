@@ -1,9 +1,14 @@
-//  Ramda v0.9.0
-//  https://github.com/ramda/ramda
-//  (c) 2013-2015 Scott Sauyet and Michael Hurley
-//  Ramda may be freely distributed under the MIT license.
-
-;(function() {
+(function (factory) {
+    if (typeof exports === 'object') {
+        module.exports = factory(this);
+    } else if (typeof define === 'function' && define.amd) {
+        define(factory);
+    } else if(typeof Package !== 'undefined') {
+        Q = factory();
+    } else {
+        this.Q = factory(this);
+    }
+}(function () {
 
     'use strict';
 
@@ -6351,15 +6356,5 @@
         zipWith: zipWith
     };
 
-    /* TEST_ENTRY_POINT */
-
-    if (typeof exports === 'object') {
-        module.exports = Q;
-    } else if (typeof define === 'function' && define.amd) {
-         define(function() { return Q; });
-    } else {
-       this.Q = Q;
-    }
-
-
-}.call(this));
+     return Q;
+    }));

@@ -4,6 +4,7 @@
   "description": "JavaScript utility library ",
   "author": "Slobodan Blazeski <slobodan.blazeski@gmail.com>",
   "devDependencies": {
+    "chai": "^1.10.0",
     "event-stream": "^3.2.1",
     "gulp": "^3.8.10",
     "gulp-concat": "^2.4.3",

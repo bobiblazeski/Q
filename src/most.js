@@ -17,7 +17,7 @@
  */
 var most =  _curry2(function (f, list) {
     var len = list.length,
-        fn = typeof f == 'function' ? f : Q.field(f),
+        fn = typeof f == 'function' ? f : prop(f),
         item = list[0],
         res = fn(list[0]),
         current = NaN;

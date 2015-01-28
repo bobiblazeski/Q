@@ -6242,8 +6242,8 @@
      * @func
      * @memberOf Q
      * @category List
-     * @param {List} left - The original list
-     * @param {List} right - The extension list
+     * @param {Array} left - The original list
+     * @param {Array} right - The extension list
      * @param {String} lKey - The original list key
      * @param {String} rKey - The extension list key, if a omitted assumed equal with lKey
      * @return {Function} The predicate function.
@@ -6253,15 +6253,15 @@
      *         var right =[{ id:1, d:4},{ id:2, d:5}];
      *         Q.amend(left,right,'id') => [{"id":1,"b":2,"d":4},{"id":2,"b":2,"d":5}]
      */
-    var amend = curryN(4, function(left, right, lKey, rKey) {
+    var amend = function(left, right, lKey, rKey) {
         rKey = rKey || lKey;
-        return Q.map(function(l) {
+        return map(function(l) {
             var found = find(function(r) {
                 return l[lKey] == r[rKey];
             }, right);
-            return Q.mixin(l, found ? found : {});
+            return mixin(l, found ? found : {});
         }, left);
-    });
+    };
     /**
      * Returns a function that when supplied with arguments returns object created by given keys.
      * Returned function sets filed where it lacks arguments to undefined, ignores surplus arguments.
@@ -6328,31 +6328,25 @@
         return acc;
     });
     /**
-     * Divides the second parameter by the first and returns the remainder.
-     * Note that this functions preserves the JavaScript-style behavior for
-     * modulo. For mathematical modulo see `mathMod`
+     * Divides two numbers. Equivalent to `a / b`.
      *
      * @func
      * @memberOf Q
      * @category math
      * @sig Number -> Number -> Number
-     * @param {Number} divisor The pseudo-modulus
-     * @param {Number} dividend The value to the divide.
-     * @return {Number} The result of `dividend % divisor`.
+     * @param {Number} divisor - The number you divide by
+     * @param {Number} dividend -The amount that you want to divide up.
+     * @return {Number} The quotient of `dividend / divisor`.
      *
      * @example
      *
-     *      Q.remainder(3,17); //=> 2
-     *      // JS behavior:
-     *      Q.remainder(3,-17); //=> -2
-     *      Q.remainder(17, -3); //=> 2
+     *      Q.quotient(100,71); //=> 0.71
      *
-     *      var isOdd = Q.modulo(2);
-     *      isOdd(42); //=> 0
-     *      isOdd(21); //=> 1
+     *      Q.map(Q.quotient(16),[1,2,4,8,16]) //=> [16,8,4,2,1]
+     *
      */
-    var division = _curry2(function modulo(divisor, dividend) {
-        return dividend % divisor;
+    var division = _curry2(function(divisor, dividend) {
+        return dividend / divisor;
     });
     // TODO Probably should be excluded, seems not general enough
     var expand = function(fn, arr) {
@@ -6516,7 +6510,7 @@
      */
     var most = _curry2(function(f, list) {
         var len = list.length,
-            fn = typeof f == 'function' ? f : Q.field(f),
+            fn = typeof f == 'function' ? f : prop(f),
             item = list[0],
             res = fn(list[0]),
             current = NaN;
@@ -6553,25 +6547,31 @@
         return _pluck('val', _keyValue(typeof fn == 'function' ? fn : prop(fn), list).sort(_compareKeys));
     });
     /**
-     * Divides two numbers. Equivalent to `a / b`.
+     * Divides the second parameter by the first and returns the remainder.
+     * Note that this functions preserves the JavaScript-style behavior for
+     * modulo. For mathematical modulo see `mathMod`
      *
      * @func
      * @memberOf Q
      * @category math
      * @sig Number -> Number -> Number
-     * @param {Number} divisor - The number you divide by
-     * @param {Number} dividend -The amount that you want to divide up.
-     * @return {Number} The quotient of `dividend / divisor`.
+     * @param {Number} divisor The pseudo-modulus
+     * @param {Number} dividend The value to the divide.
+     * @return {Number} The result of `dividend % divisor`.
      *
      * @example
      *
-     *      Q.quotient(100,71); //=> 0.71
+     *      Q.remainder(3,17); //=> 2
+     *      // JS behavior:
+     *      Q.remainder(3,-17); //=> -2
+     *      Q.remainder(17, -3); //=> 2
      *
-     *      Q.map(Q.quotient(16),[1,2,4,8,16]) //=> [16,8,4,2,1]
-     *
+     *      var isOdd = Q.modulo(2);
+     *      isOdd(42); //=> 0
+     *      isOdd(21); //=> 1
      */
-    var quotient = _curry2(function(divisor, dividend) {
-        return dividend / divisor;
+    var remainder = _curry2(function(divisor, dividend) {
+        return dividend % divisor;
     });
     /**
      * Returns a new list containing only those items that match a given predicate function.
@@ -6677,7 +6677,7 @@
         least: least,
         most: most,
         order: order,
-        quotient: quotient,
+        remainder: remainder,
         sift: sift,
         single: single,
         subtraction: subtraction,

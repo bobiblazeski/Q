@@ -6357,8 +6357,6 @@
         module.exports = Q;
     } else if (typeof define === 'function' && define.amd) {
         define(function() { return Q; });
-    } else if(typeof Package !== 'undefined') {
-       Q = factory();
     } else {
         this.Q = Q;
     }

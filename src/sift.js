@@ -1,5 +1,5 @@
 var _sift = function _sift(fn, list) {
-    fn = typeof fn == 'function' ? fn : where(f);
+    fn = typeof fn == 'function' ? fn : where(fn);
     var idx = -1, len = list.length, result = [];
     while (++idx < len) {
         if (fn(list[idx])) {

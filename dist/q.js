@@ -6596,7 +6596,7 @@
         return dividend % divisor;
     });
     var _sift = function _sift(fn, list) {
-        fn = typeof fn == 'function' ? fn : where(f);
+        fn = typeof fn == 'function' ? fn : where(fn);
         var idx = -1,
             len = list.length,
             result = [];
@@ -6914,8 +6914,6 @@
         define(function() {
             return Q;
         });
-    } else if (typeof Package !== 'undefined') {
-        Q = factory();
     } else {
         this.Q = Q;
     }

@@ -6491,6 +6491,25 @@
         }
         return item;
     });
+    /**
+     * Subtracts two numbers. Equivalent to `a - b` but curried.
+     *
+     * @func
+     * @memberOf Q
+     * @category math
+     * @sig Number -> Number -> Number
+     * @param {Number} subtrahend -The number that is to be subtracted. The second number in a subtraction.
+     * @param {Number} minuend - The number from which another number (the Subtrahend) is to be subtracted.
+     * @return {Number} The difference  of `minuend - subtrahend`.
+     *
+     * @example
+     *
+     *      Q.minus( 8,10); //=> 2
+     *      Q.map(Q.minus(10), [10,20,30]); //=> [0,10,20]
+     */
+    var minus = _curry2(function(subtrahend, minuend) {
+        return minuend - subtrahend;
+    });
 
     /**
      * Determines the largest of a list of items as determined by pairwise comparisons from the supplied comparator
@@ -6544,7 +6563,10 @@
      * =>[{"name":"clara","age":314.159},{"name":"ALICE","age":101},{"name":"Bob","age":-400}]
      */
     var order = _curry2(function sortBy(fn, list) {
-        return _pluck('val', _keyValue(typeof fn == 'function' ? fn : prop(fn), list).sort(_compareKeys));
+        return _pluck('val', _keyValue(typeof fn == 'function' ? fn : fn[0] == '-' ?
+            function(d) {
+                return -1 * d[fn.substring(1)]
+            } : prop(fn), list).sort(_compareKeys));
     });
     /**
      * Divides the second parameter by the first and returns the remainder.
@@ -6573,6 +6595,18 @@
     var remainder = _curry2(function(divisor, dividend) {
         return dividend % divisor;
     });
+    var _sift = function _sift(fn, list) {
+        fn = typeof fn == 'function' ? fn : where(f);
+        var idx = -1,
+            len = list.length,
+            result = [];
+        while (++idx < len) {
+            if (fn(list[idx])) {
+                result[result.length] = list[idx];
+            }
+        }
+        return result;
+    };
     /**
      * Returns a new list containing only those items that match a given predicate function.
      * The predicate function is passed one argument: *(value)*.
@@ -6591,48 +6625,36 @@
      *      };
      *      Q.sift(isEven, [1, 2, 3, 4]); //=> [2, 4]
      */
-    function sift(f, list) {
-            filter(typeof f == 'function' ? f : where(f), list);
+    var sift = _curry2(_checkForMethod('sift', _sift));
+
+
+    /**
+     * Returns the first element of the list which matches the predicate, or `undefined` if no
+     * element matches.
+     *
+     * @func
+     * @memberOf Q
+     * @category List
+     * @param {Function|Object} f The predicate function used to determine if the element is the
+     *        desired one. Or specification object
+     * @param {Array} list The array to consider.
+     * @return {Object} The element found, or `undefined`.
+     * @example
+     *
+     *      var xs = [{a: 1}, {a: 2}, {a: 3}];
+     *      Q.find(function(d){ return d.a == 2;}, xs); //=> {a: 2}
+     *      Q.find({ a : 2}, xs); //=> {a: 2}
+     *      Q.find({a: 4},(xs); //=> undefined
+     */
+    var single = _curry2(function single(fn, list) {
+        fn = typeof fn == 'function' ? fn : where(fn);
+        var idx = -1;
+        var len = list.length;
+        while (++idx < len) {
+            if (fn(list[idx])) {
+                return list[idx];
+            }
         }
-        /**
-         * Returns the first element of the list which matches the predicate, or `undefined` if no
-         * element matches.
-         *
-         * @func
-         * @memberOf Q
-         * @category List
-         * @param {Function|Object} f The predicate function used to determine if the element is the
-         *        desired one. Or specification object
-         * @param {Array} list The array to consider.
-         * @return {Object} The element found, or `undefined`.
-         * @example
-         *
-         *      var xs = [{a: 1}, {a: 2}, {a: 3}];
-         *      Q.find(function(d){ return d.a == 2;}, xs); //=> {a: 2}
-         *      Q.find({ a : 2}, xs); //=> {a: 2}
-         *      Q.find({a: 4},(xs); //=> undefined
-         */
-    function single(f, list) {
-            return find(typeof f == 'function' ? f : where(f), list);
-        }
-        /**
-         * Subtracts two numbers. Equivalent to `a - b` but curried.
-         *
-         * @func
-         * @memberOf Q
-         * @category math
-         * @sig Number -> Number -> Number
-         * @param {Number} subtrahend -The number that is to be subtracted. The second number in a subtraction.
-         * @param {Number} minuend - The number from which another number (the Subtrahend) is to be subtracted.
-         * @return {Number} The difference  of `minuend - subtrahend`.
-         *
-         * @example
-         *
-         *      Q.subtraction( 8,10); //=> -2
-         *      Q.map(Q.subtraction(10), [10,20,30]); //=> [0,10,20]
-         */
-    var subtraction = _curry2(function(subtrahend, minuend) {
-        return minuend - subtrahend;
     });
     /**
      * Returns a single item by iterating through the obj, successively calling the iterator
@@ -6675,12 +6697,12 @@
         innerJoin: innerJoin,
         lay: lay,
         least: least,
+        minus: minus,
         most: most,
         order: order,
         remainder: remainder,
         sift: sift,
         single: single,
-        subtraction: subtraction,
         taper: taper,
         F: F,
         I: I,

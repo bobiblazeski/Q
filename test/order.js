@@ -27,8 +27,7 @@ describe('#order(f, list)', function () {
     });
 
     it("should return entries sorted reverse by age", function () {
-        var entries = [{ name: 'ALICE', age: 101 }, {name: 'Bob',age: -400},{name: 'clara',age: 314.159}];
-        Q.order("-age",entries)
+        Q.order("-age",[{ name: 'ALICE', age: 101 }, {name: 'Bob',age: -400},{name: 'clara',age: 314.159}])
             .should.deep.eql([{name: 'clara',age: 314.159},{ name: 'ALICE', age: 101 }, {name: 'Bob',age: -400}]);
     });
 });

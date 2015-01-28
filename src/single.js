@@ -16,6 +16,13 @@
  *      Q.find({ a : 2}, xs); //=> {a: 2}
  *      Q.find({a: 4},(xs); //=> undefined
  */
-function single(f, list) {
-    return find(typeof f == 'function' ? f : where(f),list);
-}
+var single = _curry2(function single(fn, list) {
+    fn = typeof fn == 'function' ? fn : where(fn);
+    var idx = -1;
+    var len = list.length;
+    while (++idx < len) {
+        if (fn(list[idx])) {
+            return list[idx];
+        }
+    }
+});

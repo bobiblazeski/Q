@@ -1,7 +1,10 @@
-var chai  = require('chai'),
-    should = chai.should(),
-    expect = chai.expect,
-    Q = require('../dist/q.js');
+if(typeof require != undefined) {
+    var chai  = require('chai'),
+        Q = require('../dist/q.js');
+}
+var should = chai.should(),
+    expect = chai.expect;
+
 
 describe('#abate(fn,acc,list)', function () {
     it("should return [-4,4,-9,9,-16,16]", function () {

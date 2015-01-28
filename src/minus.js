@@ -11,7 +11,7 @@
  *
  * @example
  *
- *      Q.subtraction( 8,10); //=> -2
- *      Q.map(Q.subtraction(10), [10,20,30]); //=> [0,10,20]
+ *      Q.minus( 8,10); //=> 2
+ *      Q.map(Q.minus(10), [10,20,30]); //=> [0,10,20]
  */
-var subtraction = _curry2(function(subtrahend,minuend) { return minuend - subtrahend; });
+var minus = _curry2(function(subtrahend,minuend) { return minuend - subtrahend; });

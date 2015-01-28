@@ -6909,13 +6909,13 @@
     /* TEST_ENTRY_POINT */
 
     if (typeof exports === 'object') {
-        module.exports = Q;
+        module.exports = R;
     } else if (typeof define === 'function' && define.amd) {
         define(function() {
-            return Q;
+            return R;
         });
     } else {
-        this.Q = Q;
+        this.R = R;
     }
 
 

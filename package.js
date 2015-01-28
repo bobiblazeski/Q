@@ -1,6 +1,6 @@
 Package.describe({
   "name": 'bobiblazeski:q',
-  "version": "1.3.4",
+  "version": "1.3.5",
   "summary": 'Javascript utility functions',
   "git": 'https://github.com/bobiblazeski/Q.git',
   "documentation": 'README.md'

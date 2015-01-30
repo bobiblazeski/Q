@@ -18,7 +18,11 @@
  *  Q.sort("-age", [{ name: 'ALICE', age: 101 }, {name: 'Bob',age: -400},{name: 'clara',age: 314.159}])
  * =>[{"name":"clara","age":314.159},{"name":"ALICE","age":101},{"name":"Bob","age":-400}]
  */
-var order = _curry2(function sortBy(fn, list) {
-    return _pluck('val', _keyValue(typeof fn == 'function' ? fn : fn[0] == '-' ?
-        function (d) { return -1 * d[fn.substring(1)] } : prop(fn), list).sort(_compareKeys));
+var order = _curry2(function sortBy(f, list) {
+    var fn = typeof f == 'function' ? f : f[0] == '-' ? function (d) { return -1 * d[f.substring(1)] } : prop(f);
+    return clone(list).sort(function(a, b) {
+        var aa = fn(a);
+        var bb = fn(b);
+        return aa < bb ? -1 : aa > bb ? 1 : 0;
+    });
 });

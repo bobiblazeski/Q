@@ -3,18 +3,51 @@ var fs = require('fs'),
     concat = require('gulp-concat'),
     uglify = require('gulp-uglify'),
     wrap = require("gulp-wrap"),
-    prettify = require('gulp-jsbeautifier');
+    prettify = require('gulp-jsbeautifier'),
+    rename = require("gulp-rename"),
+    jsdoc = require("gulp-jsdoc");
 
 
 gulp.task('default', function() {
     var exportEntriesString = exportsString();
     gulp.src("./src/*.js")
         .pipe(concat('q.js'))
-        .pipe(wrap({ src: './src/template.txt'}, { exports: exportEntriesString}, { variable: 'data' }))
+        .pipe(wrap({ src: './templates/distribution.txt'}, { exports: exportEntriesString}, { variable: 'data' }))
+        .pipe(prettify())
+        .pipe(gulp.dest("./dist"))
+        .pipe(uglify())
+        .pipe(rename("q.min.js"))
+        .pipe(gulp.dest("./dist"));
+
+
+
+});
+// TODO documentation generation is falwe, without contents
+gulp.task('documentation', function() {
+    var exportEntriesString = exportsString();
+    gulp.src("./src/*.js")
+        .pipe(concat('q.docs.js'))
+        .pipe(wrap({ src: './templates/documentation.txt'}, { exports: exportEntriesString}, { variable: 'data' }))
         .pipe(prettify())
         .pipe(gulp.dest("./dist"));
-});
 
+    gulp.src("./dist/q.docs.js")
+        .pipe(jsdoc.parser({
+            plugins: ['plugins/markdown']
+        }))
+        .pipe(jsdoc.generator('./docs',{
+            path: 'ink-docstrap',
+            systemName      : 'Q',
+            footer          : "Q",
+            copyright       : "Slobodan Blazeski 2015",
+            navType         : "vertical",
+            theme           : "journal",
+            linenums        : true,
+            collapseSymbols : false,
+            inverseNav      : false,
+            outputSourceFiles: true
+        }));
+});
 
 
 function exportsString() {

@@ -1,2 +1,3 @@
 # Q
-# Javascript Utilities
+
+Additional functionality for [Ramda](http://ramdajs.com/) mostly for more convenience.

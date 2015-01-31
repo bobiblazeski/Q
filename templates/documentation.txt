@@ -1,24 +1,22 @@
-(function (factory) {
+(function(factory) {
     if (typeof exports === 'object') {
         module.exports = factory(this);
     } else if (typeof define === 'function' && define.amd) {
         define(factory);
-    } else if(typeof Package !== 'undefined') {
+    } else if (typeof Package !== 'undefined') {
         Q = factory();
     } else {
         this.Q = factory(this);
     }
-}(function () {
-
+}(function() {
 
     'use strict';
-    /**
-     * A practical functional library for Javascript programmers.
-     *
-     * @namespace Q
-     */
-    var Q = {"version": "1.2.2"};
-    <%= contents %>
 
- return Q;
+    <%= data.contents %>
+
+    var Q = { 
+      <%= data.exports %>            
+    };
+
+    return Q;
 }));

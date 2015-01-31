@@ -1,48 +1,7 @@
-<!DOCTYPE html>
-
-<html lang="en">
-<head>
-	<meta charset="utf-8">
-	<title>Q Source: /home/bobi/js/Q/dist/q.docs.js</title>
-
-	<!--[if lt IE 9]>
-	<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-	<![endif]-->
-	<link type="text/css" rel="stylesheet" href="styles/sunlight.default.css">
-
-	
-	<link type="text/css" rel="stylesheet" href="styles/site.journal.css">
-	
-</head>
-
-<body>
-<div class="container-fluid">
-	<div class="navbar navbar-fixed-top ">
-		<div class="navbar-inner">
-			<a class="brand" href="index.html">Q</a>
-			<ul class="nav">
-				
-			</ul>
-		</div>
-	</div>
-
-	<div class="row-fluid">
-
-		
-			<div class="span12">
-				
-				<div id="main">
-					
-
-
-		<h1 class="page-title">Source: /home/bobi/js/Q/dist/q.docs.js</h1>
-    
-    <section>
-        <article>
-            <pre class="sunlight-highlight-javascript linenums">(function(factory) {
+(function(factory) {
     if (typeof exports === 'object') {
         module.exports = factory(this);
-    } else if (typeof define === 'function' &amp;&amp; define.amd) {
+    } else if (typeof define === 'function' && define.amd) {
         define(factory);
     } else if (typeof Package !== 'undefined') {
         Q = factory();
@@ -118,7 +77,7 @@
             return function() {
                 var len = keys.length,
                     res = {};
-                for (var i = 0; i &lt; len; ++i) {
+                for (var i = 0; i < len; ++i) {
                     res[keys[i]] = arguments[i];
                 }
                 return res;
@@ -159,7 +118,7 @@
     var curtail = _curry2(function(fn, list) {
         var acc = [],
             len = list.length;
-        for (var i = 0; i &lt; len; ++i) {
+        for (var i = 0; i < len; ++i) {
             acc = acc.concat(fn(list[i], i));
         }
         return acc;
@@ -257,8 +216,8 @@
             res = [],
             comparator = typeof on == 'function' ? on : _joinComparator(on),
             selector = typeof columns == 'function' ? columns : _joinSelector(columns);
-        for (var l = 0; l &lt; leftLen; ++l) {
-            for (var r = 0; r &lt; rightLen; ++r) {
+        for (var l = 0; l < leftLen; ++l) {
+            for (var r = 0; r < rightLen; ++r) {
                 if (comparator(left[l], right[r])) {
                     res.push(selector(left[l], right[r]));
                 }
@@ -289,9 +248,9 @@
             var res = [],
                 i = start;
             if (step > 0) {
-                for (; i &lt; end; i += step)
+                for (; i < end; i += step)
                     res.push(i);
-            } else if (step &lt; 0) {
+            } else if (step < 0) {
                 for (; i > end; i += step)
                     res.push(i);
             }
@@ -319,9 +278,9 @@
             item = list[0],
             res = fn(list[0]),
             current = NaN;
-        for (var i = 0; i &lt; len; ++i) {
+        for (var i = 0; i < len; ++i) {
             current = fn(list[i]);
-            if (current &lt; res) {
+            if (current < res) {
                 item = list[i];
                 res = current
             }
@@ -370,7 +329,7 @@
             item = list[0],
             res = fn(list[0]),
             current = NaN;
-        for (var i = 0; i &lt; len; ++i) {
+        for (var i = 0; i < len; ++i) {
             current = fn(list[i]);
             if (current > res) {
                 item = list[i];
@@ -406,7 +365,7 @@
         return clone(list).sort(function(a, b) {
             var aa = fn(a);
             var bb = fn(b);
-            return aa &lt; bb ? -1 : aa > bb ? 1 : 0;
+            return aa < bb ? -1 : aa > bb ? 1 : 0;
         });
     });
     /**
@@ -441,7 +400,7 @@
         var idx = -1,
             len = list.length,
             result = [];
-        while (++idx &lt; len) {
+        while (++idx < len) {
             if (fn(list[idx])) {
                 result[result.length] = list[idx];
             }
@@ -491,11 +450,34 @@
         fn = typeof fn == 'function' ? fn : where(fn);
         var idx = -1;
         var len = list.length;
-        while (++idx &lt; len) {
+        while (++idx < len) {
             if (fn(list[idx])) {
                 return list[idx];
             }
         }
+    });
+    /**
+     * Adds together all the elements of a list.
+     *
+     * @func
+     * @memberOf Q
+     * @category Math
+     * @sig [Number] -> Number
+     * @param {Array} list An array of numbers
+     * @return {Number} The sum of all the numbers in the list.
+     * @see foldl
+     * @example
+     *
+     *      Q.sumBy("a",[{a:2},{a:4},{a:6},{a:8},{a:100},{a:1}]); //=> 121
+     *      Q.sumBy(function(d){ return 2* d.a;},[{a:2},{a:4},{a:6},{a:8},{a:100},{a:1}]) //=>242
+     *      Q.sumBy(Q.identity,[2,4,6,8,100,100])//=> 220
+     */
+    var sumBy = _curry2(function(f, list) {
+        return _foldl(typeof f == 'function' ? function(a, b) {
+            return a + f(b)
+        } : function(a, b) {
+            return a + b[f];
+        }, 0, list);
     });
     /**
      * Returns a single item by iterating through the obj, successively calling the iterator
@@ -544,73 +526,9 @@
         remainder: remainder,
         sift: sift,
         single: single,
+        sumBy: sumBy,
         taper: taper,
     };
 
     return Q;
 }));
-</pre>
-        </article>
-    </section>
-
-
-
-
-
-				</div>
-
-				<div class="clearfix"></div>
-				<footer>
-					
-					Q
-					<br />
-					
-					
-		<span class="copyright">
-		Slobodan Blazeski 2015
-		</span>
-					<br />
-					
-		<span class="jsdoc-message">
-		Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.3.0-alpha5</a>
-		on Sat Jan 31 2015 14:42:45 GMT+0100 (CET) using the <a href="https://github.com/terryweiss/docstrap">DocStrap template</a>.
-		</span>
-				</footer>
-			</div>
-
-			
-			<br clear="both">
-		</div>
-
-	</div>
-	<script src="scripts/sunlight.js"></script>
-	<script src="scripts/sunlight.javascript.js"></script>
-	<script src="scripts/sunlight-plugin.doclinks.js"></script>
-	<script src="scripts/sunlight-plugin.linenumbers.js"></script>
-	<script src="scripts/sunlight-plugin.menu.js"></script>
-	<script src="scripts/jquery.min.js"></script>
-	<script src="scripts/jquery.scrollTo.js"></script>
-	<script src="scripts/jquery.localScroll.js"></script>
-	<script src="scripts/bootstrap-dropdown.js"></script>
-	<script src="scripts/toc.js"></script>
-
-
-	<script>  Sunlight.highlightAll({lineNumbers:true,  showMenu: true, enableDoclinks :true}); </script>
-
-	<script>
-		$( function () {
-			$( "#toc" ).toc( {
-				selectors   : "h1,h2,h3,h4",
-				showAndHide : false,
-				scrollTo    : 60
-			} );
-			$( "#toc>ul" ).addClass( "nav nav-pills nav-stacked" );
-			$( "#main span[id^='toc']" ).addClass( "toc-shim" );
-
-		} );
-	</script>
-
-	
-
-</body>
-</html>

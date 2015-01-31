@@ -1,7 +1,48 @@
-(function(factory) {
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>Q Source: /home/bobi/js/Q/dist/q.js</title>
+
+	<!--[if lt IE 9]>
+	<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+	<![endif]-->
+	<link type="text/css" rel="stylesheet" href="styles/sunlight.default.css">
+
+	
+	<link type="text/css" rel="stylesheet" href="styles/site.journal.css">
+	
+</head>
+
+<body>
+<div class="container-fluid">
+	<div class="navbar navbar-fixed-top ">
+		<div class="navbar-inner">
+			<a class="brand" href="index.html">Q</a>
+			<ul class="nav">
+				
+			</ul>
+		</div>
+	</div>
+
+	<div class="row-fluid">
+
+		
+			<div class="span12">
+				
+				<div id="main">
+					
+
+
+		<h1 class="page-title">Source: /home/bobi/js/Q/dist/q.js</h1>
+    
+    <section>
+        <article>
+            <pre class="sunlight-highlight-javascript linenums">(function(factory) {
     if (typeof exports === 'object') {
         module.exports = factory(this);
-    } else if (typeof define === 'function' && define.amd) {
+    } else if (typeof define === 'function' &amp;&amp; define.amd) {
         define(factory);
     } else if (typeof Package !== 'undefined') {
         Q = factory();
@@ -22,7 +63,7 @@
 
     var _all = function _all(fn, list) {
         var idx = -1;
-        while (++idx < list.length) {
+        while (++idx &lt; list.length) {
             if (!fn(list[idx])) {
                 return false;
             }
@@ -32,7 +73,7 @@
 
     var _any = function _any(fn, list) {
         var idx = -1;
-        while (++idx < list.length) {
+        while (++idx &lt; list.length) {
             if (fn(list[idx])) {
                 return true;
             }
@@ -87,11 +128,11 @@
         var len2 = set2.length;
         var result = new Array(len1 + len2);
         idx = -1;
-        while (++idx < len1) {
+        while (++idx &lt; len1) {
             result[idx] = set1[idx];
         }
         idx = -1;
-        while (++idx < len2) {
+        while (++idx &lt; len2) {
             result[len1 + idx] = set2[idx];
         }
         return result;
@@ -100,7 +141,7 @@
     var _containsWith = function _containsWith(pred, x, list) {
         var idx = -1,
             len = list.length;
-        while (++idx < len) {
+        while (++idx &lt; len) {
             if (pred(x, list[idx])) {
                 return true;
             }
@@ -120,14 +161,14 @@
      */
     var _createMaxMinBy = function _createMaxMinBy(comparator) {
         return function(valueComputer, list) {
-            if (!(list && list.length > 0)) {
+            if (!(list &amp;&amp; list.length > 0)) {
                 return;
             }
             var idx = 0,
                 winner = list[idx],
                 computedWinner = valueComputer(winner),
                 computedCurrent;
-            while (++idx < list.length) {
+            while (++idx &lt; list.length) {
                 computedCurrent = valueComputer(list[idx]);
                 if (comparator(computedCurrent, computedWinner)) {
                     computedWinner = computedCurrent;
@@ -142,7 +183,7 @@
         var idx = -1,
             len = list.length,
             result = [];
-        while (++idx < len) {
+        while (++idx &lt; len) {
             if (fn(list[idx])) {
                 result[result.length] = list[idx];
             }
@@ -154,7 +195,7 @@
         var idx = -1,
             len = list.length,
             result = [];
-        while (++idx < len) {
+        while (++idx &lt; len) {
             if (fn(list[idx], idx, list)) {
                 result[result.length] = list[idx];
             }
@@ -165,7 +206,7 @@
     var _foldl = function _foldl(fn, acc, list) {
         var idx = -1,
             len = list.length;
-        while (++idx < len) {
+        while (++idx &lt; len) {
             acc = fn(acc, list[idx]);
         }
         return acc;
@@ -175,7 +216,7 @@
     var _forEach = function _forEach(fn, list) {
         var idx = -1,
             len = list.length;
-        while (++idx < len) {
+        while (++idx &lt; len) {
             fn(list[idx]);
         }
         // i can't bear not to return *something*
@@ -217,9 +258,9 @@
         var idx = 0,
             len = list.length;
         if (typeof from == 'number') {
-            idx = from < 0 ? Math.max(0, len + from) : from;
+            idx = from &lt; 0 ? Math.max(0, len + from) : from;
         }
-        while (idx < len) {
+        while (idx &lt; len) {
             if (list[idx] === item) {
                 return idx;
             }
@@ -241,7 +282,7 @@
      *      _isArray({}); //=> false
      */
     var _isArray = Array.isArray || function _isArray(val) {
-        return val != null && val.length >= 0 && Object.prototype.toString.call(val) === '[object Array]';
+        return val != null &amp;&amp; val.length >= 0 &amp;&amp; Object.prototype.toString.call(val) === '[object Array]';
     };
 
     /**
@@ -253,14 +294,14 @@
      * @return {Boolean}
      */
     var _isInteger = Number.isInteger || function _isInteger(n) {
-        return n << 0 === n;
+        return n &lt;&lt; 0 === n;
     };
 
     /**
      * Tests if a value is a thenable (promise).
      */
     var _isThenable = function _isThenable(value) {
-        return value != null && value === Object(value) && typeof value.then === 'function';
+        return value != null &amp;&amp; value === Object(value) &amp;&amp; typeof value.then === 'function';
     };
 
     /**
@@ -279,7 +320,7 @@
     var _lastIndexOf = function _lastIndexOf(list, item, from) {
         var idx = list.length;
         if (typeof from == 'number') {
-            idx = from < 0 ? idx + from + 1 : Math.min(idx, from + 1);
+            idx = from &lt; 0 ? idx + from + 1 : Math.min(idx, from + 1);
         }
         while (--idx >= 0) {
             if (list[idx] === item) {
@@ -290,14 +331,14 @@
     };
 
     var _lt = function _lt(a, b) {
-        return a < b;
+        return a &lt; b;
     };
 
     var _map = function _map(fn, list) {
         var idx = -1,
             len = list.length,
             result = new Array(len);
-        while (++idx < len) {
+        while (++idx &lt; len) {
             result[idx] = fn(list[idx]);
         }
         return result;
@@ -318,7 +359,7 @@
     };
 
     var _nth = function _nth(n, list) {
-        return n < 0 ? list[list.length + n] : list[n];
+        return n &lt; 0 ? list[list.length + n] : list[n];
     };
 
     /**
@@ -398,7 +439,7 @@
             return;
         }
         val = obj;
-        while (val != null && ++idx < length) {
+        while (val != null &amp;&amp; ++idx &lt; length) {
             val = val[paths[idx]];
         }
         return val;
@@ -441,7 +482,7 @@
             fnLen = parsedSpec.fn.length,
             j = -1,
             objLen = parsedSpec.obj.length;
-        while (++idx < fnLen) {
+        while (++idx &lt; fnLen) {
             key = parsedSpec.fn[idx];
             val = spec[key];
             if (!(key in testObj)) {
@@ -451,7 +492,7 @@
                 return false;
             }
         }
-        while (++j < objLen) {
+        while (++j &lt; objLen) {
             key = parsedSpec.obj[j];
             if (spec[key] !== testObj[key]) {
                 return false;
@@ -489,7 +530,7 @@
                 var length = Math.max(0, to - from),
                     list = new Array(length),
                     idx = -1;
-                while (++idx < length) {
+                while (++idx &lt; length) {
                     list[idx] = args[from + idx];
                 }
                 return list;
@@ -640,11 +681,11 @@
      * @category Function
      * @sig (a, b -> Boolean) -> (a, b -> Number)
      * @param {Function} pred A predicate function of arity two.
-     * @return {Function} A Function :: a -> b -> Int that returns `-1` if a < b, `1` if b < a, otherwise `0`.
+     * @return {Function} A Function :: a -> b -> Int that returns `-1` if a &lt; b, `1` if b &lt; a, otherwise `0`.
      * @example
      *
      *      var cmp = Q.comparator(function(a, b) {
-     *        return a.age < b.age;
+     *        return a.age &lt; b.age;
      *      });
      *      var people = [
      *        // ...
@@ -686,7 +727,7 @@
         var pairs = arguments;
         return function() {
             var idx = -1;
-            while (++idx < pairs.length) {
+            while (++idx &lt; pairs.length) {
                 if (pairs[idx][0].apply(this, arguments)) {
                     return pairs[idx][1].apply(this, arguments);
                 }
@@ -788,8 +829,8 @@
         var idx = -1,
             len = pairs.length,
             out = {};
-        while (++idx < len) {
-            if (_isArray(pairs[idx]) && pairs[idx].length) {
+        while (++idx &lt; len) {
+            if (_isArray(pairs[idx]) &amp;&amp; pairs[idx].length) {
                 out[pairs[idx][0]] = pairs[idx][1];
             }
         }
@@ -886,7 +927,7 @@
             return true;
         }
         if (x.length > 0) {
-            return x.hasOwnProperty(0) && x.hasOwnProperty(x.length - 1);
+            return x.hasOwnProperty(0) &amp;&amp; x.hasOwnProperty(x.length - 1);
         }
         return false;
     };
@@ -950,7 +991,7 @@
     var isSet = function isSet(list) {
         var len = list.length;
         var idx = -1;
-        while (++idx < len) {
+        while (++idx &lt; len) {
             if (_indexOf(list, list[idx], idx + 1) >= 0) {
                 return false;
             }
@@ -1484,7 +1525,7 @@
         var copy = function copy(copiedValue) {
             var len = refFrom.length;
             var idx = -1;
-            while (++idx < len) {
+            while (++idx &lt; len) {
                 if (value === refFrom[idx]) {
                     return refTo[idx];
                 }
@@ -1522,7 +1563,7 @@
         return function(a, b, c) {
             var length = arguments.length;
             var obj = arguments[length - 1],
-                callBound = obj && !_isArray(obj) && typeof obj[methodname] === 'function';
+                callBound = obj &amp;&amp; !_isArray(obj) &amp;&amp; typeof obj[methodname] === 'function';
             switch (arguments.length) {
                 case 0:
                     return fn();
@@ -1582,7 +1623,7 @@
             var idx = -1,
                 winner = initialVal,
                 computed;
-            while (++idx < list.length) {
+            while (++idx &lt; list.length) {
                 computed = +list[idx];
                 if (comparator(computed, winner)) {
                     winner = computed;
@@ -1683,7 +1724,7 @@
      *      _hasMethod('foo', person); //=> false
      */
     var _hasMethod = function _hasMethod(methodName, obj) {
-        return obj != null && !_isArray(obj) && typeof obj[methodName] === 'function';
+        return obj != null &amp;&amp; !_isArray(obj) &amp;&amp; typeof obj[methodName] === 'function';
     };
 
     /**
@@ -1698,12 +1739,12 @@
                 idx = -1,
                 j, ilen = list.length,
                 jlen;
-            while (++idx < ilen) {
+            while (++idx &lt; ilen) {
                 if (isArrayLike(list[idx])) {
                     value = recursive ? flatt(list[idx]) : list[idx];
                     j = -1;
                     jlen = value.length;
-                    while (++j < jlen) {
+                    while (++j &lt; jlen) {
                         result[result.length] = value[j];
                     }
                 } else {
@@ -1726,7 +1767,7 @@
         var props = keysIn(obj);
         var len = props.length;
         var idx = -1;
-        while (++idx < len) {
+        while (++idx &lt; len) {
             prop = props[idx];
             if (test(obj[prop], prop, obj)) {
                 copy[prop] = obj[prop];
@@ -1784,7 +1825,7 @@
 
     /**
      *
-     * A function wrapping calls to the two functions in an `&&` operation, returning the result of the first
+     * A function wrapping calls to the two functions in an `&amp;&amp;` operation, returning the result of the first
      * function if it is false-y and the result of the second function otherwise.  Note that this is
      * short-circuited, meaning that the second function will not be invoked if the first returns a false-y
      * value.
@@ -1806,7 +1847,7 @@
      */
     var and = _curry2(function and(f, g) {
         return function _and() {
-            return f.apply(this, arguments) && g.apply(this, arguments);
+            return f.apply(this, arguments) &amp;&amp; g.apply(this, arguments);
         };
     });
 
@@ -2068,7 +2109,7 @@
      */
     var curryN = _curry2(function curryN(length, fn) {
         return function recurry(args) {
-            return arity(Math.max(length - (args && args.length || 0), 0), function() {
+            return arity(Math.max(length - (args &amp;&amp; args.length || 0), 0), function() {
                 if (arguments.length === 0) {
                     throw _noArgsException();
                 }
@@ -2117,8 +2158,8 @@
         var out = [];
         var idx = -1;
         var firstLen = first.length;
-        while (++idx < firstLen) {
-            if (!_contains(first[idx], second) && !_contains(first[idx], out)) {
+        while (++idx &lt; firstLen) {
+            if (!_contains(first[idx], second) &amp;&amp; !_contains(first[idx], out)) {
                 out[out.length] = first[idx];
             }
         }
@@ -2152,8 +2193,8 @@
         var idx = -1;
         var firstLen = first.length;
         var containsPred = containsWith(pred);
-        while (++idx < firstLen) {
-            if (!containsPred(first[idx], second) && !containsPred(first[idx], out)) {
+        while (++idx &lt; firstLen) {
+            if (!containsPred(first[idx], second) &amp;&amp; !containsPred(first[idx], out)) {
                 out[out.length] = first[idx];
             }
         }
@@ -2175,7 +2216,7 @@
      *     Q.drop(3, [1,2,3,4,5,6,7]); //=> [4,5,6,7]
      */
     var drop = _curry2(_checkForMethod('drop', function drop(n, list) {
-        return n < list.length ? _slice(list, n) : [];
+        return n &lt; list.length ? _slice(list, n) : [];
     }));
 
     /**
@@ -2193,7 +2234,7 @@
      * @example
      *
      *      var lteTwo = function(x) {
-     *        return x <= 2;
+     *        return x &lt;= 2;
      *      };
      *
      *      Q.dropWhile(lteTwo, [1, 2, 3, 4]); //=> [3, 4]
@@ -2201,7 +2242,7 @@
     var dropWhile = _curry2(function dropWhile(pred, list) {
         var idx = -1,
             len = list.length;
-        while (++idx < len && pred(list[idx])) {}
+        while (++idx &lt; len &amp;&amp; pred(list[idx])) {}
         return _slice(list, idx);
     });
 
@@ -2247,7 +2288,7 @@
         if (a === 0) {
             return 1 / a === 1 / b;
         } else {
-            return a === b || a !== a && b !== b;
+            return a === b || a !== a &amp;&amp; b !== b;
         }
     });
 
@@ -2312,7 +2353,7 @@
      * @example
      *
      *      var lastTwo = function(val, idx, list) {
-     *        return list.length - idx <= 2;
+     *        return list.length - idx &lt;= 2;
      *      };
      *      Q.filterIndexed(lastTwo, [8, 6, 7, 5, 3, 0, 9]); //=> [0, 9]
      */
@@ -2339,7 +2380,7 @@
     var find = _curry2(function find(fn, list) {
         var idx = -1;
         var len = list.length;
-        while (++idx < len) {
+        while (++idx &lt; len) {
             if (fn(list[idx])) {
                 return list[idx];
             }
@@ -2367,7 +2408,7 @@
     var findIndex = _curry2(function findIndex(fn, list) {
         var idx = -1;
         var len = list.length;
-        while (++idx < len) {
+        while (++idx &lt; len) {
             if (fn(list[idx])) {
                 return idx;
             }
@@ -2510,7 +2551,7 @@
     var foldlIndexed = _curry3(function foldlIndexed(fn, acc, list) {
         var idx = -1,
             len = list.length;
-        while (++idx < len) {
+        while (++idx &lt; len) {
             acc = fn(acc, list[idx], idx, list);
         }
         return acc;
@@ -2655,7 +2696,7 @@
     var forEachIndexed = _curry2(function forEachIndexed(fn, list) {
         var idx = -1,
             len = list.length;
-        while (++idx < len) {
+        while (++idx &lt; len) {
             fn(list[idx], idx, list);
         }
         // i can't bear not to return *something*
@@ -2707,8 +2748,8 @@
      *
      *     var byGrade = Q.groupBy(function(student) {
      *       var score = student.score;
-     *       return (score < 65) ? 'F' : (score < 70) ? 'D' :
-     *              (score < 80) ? 'C' : (score < 90) ? 'B' : 'A';
+     *       return (score &lt; 65) ? 'F' : (score &lt; 70) ? 'D' :
+     *              (score &lt; 80) ? 'C' : (score &lt; 90) ? 'B' : 'A';
      *     });
      *     var students = [{name: 'Abby', score: 84},
      *                     {name: 'Eddy', score: 58},
@@ -2852,7 +2893,7 @@
     /**
      * Inserts the supplied element into the list, at index `index`.  _Note
      * that this is not destructive_: it returns a copy of the list with the changes.
-     * <small>No lists have been harmed in the application of this function.</small>
+     * &lt;small>No lists have been harmed in the application of this function.&lt;/small>
      *
      * @func
      * @memberOf Q
@@ -2867,14 +2908,14 @@
      *      Q.insert(2, 'x', [1,2,3,4]); //=> [1,2,'x',3,4]
      */
     var insert = _curry3(function insert(idx, elt, list) {
-        idx = idx < list.length && idx >= 0 ? idx : list.length;
+        idx = idx &lt; list.length &amp;&amp; idx >= 0 ? idx : list.length;
         return _concat(_append(elt, _slice(list, 0, idx)), _slice(list, idx));
     });
 
     /**
      * Inserts the sub-list into the list, at index `index`.  _Note  that this
      * is not destructive_: it returns a copy of the list with the changes.
-     * <small>No lists have been harmed in the application of this function.</small>
+     * &lt;small>No lists have been harmed in the application of this function.&lt;/small>
      *
      * @func
      * @memberOf Q
@@ -2889,7 +2930,7 @@
      *      Q.insertAll(2, ['x','y','z'], [1,2,3,4]); //=> [1,2,'x','y','z',3,4]
      */
     var insertAll = _curry3(function insertAll(idx, elts, list) {
-        idx = idx < list.length && idx >= 0 ? idx : list.length;
+        idx = idx &lt; list.length &amp;&amp; idx >= 0 ? idx : list.length;
         return _concat(_concat(_slice(list, 0, idx), elts), _slice(list, idx));
     });
 
@@ -2948,7 +2989,7 @@
      *      Q.is(Number, {}); //=> false
      */
     var is = _curry2(function is(Ctor, val) {
-        return val != null && val.constructor === Ctor || val instanceof Ctor;
+        return val != null &amp;&amp; val.constructor === Ctor || val instanceof Ctor;
     });
 
     /**
@@ -2986,9 +3027,9 @@
      *
      *      Q.keys({a: 1, b: 2, c: 3}); //=> ['a', 'b', 'c']
      */
-    // cover IE < 9 keys issues
+    // cover IE &lt; 9 keys issues
     var keys = function() {
-        // cover IE < 9 keys issues
+        // cover IE &lt; 9 keys issues
         var hasEnumBug = !{
             toString: null
         }.propertyIsEnumerable('toString');
@@ -3019,7 +3060,7 @@
                 nIdx = nonEnumerableProps.length;
                 while (nIdx--) {
                     prop = nonEnumerableProps[nIdx];
-                    if (has(prop, obj) && !_contains(prop, ks)) {
+                    if (has(prop, obj) &amp;&amp; !_contains(prop, ks)) {
                         ks[ks.length] = prop;
                     }
                 }
@@ -3092,7 +3133,7 @@
      *      Q.length([1, 2, 3]); //=> 3
      */
     var length = function length(list) {
-        return list != null && is(Number, list.length) ? list.length : NaN;
+        return list != null &amp;&amp; is(Number, list.length) ? list.length : NaN;
     };
 
     /**
@@ -3202,7 +3243,7 @@
             len = list.length,
             result = new Array(len),
             tuple = [acc];
-        while (++idx < len) {
+        while (++idx &lt; len) {
             tuple = fn(tuple[0], list[idx]);
             result[idx] = tuple[1];
         }
@@ -3284,7 +3325,7 @@
         var idx = -1,
             len = list.length,
             result = new Array(len);
-        while (++idx < len) {
+        while (++idx &lt; len) {
             result[idx] = fn(list[idx], idx, list);
         }
         return result;
@@ -3963,7 +4004,7 @@
         var len = ps.length,
             out = new Array(len),
             idx = -1;
-        while (++idx < len) {
+        while (++idx &lt; len) {
             out[idx] = obj[ps[idx]];
         }
         return out;
@@ -4018,7 +4059,7 @@
         }
         var idx = 0,
             result = new Array(Math.floor(to) - Math.ceil(from));
-        while (from < to) {
+        while (from &lt; to) {
             result[idx++] = from++;
         }
         return result;
@@ -4060,7 +4101,7 @@
      * @example
      *
      *      var lastTwo = function(val, idx, list) {
-     *        return list.length - idx <= 2;
+     *        return list.length - idx &lt;= 2;
      *      };
      *
      *      Q.rejectIndexed(lastTwo, [8, 6, 7, 5, 3, 0, 9]); //=> [8, 6, 7, 5, 3]
@@ -4073,7 +4114,7 @@
      * Removes the sub-list of `list` starting at index `start` and containing
      * `count` elements.  _Note that this is not destructive_: it returns a
      * copy of the list with the changes.
-     * <small>No lists have been harmed in the application of this function.</small>
+     * &lt;small>No lists have been harmed in the application of this function.&lt;/small>
      *
      * @func
      * @memberOf Q
@@ -4136,7 +4177,7 @@
             len = list.length + 1,
             result = new Array(len);
         result[idx] = acc;
-        while (++idx < len) {
+        while (++idx &lt; len) {
             acc = fn(acc, list[idx - 1]);
             result[idx] = acc;
         }
@@ -4217,7 +4258,7 @@
         return clone(list).sort(function(a, b) {
             var aa = fn(a);
             var bb = fn(b);
-            return aa < bb ? -1 : aa > bb ? 1 : 0;
+            return aa &lt; bb ? -1 : aa > bb ? 1 : 0;
         });
     });
 
@@ -4430,7 +4471,7 @@
     var takeWhile = _curry2(_checkForMethod('takeWhile', function(fn, list) {
         var idx = -1,
             len = list.length;
-        while (++idx < len && fn(list[idx])) {}
+        while (++idx &lt; len &amp;&amp; fn(list[idx])) {}
         return _slice(list, 0, idx);
     }));
 
@@ -4477,7 +4518,7 @@
         var list = new Array(Number(n));
         var len = list.length;
         var idx = -1;
-        while (++idx < len) {
+        while (++idx &lt; len) {
             list[idx] = fn(idx);
         }
         return list;
@@ -4556,7 +4597,7 @@
     var unfoldr = _curry2(function unfoldr(fn, seed) {
         var pair = fn(seed);
         var result = [];
-        while (pair && pair.length) {
+        while (pair &amp;&amp; pair.length) {
             result[result.length] = pair[0];
             pair = fn(pair[1]);
         }
@@ -4585,7 +4626,7 @@
             len = list.length;
         var result = [],
             item;
-        while (++idx < len) {
+        while (++idx &lt; len) {
             item = list[idx];
             if (!_contains(item, result)) {
                 result[result.length] = item;
@@ -4619,7 +4660,7 @@
             len = list.length;
         var result = [],
             item;
-        while (++idx < len) {
+        while (++idx &lt; len) {
             item = list[idx];
             if (!_containsWith(pred, item, result)) {
                 result[result.length] = item;
@@ -4665,7 +4706,7 @@
         var len = props.length;
         var vals = new Array(len);
         var idx = -1;
-        while (++idx < len) {
+        while (++idx &lt; len) {
             vals[idx] = obj[props[idx]];
         }
         return vals;
@@ -4775,9 +4816,9 @@
         var jlen = b.length;
         // Better to push them all or to do `new Array(ilen * jlen)` and calculate indices?
         var result = [];
-        while (++idx < ilen) {
+        while (++idx &lt; ilen) {
             j = -1;
-            while (++j < jlen) {
+            while (++j &lt; jlen) {
                 result[result.length] = [
                     a[idx],
                     b[j]
@@ -4808,7 +4849,7 @@
         var rv = [];
         var idx = -1;
         var len = Math.min(a.length, b.length);
-        while (++idx < len) {
+        while (++idx &lt; len) {
             rv[idx] = [
                 a[idx],
                 b[idx]
@@ -4835,7 +4876,7 @@
         var idx = -1,
             len = keys.length,
             out = {};
-        while (++idx < len) {
+        while (++idx &lt; len) {
             out[keys[idx]] = values[idx];
         }
         return out;
@@ -4867,7 +4908,7 @@
         var rv = [],
             idx = -1,
             len = Math.min(a.length, b.length);
-        while (++idx < len) {
+        while (++idx &lt; len) {
             rv[idx] = fn(a[idx], b[idx]);
         }
         return rv;
@@ -4892,10 +4933,10 @@
         }
         if (typeA == 'RegExp') {
             // RegExp equality algorithm: http://stackoverflow.com/a/10776635
-            return a.source === b.source && a.global === b.global && a.ignoreCase === b.ignoreCase && a.multiline === b.multiline && a.sticky === b.sticky && a.unicode === b.unicode;
+            return a.source === b.source &amp;&amp; a.global === b.global &amp;&amp; a.ignoreCase === b.ignoreCase &amp;&amp; a.multiline === b.multiline &amp;&amp; a.sticky === b.sticky &amp;&amp; a.unicode === b.unicode;
         }
         if (Object(a) === a) {
-            if (typeA === 'Date' && a.getTime() != b.getTime()) {
+            if (typeA === 'Date' &amp;&amp; a.getTime() != b.getTime()) {
                 return false;
             }
             var keysA = keys(a);
@@ -4943,7 +4984,7 @@
         var props = keys(other),
             idx = -1,
             length = props.length;
-        while (++idx < length) {
+        while (++idx &lt; length) {
             destination[props[idx]] = other[props[idx]];
         }
         return destination;
@@ -5300,7 +5341,7 @@
         var counts = {};
         var len = list.length;
         var idx = -1;
-        while (++idx < len) {
+        while (++idx &lt; len) {
             var key = fn(list[idx]);
             counts[key] = (has(key, counts) ? counts[key] : 0) + 1;
         }
@@ -5591,7 +5632,7 @@
     var intersectionWith = _curry3(function intersectionWith(pred, list1, list2) {
         var results = [],
             idx = -1;
-        while (++idx < list1.length) {
+        while (++idx &lt; list1.length) {
             if (_containsWith(pred, list1[idx], list2)) {
                 results[results.length] = list1[idx];
             }
@@ -5627,7 +5668,7 @@
             len = props.length,
             idx = -1,
             out = {};
-        while (++idx < len) {
+        while (++idx &lt; len) {
             var key = props[idx],
                 val = obj[key];
             out[val] = out[val] || [];
@@ -5665,7 +5706,7 @@
             len = props.length,
             idx = -1,
             out = {};
-        while (++idx < len) {
+        while (++idx &lt; len) {
             var key = props[idx];
             out[obj[key]] = key;
         }
@@ -5724,7 +5765,7 @@
      * @sig Number -> Number -> Boolean
      * @param {Number} a
      * @param {Number} b
-     * @return {Boolean} a < b
+     * @return {Boolean} a &lt; b
      * @note Operator: Since this is a non-commutative infix operator converted to prefix, it can
      *                 be curried right by explicitly passing `undefined` for its first argument.
      * @example
@@ -5746,7 +5787,7 @@
      * @sig Number -> Number -> Boolean
      * @param {Number} a
      * @param {Number} b
-     * @return {Boolean} a <= b
+     * @return {Boolean} a &lt;= b
      * @note Operator: Since this is a non-commutative infix operator converted to prefix, it can
      *                 be curried right by explicitly passing `Q.__` for its first argument.
      * @example
@@ -5759,7 +5800,7 @@
      *      Q.lte(Q.__)(5, 4) // => true
      */
     var lte = op(function lte(a, b) {
-        return a <= b;
+        return a &lt;= b;
     });
 
     /**
@@ -5800,7 +5841,7 @@
         if (!_isInteger(m)) {
             return NaN;
         }
-        if (!_isInteger(p) || p < 1) {
+        if (!_isInteger(p) || p &lt; 1) {
             return NaN;
         }
         return (m % p + p) % p;
@@ -6011,7 +6052,7 @@
         return curry(arity(tlen, function() {
             var args = [],
                 idx = -1;
-            while (++idx < tlen) {
+            while (++idx &lt; tlen) {
                 args[args.length] = transformers[idx](arguments[idx]);
             }
             return fn.apply(this, args.concat(_slice(arguments, tlen)));
@@ -6251,7 +6292,7 @@
             return function() {
                 var len = keys.length,
                     res = {};
-                for (var i = 0; i < len; ++i) {
+                for (var i = 0; i &lt; len; ++i) {
                     res[keys[i]] = arguments[i];
                 }
                 return res;
@@ -6292,7 +6333,7 @@
     var curtail = _curry2(function(fn, list) {
         var acc = [],
             len = list.length;
-        for (var i = 0; i < len; ++i) {
+        for (var i = 0; i &lt; len; ++i) {
             acc = acc.concat(fn(list[i], i));
         }
         return acc;
@@ -6390,8 +6431,8 @@
             res = [],
             comparator = typeof on == 'function' ? on : _joinComparator(on),
             selector = typeof columns == 'function' ? columns : _joinSelector(columns);
-        for (var l = 0; l < leftLen; ++l) {
-            for (var r = 0; r < rightLen; ++r) {
+        for (var l = 0; l &lt; leftLen; ++l) {
+            for (var r = 0; r &lt; rightLen; ++r) {
                 if (comparator(left[l], right[r])) {
                     res.push(selector(left[l], right[r]));
                 }
@@ -6422,9 +6463,9 @@
             var res = [],
                 i = start;
             if (step > 0) {
-                for (; i < end; i += step)
+                for (; i &lt; end; i += step)
                     res.push(i);
-            } else if (step < 0) {
+            } else if (step &lt; 0) {
                 for (; i > end; i += step)
                     res.push(i);
             }
@@ -6452,9 +6493,9 @@
             item = list[0],
             res = fn(list[0]),
             current = NaN;
-        for (var i = 0; i < len; ++i) {
+        for (var i = 0; i &lt; len; ++i) {
             current = fn(list[i]);
-            if (current < res) {
+            if (current &lt; res) {
                 item = list[i];
                 res = current
             }
@@ -6503,7 +6544,7 @@
             item = list[0],
             res = fn(list[0]),
             current = NaN;
-        for (var i = 0; i < len; ++i) {
+        for (var i = 0; i &lt; len; ++i) {
             current = fn(list[i]);
             if (current > res) {
                 item = list[i];
@@ -6539,7 +6580,7 @@
         return clone(list).sort(function(a, b) {
             var aa = fn(a);
             var bb = fn(b);
-            return aa < bb ? -1 : aa > bb ? 1 : 0;
+            return aa &lt; bb ? -1 : aa > bb ? 1 : 0;
         });
     });
     /**
@@ -6574,7 +6615,7 @@
         var idx = -1,
             len = list.length,
             result = [];
-        while (++idx < len) {
+        while (++idx &lt; len) {
             if (fn(list[idx])) {
                 result[result.length] = list[idx];
             }
@@ -6624,7 +6665,7 @@
         fn = typeof fn == 'function' ? fn : where(fn);
         var idx = -1;
         var len = list.length;
-        while (++idx < len) {
+        while (++idx &lt; len) {
             if (fn(list[idx])) {
                 return list[idx];
             }
@@ -6906,3 +6947,68 @@
 
     return Q;
 }));
+</pre>
+        </article>
+    </section>
+
+
+
+
+
+				</div>
+
+				<div class="clearfix"></div>
+				<footer>
+					
+					Q
+					<br />
+					
+					
+		<span class="copyright">
+		Slobodan Blazeski 2015
+		</span>
+					<br />
+					
+		<span class="jsdoc-message">
+		Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.3.0-alpha5</a>
+		on Sat Jan 31 2015 21:12:49 GMT+0100 (CET) using the <a href="https://github.com/terryweiss/docstrap">DocStrap template</a>.
+		</span>
+				</footer>
+			</div>
+
+			
+			<br clear="both">
+		</div>
+
+	</div>
+	<script src="scripts/sunlight.js"></script>
+	<script src="scripts/sunlight.javascript.js"></script>
+	<script src="scripts/sunlight-plugin.doclinks.js"></script>
+	<script src="scripts/sunlight-plugin.linenumbers.js"></script>
+	<script src="scripts/sunlight-plugin.menu.js"></script>
+	<script src="scripts/jquery.min.js"></script>
+	<script src="scripts/jquery.scrollTo.js"></script>
+	<script src="scripts/jquery.localScroll.js"></script>
+	<script src="scripts/bootstrap-dropdown.js"></script>
+	<script src="scripts/toc.js"></script>
+
+
+	<script>  Sunlight.highlightAll({lineNumbers:true,  showMenu: true, enableDoclinks :true}); </script>
+
+	<script>
+		$( function () {
+			$( "#toc" ).toc( {
+				selectors   : "h1,h2,h3,h4",
+				showAndHide : false,
+				scrollTo    : 60
+			} );
+			$( "#toc>ul" ).addClass( "nav nav-pills nav-stacked" );
+			$( "#main span[id^='toc']" ).addClass( "toc-shim" );
+
+		} );
+	</script>
+
+	
+
+</body>
+</html>

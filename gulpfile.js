@@ -25,13 +25,13 @@ gulp.task('default', function() {
 // TODO documentation generation is falwe, without contents
 gulp.task('documentation', function() {
     var exportEntriesString = exportsString();
-    gulp.src("./src/*.js")
-        .pipe(concat('q.docs.js'))
-        .pipe(wrap({ src: './templates/documentation.txt'}, { exports: exportEntriesString}, { variable: 'data' }))
-        .pipe(prettify())
-        .pipe(gulp.dest("./dist"));
+    //gulp.src("./src/*.js")
+    //    .pipe(concat('q.docs.js'))
+    //    .pipe(wrap({ src: './templates/documentation.txt'}, { exports: exportEntriesString}, { variable: 'data' }))
+    //    .pipe(prettify())
+    //    .pipe(gulp.dest("./dist"));
 
-    gulp.src("./dist/q.docs.js")
+    gulp.src("./dist/q.js")
         .pipe(jsdoc.parser({
             plugins: ['plugins/markdown']
         }))

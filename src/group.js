@@ -14,7 +14,7 @@
  * Q.group(function(num) { return Math.floor(num); },[4.2, 6.1, 6.4]) =>( { '4': [4.2], '6': [6.1, 6.4] })
  */
 var group =_curry2(function(f, list) {
-    var fn = typeof f == 'function' ? f : prop(f),list;
+    var fn = typeof f == 'function' ? f : prop(f);
     return _foldl(function (acc, elt) {
         var key = fn(elt);
         acc[key] = _append(elt, acc[key] || (acc[key] = []));

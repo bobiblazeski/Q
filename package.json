@@ -7,7 +7,6 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/bobiblazeski/Q.git"
-
   },
   "main": "dist/q.js",
   "keywords": [
@@ -32,7 +31,8 @@
     "gulp-wrap": "^0.10.1",
     "jsdoc": "^3.3.0-beta1",
     "mocha": "*",
-    "sinon": "*"
+    "sinon": "*",
+    "gulp-clean": "~0.3.1"
   },
   "license": "MIT"
 }

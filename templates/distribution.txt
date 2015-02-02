@@ -6117,7 +6117,7 @@
         };
 
     <%= data.contents %>
-
+    /** @class Q */
     var Q = {
         <%= data.exports %>
         F: F,

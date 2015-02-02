@@ -6709,7 +6709,7 @@
         return acc;
     });
 
-
+    /** @class Q */
     var Q = {
         abate: abate,
         amend: amend,

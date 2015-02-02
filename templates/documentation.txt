@@ -12,8 +12,9 @@
 
     'use strict';
 
-    <%= data.contents %>
 
+    <%= data.contents %>
+    /** @class Q */
     var Q = { 
       <%= data.exports %>            
     };

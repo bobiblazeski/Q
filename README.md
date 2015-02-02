@@ -1,5 +1,7 @@
 <a name="Q"></a>
 #class: Q
+Documentation for additional functionality added to excellent www.ramdajs.com
+
 **Members**
 
 * [class: Q](#Q)

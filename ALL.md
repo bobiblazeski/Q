@@ -1,5 +1,7 @@
-<a name="Q"></a>
+git ad<a name="Q"></a>
 #class: Q
+Documentation for www.ramdajs.com functionality plus several functions added for convenience.
+
 **Members**
 
 * [class: Q](#Q)

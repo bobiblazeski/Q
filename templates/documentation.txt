@@ -14,7 +14,9 @@
 
 
     <%= data.contents %>
-    /** @class Q */
+    /** @class Q
+     *  @classdesc Documentation for additional functionality added to excellent www.ramdajs.com
+     */
     var Q = { 
       <%= data.exports %>            
     };

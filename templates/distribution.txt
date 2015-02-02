@@ -6117,7 +6117,9 @@
         };
 
     <%= data.contents %>
-    /** @class Q */
+    /** @class Q
+     *  @classdesc Documentation for www.ramdajs.com functionality plus several functions added for convenience.
+     */
     var Q = {
         <%= data.exports %>
         F: F,

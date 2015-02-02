@@ -6709,7 +6709,9 @@
         return acc;
     });
 
-    /** @class Q */
+    /** @class Q
+     *  @classdesc Documentation for www.ramdajs.com functionality plus several functions added for convenience.
+     */
     var Q = {
         abate: abate,
         amend: amend,

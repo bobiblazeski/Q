@@ -8,8 +8,10 @@ var fs = require('fs'),
     jsdoc = require("gulp-jsdoc"),
     clean = require('gulp-clean');
 
+var jsdoc2md = require("gulp-jsdoc-to-markdown");
 
-gulp.task('default', function () {
+
+gulp.task('release', function () {
     var exportEntriesString = exportsString();
     return gulp.src("./src/*.js")
         .pipe(concat('q.js'))
@@ -32,7 +34,7 @@ gulp.task('docjs', function () {
         .pipe(gulp.dest("./dist"));
 });
 
-gulp.task('unique', ['docjs'], function () {
+gulp.task('uniquedoc', ['docjs'], function () {
     return gulp.src("./dist/q.docs.js")
         .pipe(jsdoc.parser())
         .pipe(jsdoc.generator('./docs/unique',{
@@ -49,7 +51,17 @@ gulp.task('unique', ['docjs'], function () {
         }));
 });
 
-gulp.task('all', ['default'], function () {
+gulp.task('uniquemd',['uniquedoc'], function () {
+    return gulp.src("./dist/q.docs.js")
+        .pipe(jsdoc2md())
+        .on("error", function(err){
+            gutil.log(gutil.colors.red("jsdoc2md failed"), err.message)
+        })
+        .pipe(rename("README.md"))
+        .pipe(gulp.dest("./"));
+});
+
+gulp.task('alldoc', ['release'], function () {
     return gulp.src("./dist/q.js")
         .pipe(jsdoc.parser())
         .pipe(jsdoc.generator('./docs/all/',{
@@ -66,10 +78,25 @@ gulp.task('all', ['default'], function () {
         }));
 });
 
-gulp.task('jsdoc', ['unique','all'], function () {
+
+gulp.task('allmd', ['alldoc'], function () {
+    return gulp.src("./dist/q.js")
+        .pipe(jsdoc2md())
+        .on("error", function(err){
+            gutil.log(gutil.colors.red("jsdoc2md failed"), err.message)
+        })
+        .pipe(rename("ALL.md"))
+        .pipe(gulp.dest("./"));
+});
+
+
+
+gulp.task('default', ['allmd','uniquemd'], function () {
     return gulp.src('./dist/q.docs.js', {read: false})
         .pipe(clean());
 });
+
+
 
 
 function exportsString() {

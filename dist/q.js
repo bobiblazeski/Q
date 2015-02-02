@@ -6664,9 +6664,10 @@
      * @func
      * @memberOf Q
      * @category Math
-     * @sig [Number] -> Number
-     * @param {Array} list An array of numbers
-     * @return {Number} The sum of all the numbers in the list.
+     * @sig (a -> Number) -> [a] ->  Number
+     * @param {Function|String} f -The function retrieving value from each item, or property string.
+     * @param {Array} list - An array of objects
+     * @return {Number} The sum of all the retrieved values in the list.
      * @see foldl
      * @example
      *

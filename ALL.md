@@ -1,4 +1,4 @@
-git ad<a name="Q"></a>
+<a name="Q"></a>
 #class: Q
 Documentation for www.ramdajs.com functionality plus several functions added for convenience.
 
@@ -221,7 +221,7 @@ Documentation for www.ramdajs.com functionality plus several functions added for
   * [Q.remainder(divisor, dividend)](#Q.remainder)
   * [Q.sift(f, list)](#Q.sift)
   * [Q.single(f, list)](#Q.single)
-  * [Q.sumBy(list)](#Q.sumBy)
+  * [Q.sumBy(f, list)](#Q.sumBy)
   * [Q.taper(f, acc, obj)](#Q.taper)
 
 <a name="Q.always"></a>
@@ -4174,14 +4174,15 @@ Q.find({ a : 2}, xs); //=> {a: 2}
 Q.find({a: 4},(xs); //=> undefined
 
 <a name="Q.sumBy"></a>
-##Q.sumBy(list)
+##Q.sumBy(f, list)
 Adds together all the elements of a list.
 
 **Params**
 
-- list `Array` - An array of numbers  
+- f `function` | `String` - The function retrieving value from each item, or property string.  
+- list `Array` - An array of objects  
 
-**Returns**: `Number` - The sum of all the numbers in the list.  
+**Returns**: `Number` - The sum of all the retrieved values in the list.  
 **Example**  
 Q.sumBy("a",[{a:2},{a:4},{a:6},{a:8},{a:100},{a:1}]); //=> 121
 Q.sumBy(function(d){ return 2* d.a;},[{a:2},{a:4},{a:6},{a:8},{a:100},{a:1}]) //=>242

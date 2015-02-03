@@ -9,7 +9,7 @@
  * @return {*} The construct function
  * @example
  *
- *      var trend = Q.construct(["year", "amount", "name"]);
+ *      var trend = Q.assembler(["year", "amount", "name"]);
  *      trend(1937,100, 'foo') => { year:1937, amount: 100, name: 'foo'}
  *
  */
